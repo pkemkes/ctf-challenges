@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<head>
+    <link rel="stylesheet" href="/static/style.css" type="text/css">
+</head>
+<body>
+    <div id="app-box">
+        <div id="title-box">
+            <h1>Stonks Börse 📈</h1>
+            <img id="stonks-guy" src="/static/images/stonks_guy.png">
+        </div>
+        <div id="account-box">
+            <div id="balance-box">
+                <p class="balance-label"><b>Kontostand</b></p>
+                <p class="balance">{{ data.balance_str() }} €</p>
+            </div>
+            <div id="amounts-box">
+                <p><b>Aktien</b></p>
+                <p class="amount">Cate Coin: {{ data.amount_a }}</p>
+                <p class="amount">Banana Inc.: {{ data.amount_b }}</p>
+                <p class="amount">Lesta AG: {{ data.amount_c }}</p>
+            </div>
+        </div>
+        <div id="values-box">
+            <div class="value-box">
+                <div>
+                    <p class="value-label"><b>Cate Coin</b></p>
+                    <p class="value">{{ data.value_str_a() }} €</p>
+                </div>
+                <img class="value-graph" src="/static/images/{{ image_name_a }}">
+            </div>
+            <div class="value-box">
+                <div>
+                    <p class="value-label"><b>Banana Inc.</b></p>
+                    <p class="value">{{ data.value_str_b() }} €</p>
+                </div>
+                <img class="value-graph" src="/static/images/{{ image_name_b }}">
+            </div>
+            <div class="value-box">
+                <div>
+                    <p class="value-label"><b>Lesta AG</b></p>
+                    <p class="value">{{ data.value_str_c() }} €</p>
+                </div>
+                <img class="value-graph" src="/static/images/{{ image_name_c }}">
+            </div>
+        </div>
+        <div id="trade-box">
+            <div id="buy-box">
+                <form method="post" action="/buy">
+                    <label class="trade-label" for="buy-a"><b>Cate Coin</b></label>
+                    {% if difficulty < 1 %}
+                        <input class="amount-input" id="buy-a" type="text" name="a" value="0"><br>
+                    {% else %}
+                        <input class="amount-input" id="buy-a" type="number" min="0" name="a" value="0"><br>
+                    {% endif %}
+                    <label class="trade-label" for="buy-b"><b>Banana Inc.</b></label>
+                    {% if difficulty < 1 %}
+                        <input class="amount-input" id="buy-b" type="text" name="b" value="0"><br>
+                    {% else %}
+                        <input class="amount-input" id="buy-b" type="number" min="0" name="b" value="0"><br>
+                    {% endif %}
+                    <label class="trade-label" for="buy-c"><b>Lesta AG</b></label>
+                    {% if difficulty < 1 %}
+                        <input class="amount-input" id="buy-c" type="text" name="c" value="0"><br>
+                    {% else %}
+                        <input class="amount-input" id="buy-c" type="number" min="0" name="c" value="0"><br>
+                    {% endif %}
+                    <input class="button" type="submit" value="Kaufen">
+                </form>
+            </div>
+            <div id="sell-box">
+                <form method="post" action="/sell">
+                    <label class="trade-label" for="sell-a"><b>Cate Coin</b></label>
+                    {% if difficulty < 1 %}
+                        <input class="amount-input" id="sell-a" type="text" name="a" value="0"><br>
+                    {% else %}
+                        <input class="amount-input" id="sell-a" type="number" min="0" name="a" value="0"><br>
+                    {% endif %}
+                    <label class="trade-label" for="sell-b"><b>Banana Inc.</b></label>
+                    {% if difficulty < 1 %}
+                        <input class="amount-input" id="sell-b" type="text" name="b" value="0"><br>
+                    {% else %}
+                        <input class="amount-input" id="sell-b" type="number" min="0" name="b" value="0"><br>
+                    {% endif %}
+                    <label class="trade-label" for="sell-c"><b>Lesta AG</b></label>
+                    {% if difficulty < 1 %}
+                        <input class="amount-input" id="sell-c" type="text" name="c" value="0"><br>
+                    {% else %}
+                        <input class="amount-input" id="sell-c" type="number" min="0" name="c" value="0"><br>
+                    {% endif %}
+                    <input class="button" type="submit" value="Verkaufen">
+                </form>
+            </div>
+        </div>
+        {% if error %}
+            <div id="msg-box">
+                <p id="msg">{{ error }}</p>
+                <form method="get" action="/">
+                    <input id="reset-button" class="button" type="submit" value="Schließen">
+                </form>
+            </div>
+        {% endif %}
+        <div id="advance-box">
+            <form method="get" action="/advance">
+                <input id="advance-button" class="button" type="submit" value="Abwarten">
+            </form>
+        </div>
+    </div>
+    <a id="github-link" href="https://github.com/pkemkes/ctf-challenges">GitHub</a>
+</body>
