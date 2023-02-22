@@ -23,7 +23,7 @@ There are three important environment value that should be set when deploying th
 ```yaml
 ctf-stonks-0:
     image: pkemkes/ctf-stonks-boerse
-    container-name: ctf-stonks-0
+    container_name: ctf-stonks-0
     restart: always
     environment:
         - DIFFICULTY=0
