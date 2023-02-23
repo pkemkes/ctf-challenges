@@ -13,11 +13,22 @@
                 <p class="balance-label"><b>Kontostand</b></p>
                 <p class="balance">{{ data.balance_str() }} €</p>
             </div>
-            <div id="amounts-box">
+            <div id="stocks-box">
                 <p><b>Aktien</b></p>
-                <p class="amount">Cate Coin: {{ data.amount_a }}</p>
-                <p class="amount">Banana Inc.: {{ data.amount_b }}</p>
-                <p class="amount">Lesta AG: {{ data.amount_c }}</p>
+                <div id="all-amounts-box">
+                    <div class="amounts-box">
+                        <p class="amount-label">Cate Coin</p>
+                        <p class="amount">{{ data.amount_a }}</p>
+                    </div>
+                    <div class="amounts-box">
+                        <p class="amount-label">Banana Inc.</p>
+                        <p class="amount">{{ data.amount_b }}</p>
+                    </div>
+                    <div class="amounts-box">
+                        <p class="amount-label">Lesta AG</p>
+                        <p class="amount">{{ data.amount_c }}</p>
+                    </div>
+                </div>
             </div>
         </div>
         <div id="values-box">
@@ -46,50 +57,62 @@
         <div id="trade-box">
             <div id="buy-box">
                 <form method="post" action="/buy">
-                    <label class="trade-label" for="buy-a"><b>Cate Coin</b></label>
-                    {% if difficulty < 1 %}
-                        <input class="amount-input" id="buy-a" type="text" name="a" value="0"><br>
-                    {% else %}
-                        <input class="amount-input" id="buy-a" type="number" min="0" name="a" value="0"><br>
-                    {% endif %}
-                    <label class="trade-label" for="buy-b"><b>Banana Inc.</b></label>
-                    {% if difficulty < 1 %}
-                        <input class="amount-input" id="buy-b" type="text" name="b" value="0"><br>
-                    {% else %}
-                        <input class="amount-input" id="buy-b" type="number" min="0" name="b" value="0"><br>
-                    {% endif %}
-                    <label class="trade-label" for="buy-c"><b>Lesta AG</b></label>
-                    {% if difficulty < 1 %}
-                        <input class="amount-input" id="buy-c" type="text" name="c" value="0"><br>
-                    {% else %}
-                        <input class="amount-input" id="buy-c" type="number" min="0" name="c" value="0"><br>
-                    {% endif %}
+                    <div class="input-box">
+                        <label class="trade-label" for="buy-a"><b>Cate Coin</b></label>
+                        {% if difficulty < 1 %}
+                            <input class="amount-input" id="buy-a" type="text" name="a" value="0"><br>
+                        {% else %}
+                            <input class="amount-input" id="buy-a" type="number" min="0" name="a" value="0"><br>
+                        {% endif %}
+                    </div>
+                    <div class="input-box">
+                        <label class="trade-label" for="buy-b"><b>Banana Inc.</b></label>
+                        {% if difficulty < 1 %}
+                            <input class="amount-input" id="buy-b" type="text" name="b" value="0"><br>
+                        {% else %}
+                            <input class="amount-input" id="buy-b" type="number" min="0" name="b" value="0"><br>
+                        {% endif %}
+                    </div>
+                    <div class="input-box">
+                        <label class="trade-label" for="buy-c"><b>Lesta AG</b></label>
+                        {% if difficulty < 1 %}
+                            <input class="amount-input" id="buy-c" type="text" name="c" value="0"><br>
+                        {% else %}
+                            <input class="amount-input" id="buy-c" type="number" min="0" name="c" value="0"><br>
+                        {% endif %}
+                    </div>
                     <input class="button" type="submit" value="Kaufen">
                 </form>
             </div>
-            <div id="sell-box">
-                <form method="post" action="/sell">
-                    <label class="trade-label" for="sell-a"><b>Cate Coin</b></label>
-                    {% if difficulty < 1 %}
-                        <input class="amount-input" id="sell-a" type="text" name="a" value="0"><br>
-                    {% else %}
-                        <input class="amount-input" id="sell-a" type="number" min="0" name="a" value="0"><br>
-                    {% endif %}
-                    <label class="trade-label" for="sell-b"><b>Banana Inc.</b></label>
-                    {% if difficulty < 1 %}
-                        <input class="amount-input" id="sell-b" type="text" name="b" value="0"><br>
-                    {% else %}
-                        <input class="amount-input" id="sell-b" type="number" min="0" name="b" value="0"><br>
-                    {% endif %}
-                    <label class="trade-label" for="sell-c"><b>Lesta AG</b></label>
-                    {% if difficulty < 1 %}
-                        <input class="amount-input" id="sell-c" type="text" name="c" value="0"><br>
-                    {% else %}
-                        <input class="amount-input" id="sell-c" type="number" min="0" name="c" value="0"><br>
-                    {% endif %}
+            <form method="post" action="/sell">
+                <div id="sell-box">
+                    <div class="input-box">
+                        <label class="trade-label" for="sell-a"><b>Cate Coin</b></label>
+                        {% if difficulty < 1 %}
+                            <input class="amount-input" id="sell-a" type="text" name="a" value="0"><br>
+                        {% else %}
+                            <input class="amount-input" id="sell-a" type="number" min="0" name="a" value="0"><br>
+                        {% endif %}
+                    </div>
+                    <div class="input-box">
+                        <label class="trade-label" for="sell-b"><b>Banana Inc.</b></label>
+                        {% if difficulty < 1 %}
+                            <input class="amount-input" id="sell-b" type="text" name="b" value="0"><br>
+                        {% else %}
+                            <input class="amount-input" id="sell-b" type="number" min="0" name="b" value="0"><br>
+                        {% endif %}
+                    </div>
+                    <div class="input-box">
+                        <label class="trade-label" for="sell-c"><b>Lesta AG</b></label>
+                        {% if difficulty < 1 %}
+                            <input class="amount-input" id="sell-c" type="text" name="c" value="0"><br>
+                        {% else %}
+                            <input class="amount-input" id="sell-c" type="number" min="0" name="c" value="0"><br>
+                        {% endif %}
+                    </div>
                     <input class="button" type="submit" value="Verkaufen">
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
         {% if error %}
             <div id="msg-box">
