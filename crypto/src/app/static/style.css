@@ -1,0 +1,231 @@
+body {
+    background-color: beige;
+}
+
+#all-box {
+    display: flex;
+    justify-content: center;
+    margin: 40px auto;
+    width: 650px;
+}
+
+#phone-box {
+    width: 370px;
+}
+
+#top-bar {
+    border-radius: 30px 30px 0 0;
+    border: solid;
+    border-color: black;
+    border-width: 8px;
+    border-bottom: none;
+    background-color: #222222;
+    display: flex;
+    justify-content: space-between;
+    font-size: small;
+    color: white;
+}
+
+#noti {
+    margin: 8px;
+    margin-left: 15px;
+    font-family: sans-serif;
+    display: flex;
+    align-items: center;
+}
+
+#symb {
+    margin: 8px;
+    margin-right: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.icon {
+    height: 16px;
+    margin: 3px;
+}
+
+#profile-pic {
+    height: 26px;
+    margin: 5px 15px 5px 5px;
+}
+
+#header-box {
+    border-left: solid;
+    border-right: solid;
+    border-width: 8px;
+    background-color: #222222;
+    display: flex;
+    align-items: center;
+    font-family: sans-serif;
+    font-size: medium;
+    padding: 5px;
+    border-color: black;
+    color: white;
+}
+
+#messages-box {
+    border-left: solid;
+    border-right: solid;
+    border-width: 8px;
+    padding: 15px;
+    height: 550px;
+    background-color: #f2f2f2;
+}
+
+#footer-box {
+    border: solid;
+    border-width: 8px;
+    border-radius: 0 0 30px 30px;
+    border-top: none;
+    border-color: black;
+    color: white;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+    background-color: #222222;
+}
+
+.received-msg {
+    text-align: left;
+    margin: 15px 40px 15px 0px;
+    background-color: lightgrey;
+    border-radius: 0px 20px 20px 20px;
+}
+
+.sent-msg {
+    text-align: right;
+    margin: 15px 0px 15px 40px;
+    background-color: lightgreen;
+    border-radius: 20px 0px 20px 20px;
+}
+
+.msg {
+    padding: 12px;
+    font-family: sans-serif;
+    font-size: small;
+}
+
+.secret {
+    font-family: monospace;
+    font-size: medium;
+}
+
+#input-box {
+    display: flex;
+    justify-content: space-around;
+}
+
+.letters-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+#from-letters-box {
+    padding: 20px 0px 20px 30px;
+}
+
+#to-letters-box {
+    padding: 20px 30px 20px 0px;
+}
+
+#arrow-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-right: 30px;
+}
+
+#key {
+    font-family: sans-serif;
+    font-size: x-large;
+    width: 70px;
+    text-align: center;
+}
+
+.arrow-button {
+    font-size: large;
+    background-color: #222222;
+    border: none;
+    color: white;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    border-radius: 12px;
+    transition-duration: 0.2s;
+}
+
+.arrow-button:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    background-color: #EEEEEE;
+    color: #222222;
+}
+
+.arrow-button:active {
+  transform: translateY(4px);
+}
+
+.letter {
+    background-color: #222222;
+    color: white;
+    text-align: center;
+    padding: 3px;
+    font-family: sans-serif;
+    font-size: small;
+    border-radius: 5px;
+    width: 16px;
+    height: 16px;
+}
+
+#letter-arrow-box {
+    padding: 20px 0px 20px 0px;
+}
+
+.letter-arrow {
+    text-align: center;
+    font-size: small;
+    padding: 3px;
+    font-family: sans-serif;
+    width: 20px;
+    height: 20px;
+}
+
+#js-warning {
+    position: absolute;
+    left: 0; 
+    right: 0;
+    top: 20px;
+    margin-left: auto; 
+    margin-right: auto; 
+    width: 650px;
+    height: 800px;
+    border-radius: 30px;
+    background-color: rgba(255, 255, 255, 0.3);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    font-family: sans-serif;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+#warn-header {
+    font-size: 100px;
+}
+
+#warn-message {
+    font-size: 40px;
+    margin: 90px;
+}
+
+#github-link {
+    position: absolute;
+    position: fixed;
+    bottom: 0;
+    color: grey;
+    font-family: sans-serif;
+}
