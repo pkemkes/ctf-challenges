@@ -4,6 +4,10 @@
         <link rel="stylesheet" href="/static/style.css" type="text/css">
     </head>
     <body>
+        <div id="js-warning">
+            <h1 id="warn-header">Ohje.</h1>
+            <p id="warn-message">Da ist wohl etwas schief gelaufen.<br>Bitte sag einem von uns Bescheid.</p>
+        </div>
         <div id="all-box">
             <div id="phone-box">
                 <div id="top-bar">
@@ -34,35 +38,124 @@
                         <p class="msg">Hallo Hacker, wir haben verschlüsselte Informationen gefunden! Wir haben nur leider den Schlüssel nicht.</p>
                     </div>
                     <div class="received-msg">
-                        <p class="msg">Wir wissen aber, dass die <a href="https://de.wikipedia.org/wiki/Caesar-Verschl%C3%BCsselung">Caesar-Chiffre</a> verwendet wurde. Kannst du uns helfen?</p>
+                        <p class="msg">Wir wissen aber, dass die <a href="https://de.wikipedia.org/wiki/Caesar-Verschl%C3%BCsselung">Caesar-Chiffre</a> verwendet wurde.<br>Kannst du uns helfen?</p>
                     </div>
                     <div class="sent-msg">
                         <p class="msg">Klar, kein Problem. Her damit!</p>
                     </div>
                     <div class="received-msg">
-                        <p class="msg">Okay, hier ist der verschlüsselte Text:<br><span id="text-enc">This is encrypted</span></p>
+                        <p class="msg">Okay, hier ist der verschlüsselte Text:<br><span class="secret" id="text-enc">{{enc}}</span></p>
                     </div>
                     <div class="sent-msg">
-                        <p class="msg">Ganz leicht. Der entschlüsselte Text lautet:<br><span id="text-dec">This is encrypted</span></p>
+                        <p class="msg">Ganz leicht. Der entschlüsselte Text lautet:<br><span class="secret" id="text-dec">This is encrypted</span></p>
                     </div>
                 </div>
                 <div id="footer-box">
-                    <svg width="34" height="34">
-                        <rect x="3" y="3" width="28" height="28" fill="white" />
+                    <svg width="30" height="30">
+                        <rect x="3" y="3" width="24" height="24" fill="white" />
                     </svg>
-                    <svg width="34" height="34">
-                        <circle cx="17" cy="17" r="11" fill="white" />
-                        <circle cx="17" cy="17" r="14" fill="none" stroke="white" stroke-width="3" />
+                    <svg width="30" height="30">
+                        <circle cx="15" cy="15" r="10" fill="white" />
+                        <circle cx="15" cy="15" r="13" fill="none" stroke="white" stroke-width="3" />
                     </svg>
-                    <svg width="34" height="34">
-                        <path d="M 3,3 L 3,31 L 31,17 " fill="white" />
+                    <svg width="30" height="30">
+                        <path d="M 3,3 L 3,27 L 27,15 " fill="white" />
                     </svg>
                 </div>
             </div>
             <div id="input-box">
-                <input type="number" id="key" value="0">
+                <div class="letters-box" id="from-letters-box">
+                    <div class="letter from">A</div>
+                    <div class="letter from">B</div>
+                    <div class="letter from">C</div>
+                    <div class="letter from">D</div>
+                    <div class="letter from">E</div>
+                    <div class="letter from">F</div>
+                    <div class="letter from">G</div>
+                    <div class="letter from">H</div>
+                    <div class="letter from">I</div>
+                    <div class="letter from">J</div>
+                    <div class="letter from">K</div>
+                    <div class="letter from">L</div>
+                    <div class="letter from">M</div>
+                    <div class="letter from">N</div>
+                    <div class="letter from">O</div>
+                    <div class="letter from">P</div>
+                    <div class="letter from">Q</div>
+                    <div class="letter from">R</div>
+                    <div class="letter from">S</div>
+                    <div class="letter from">T</div>
+                    <div class="letter from">U</div>
+                    <div class="letter from">V</div>
+                    <div class="letter from">W</div>
+                    <div class="letter from">X</div>
+                    <div class="letter from">Y</div>
+                    <div class="letter from">Z</div>
+                </div>
+                <div class="letters-box" id="letter-arrow-box">
+                    <div class="letter-arrow">▶</div>
+                    <div class="letter-arrow">▶</div>
+                    <div class="letter-arrow">▶</div>
+                    <div class="letter-arrow">▶</div>
+                    <div class="letter-arrow">▶</div>
+                    <div class="letter-arrow">▶</div>
+                    <div class="letter-arrow">▶</div>
+                    <div class="letter-arrow">▶</div>
+                    <div class="letter-arrow">▶</div>
+                    <div class="letter-arrow">▶</div>
+                    <div class="letter-arrow">▶</div>
+                    <div class="letter-arrow">▶</div>
+                    <div class="letter-arrow">▶</div>
+                    <div class="letter-arrow">▶</div>
+                    <div class="letter-arrow">▶</div>
+                    <div class="letter-arrow">▶</div>
+                    <div class="letter-arrow">▶</div>
+                    <div class="letter-arrow">▶</div>
+                    <div class="letter-arrow">▶</div>
+                    <div class="letter-arrow">▶</div>
+                    <div class="letter-arrow">▶</div>
+                    <div class="letter-arrow">▶</div>
+                    <div class="letter-arrow">▶</div>
+                    <div class="letter-arrow">▶</div>
+                    <div class="letter-arrow">▶</div>
+                    <div class="letter-arrow">▶</div>
+                </div>
+                <div class="letters-box" id="to-letters-box">
+                    <div class="letter to">A</div>
+                    <div class="letter to">B</div>
+                    <div class="letter to">C</div>
+                    <div class="letter to">D</div>
+                    <div class="letter to">E</div>
+                    <div class="letter to">F</div>
+                    <div class="letter to">G</div>
+                    <div class="letter to">H</div>
+                    <div class="letter to">I</div>
+                    <div class="letter to">J</div>
+                    <div class="letter to">K</div>
+                    <div class="letter to">L</div>
+                    <div class="letter to">M</div>
+                    <div class="letter to">N</div>
+                    <div class="letter to">O</div>
+                    <div class="letter to">P</div>
+                    <div class="letter to">Q</div>
+                    <div class="letter to">R</div>
+                    <div class="letter to">S</div>
+                    <div class="letter to">T</div>
+                    <div class="letter to">U</div>
+                    <div class="letter to">V</div>
+                    <div class="letter to">W</div>
+                    <div class="letter to">X</div>
+                    <div class="letter to">Y</div>
+                    <div class="letter to">Z</div>
+                </div>
+                <div id="arrow-box">
+                    <input class="arrow-button" type="button" id="arrow-up" value="▲">
+                    <p id="key">0</p>
+                    <input class="arrow-button" type="button" id="arrow-down" value="▼">
+                </div>
             </div>
         </div>
+        <a id="github-link" href="https://github.com/pkemkes/ctf-challenges">GitHub</a>
         <script src="/static/script.js"></script>
     </body>
 </html>
