@@ -1,38 +1,57 @@
-var textareaEnc = document.getElementById("text-enc");
-var textareaDec = document.getElementById("text-dec");
+var textEnc = document.getElementById("text-enc");
+var textDec = document.getElementById("text-dec");
+var keyInput = document.getElementById("key");
 
-var KEY = 5;
+Number.prototype.mod = function(n) {
+    "use strict";
+    return ((this % n) + n) % n;
+};
 
 var DICT = {};
 
-function build_caesar_dict(key) {
-    add_to_caesar_dict(key, "a", "z");
-    add_to_caesar_dict(key, "A", "Z");
+function parseKey(keyStr) {
+    if (typeof keyStr != "string") return false;
+    let key = parseInt(keyStr);
+    if (isNaN(keyStr) || isNaN(key) || key < 0 || key >= 26) {
+        throw "invalid key " + keyStr;
+    }
+    return key;
 }
 
-function add_to_caesar_dict(key, first, last) {
+function moveBy(charCode, key, first, last) {
+    let base = first.charCodeAt();
+    let m = last.charCodeAt() - base;
+    return ((charCode - base - key).mod(m)) + base;
+}
+
+function addToCesarDict(key, first, last) {
     for (let i = first.charCodeAt(); i <= last.charCodeAt(); i++) {
-        DICT[String.fromCharCode(i)] = String.fromCharCode(move_by(i, key, first, last));
+        DICT[String.fromCharCode(i)] = String.fromCharCode(moveBy(i, key, first, last));
     }
 }
 
-function move_by(charCode, key, first, last) {
-    let base = first.charCodeAt();
-    let mod = last.charCodeAt() - base;
-    return ((charCode - base + key) % mod) + base;
+function updateCaesarDict() {
+    let key = parseKey(keyInput.value);
+    addToCesarDict(key, "a", "z");
+    addToCesarDict(key, "A", "Z");
 }
 
 function decrypt() {
-    let enc = textareaEnc.value;
+    try {
+        updateCaesarDict();
+    }
+    catch(err) {
+        console.error(err);
+        return;
+    }
+    let enc = textEnc.innerHTML;
     let dec = "";
     for (const c of enc) {
         dec += c in DICT ? DICT[c] : c;
     }
-    textareaDec.value = dec;
+    textDec.innerHTML = dec;
 }
 
-build_caesar_dict(5);
-
-textareaEnc.addEventListener("keyup", decrypt);
+keyInput.addEventListener("input", decrypt);
 
 decrypt();
