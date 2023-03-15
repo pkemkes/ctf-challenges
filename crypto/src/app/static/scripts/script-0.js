@@ -48,9 +48,8 @@ function decrypt() {
         console.error(err);
         return;
     }
-    let enc = textEnc.innerHTML;
     let dec = "";
-    for (const c of enc) {
+    for (const c of textEnc.innerHTML) {
         dec += c in DICT ? DICT[c] : c;
     }
     textDec.innerHTML = dec;

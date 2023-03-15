@@ -72,6 +72,7 @@ body {
     padding: 15px;
     height: 550px;
     background-color: #f2f2f2;
+    overflow: auto;
 }
 
 #footer-box {
@@ -178,6 +179,14 @@ body {
     border-radius: 5px;
     width: 16px;
     height: 16px;
+}
+
+.drag {
+    cursor: move;
+}
+
+.placeholder.over {
+    opacity: 0.4;
 }
 
 #letter-arrow-box {
