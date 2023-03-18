@@ -25,7 +25,7 @@ function parseKey(keyStr) {
 function moveBy(charCode, key, first, last) {
     let base = first.charCodeAt();
     let m = last.charCodeAt() - base + 1;
-    return ((charCode - base - key).mod(m)) + base;
+    return ((charCode - base + key).mod(m)) + base;
 }
 
 function addToCesarDict(key, first, last) {
@@ -48,9 +48,8 @@ function decrypt() {
         console.error(err);
         return;
     }
-    let enc = textEnc.innerHTML;
     let dec = "";
-    for (const c of enc) {
+    for (const c of textEnc.innerHTML) {
         dec += c in DICT ? DICT[c] : c;
     }
     textDec.innerHTML = dec;
