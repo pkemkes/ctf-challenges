@@ -77,6 +77,7 @@ function handleRestore() {
     this.innerHTML = " ";
     this.removeEventListener("click", handleRestore);
     this.style.cursor = "auto";
+    this.classList.remove("clickable");
     this.addEventListener("dragover", handleDragOver);
     this.addEventListener("dragenter", handleDragEnter);
     this.addEventListener("dragleave", handleDragLeave);
@@ -93,6 +94,7 @@ function handleDrop(e) {
     this.innerHTML = e.dataTransfer.getData("text/html");
     this.addEventListener("click", handleRestore);
     this.style.cursor = "pointer";
+    this.classList.add("clickable");
     swappedLetters[this.innerHTML] = dragSrcE1;
     this.removeEventListener("dragover", handleDragOver);
     this.removeEventListener("dragenter", handleDragEnter);
