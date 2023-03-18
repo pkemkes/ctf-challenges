@@ -20,7 +20,7 @@ There are three important environment value that should be set when deploying th
 |--------|--------|---|
 | DIFFICULTY | 0 | Determines the difficulty of the challengen. Possible values: 0, 1 |
 | KEY | ZYXWVUTSRQPONMLKJIHGFEDCBA | The key used to encrypt the challenge for difficulty level 1 |
-| TEXT_TO_DECRYPT | Your flag{replace-me-with-your-flag} has to go here as well as some funny text | The message that is to be decrypted by the player. This can be entered in clear text, the server encrypts this with a random key between 5 and 20 in case of difficulty level 0. In case of difficulty level 1, this is encrypted with the key given in KEY. This message should contain the flag that you registered in your CTF server. |
+| TEXT_TO_DECRYPT | Your flag{replace-me-with-your-flag} has to go here as well as some funny text. | The message that is to be decrypted by the player. This can be entered in clear text, the server encrypts this with a random key between 5 and 20 in case of difficulty level 0. In case of difficulty level 1, this is encrypted with the key given in KEY. This message should contain the flag that you registered in your CTF server. |
 
 ### Example docker-compose.yml:
 

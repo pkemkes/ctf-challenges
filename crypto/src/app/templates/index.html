@@ -8,7 +8,7 @@
             <h1 id="warn-header">Ohje.</h1>
             <p id="warn-message">Da ist wohl etwas schief gelaufen.<br>Bitte sag einem von uns Bescheid.</p>
         </div>
-        <div id="all-box">
+        <div unselectable="on" id="all-box">
             <div id="phone-box">
                 <div id="top-bar">
                     <div id="noti">
@@ -40,9 +40,9 @@
                     <div class="received-msg">
                         <p class="msg">
                             {% if difficulty == 0 %}
-                                Wir wissen aber, dass die <a href="https://de.wikipedia.org/wiki/Caesar-Verschl%C3%BCsselung">Caesar-Chiffre</a> verwendet wurde.<br>Kannst du uns helfen?
+                                Wir wissen aber, dass die <a target="_blank" href="https://de.wikipedia.org/wiki/Caesar-Verschl%C3%BCsselung">Caesar-Chiffre</a> verwendet wurde.<br>Kannst du uns helfen?
                             {% elif difficulty == 1 %}
-                                Wir wissen aber, dass die <a href="https://de.wikipedia.org/wiki/Monoalphabetische_Substitution#Geheimalphabeterstellung">Substitutions-Chiffre</a> verwendet wurde.<br>Kannst du uns helfen?
+                                Wir wissen aber, dass die <a target="_blank" href="https://de.wikipedia.org/wiki/Monoalphabetische_Substitution#Geheimalphabeterstellung">Substitutions-Chiffre</a> verwendet wurde.<br>Kannst du uns helfen?
                             {% endif %}
                         </p>
                     </div>
@@ -53,7 +53,7 @@
                         <p class="msg">Okay, hier ist der verschlüsselte Text:<br><span class="secret" id="text-enc">{{enc}}</span></p>
                     </div>
                     <div class="sent-msg">
-                        <p class="msg">Ganz leicht. Der entschlüsselte Text lautet:<br><span class="secret" id="text-dec">This is encrypted</span></p>
+                        <p class="msg">Ganz leicht. Der entschlüsselte Text lautet:<br><span class="secret{% if difficulty == 1%} undec{% endif %}" id="text-dec">This is encrypted</span></p>
                     </div>
                 </div>
                 <div id="footer-box">
@@ -75,32 +75,32 @@
             </div>
             <div id="input-box">
                 <div class="letters-box" id="from-letters-box">
-                    <div class="letter from">A</div>
-                    <div class="letter from">B</div>
-                    <div class="letter from">C</div>
-                    <div class="letter from">D</div>
-                    <div class="letter from">E</div>
-                    <div class="letter from">F</div>
-                    <div class="letter from">G</div>
-                    <div class="letter from">H</div>
-                    <div class="letter from">I</div>
-                    <div class="letter from">J</div>
-                    <div class="letter from">K</div>
-                    <div class="letter from">L</div>
-                    <div class="letter from">M</div>
-                    <div class="letter from">N</div>
-                    <div class="letter from">O</div>
-                    <div class="letter from">P</div>
-                    <div class="letter from">Q</div>
-                    <div class="letter from">R</div>
-                    <div class="letter from">S</div>
-                    <div class="letter from">T</div>
-                    <div class="letter from">U</div>
-                    <div class="letter from">V</div>
-                    <div class="letter from">W</div>
-                    <div class="letter from">X</div>
-                    <div class="letter from">Y</div>
-                    <div class="letter from">Z</div>
+                    <div class="letter from{% if difficulty == 1%} blue {% endif %}">A</div>
+                    <div class="letter from{% if difficulty == 1%} blue {% endif %}">B</div>
+                    <div class="letter from{% if difficulty == 1%} blue {% endif %}">C</div>
+                    <div class="letter from{% if difficulty == 1%} blue {% endif %}">D</div>
+                    <div class="letter from{% if difficulty == 1%} blue {% endif %}">E</div>
+                    <div class="letter from{% if difficulty == 1%} blue {% endif %}">F</div>
+                    <div class="letter from{% if difficulty == 1%} blue {% endif %}">G</div>
+                    <div class="letter from{% if difficulty == 1%} blue {% endif %}">H</div>
+                    <div class="letter from{% if difficulty == 1%} blue {% endif %}">I</div>
+                    <div class="letter from{% if difficulty == 1%} blue {% endif %}">J</div>
+                    <div class="letter from{% if difficulty == 1%} blue {% endif %}">K</div>
+                    <div class="letter from{% if difficulty == 1%} blue {% endif %}">L</div>
+                    <div class="letter from{% if difficulty == 1%} blue {% endif %}">M</div>
+                    <div class="letter from{% if difficulty == 1%} blue {% endif %}">N</div>
+                    <div class="letter from{% if difficulty == 1%} blue {% endif %}">O</div>
+                    <div class="letter from{% if difficulty == 1%} blue {% endif %}">P</div>
+                    <div class="letter from{% if difficulty == 1%} blue {% endif %}">Q</div>
+                    <div class="letter from{% if difficulty == 1%} blue {% endif %}">R</div>
+                    <div class="letter from{% if difficulty == 1%} blue {% endif %}">S</div>
+                    <div class="letter from{% if difficulty == 1%} blue {% endif %}">T</div>
+                    <div class="letter from{% if difficulty == 1%} blue {% endif %}">U</div>
+                    <div class="letter from{% if difficulty == 1%} blue {% endif %}">V</div>
+                    <div class="letter from{% if difficulty == 1%} blue {% endif %}">W</div>
+                    <div class="letter from{% if difficulty == 1%} blue {% endif %}">X</div>
+                    <div class="letter from{% if difficulty == 1%} blue {% endif %}">Y</div>
+                    <div class="letter from{% if difficulty == 1%} blue {% endif %}">Z</div>
                 </div>
                 <div class="letters-box" id="letter-arrow-box">
                     <div class="letter-arrow">▶</div>

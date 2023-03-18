@@ -7,6 +7,10 @@ body {
     justify-content: center;
     margin: 40px auto;
     width: 650px;
+    -webkit-user-select: none; /* Safari */        
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+    user-select: none; /* Standard */
 }
 
 #phone-box {
@@ -32,6 +36,7 @@ body {
     font-family: sans-serif;
     display: flex;
     align-items: center;
+    width: 100px;
 }
 
 #symb {
@@ -39,6 +44,8 @@ body {
     margin-right: 15px;
     display: flex;
     align-items: center;
+    width: 100px;
+    justify-content: right;
 }
 
 .icon {
@@ -181,6 +188,10 @@ body {
     height: 16px;
 }
 
+.blue {
+    background-color: rgb(31, 31, 184);
+}
+
 .drag {
     cursor: move;
 }
@@ -200,6 +211,17 @@ body {
     font-family: sans-serif;
     width: 20px;
     height: 20px;
+}
+
+.undec {
+    color: blue;
+}
+
+.dec-letter {
+    color: black;
+    font-family: sans-serif;
+    font-size: 12px;
+    font-weight: bold;
 }
 
 #js-warning {

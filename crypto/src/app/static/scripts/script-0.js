@@ -25,7 +25,7 @@ function parseKey(keyStr) {
 function moveBy(charCode, key, first, last) {
     let base = first.charCodeAt();
     let m = last.charCodeAt() - base + 1;
-    return ((charCode - base - key).mod(m)) + base;
+    return ((charCode - base + key).mod(m)) + base;
 }
 
 function addToCesarDict(key, first, last) {

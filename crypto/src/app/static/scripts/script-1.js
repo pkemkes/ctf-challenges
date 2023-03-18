@@ -8,8 +8,8 @@ function getDecDict() {
         let decLetter = String.fromCharCode("A".charCodeAt() + i);
         let encLetter = encLetters[i];
         if (encLetter == " ") continue;
-        decDict[encLetter] = decLetter;
-        decDict[encLetter.toLowerCase()] = decLetter.toLowerCase();
+        decDict[decLetter] = encLetter;
+        decDict[decLetter.toLowerCase()] = encLetter.toLowerCase();
     }
     return decDict;
 }
@@ -18,9 +18,23 @@ function decrypt() {
     let decDict = getDecDict();
     let dec = "";
     for (const c of textEnc.innerHTML) {
-        dec += c in decDict ? decDict[c] : c;
+        if (isDecryptable(c)){
+            dec += c in decDict ? decryptedStyle(decDict[c]) : c;
+        }
+        else {
+            dec += decryptedStyle(c);
+        }
     }
     textDec.innerHTML = dec;
+}
+
+function decryptedStyle(c) {
+    return "<span class=\"dec-letter\">" + c + "</span>";
+}
+
+function isDecryptable(c) {
+    return ("a".charCodeAt() <= c.charCodeAt() && c.charCodeAt() <= "z".charCodeAt()) || 
+        ("A".charCodeAt() <= c.charCodeAt() && c.charCodeAt() <= "Z".charCodeAt())
 }
 
 var toLetters = Array.from(document.getElementsByClassName("to"));
