@@ -1,0 +1,207 @@
+body {
+    background-color: beige;
+}
+
+#all-box {
+    display: flex;
+    width: 1200px;
+    justify-content: center;
+    margin: 40px auto;
+    -webkit-user-select: none; /* Safari */        
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+    user-select: none; /* Standard */
+}
+
+.phone-box {
+    width: 330px;
+    margin: 0px 30px 0px 30px;
+}
+
+.top-bar {
+    border-radius: 30px 30px 0 0;
+    border: solid;
+    border-color: black;
+    border-width: 8px;
+    border-bottom: none;
+    background-color: #222222;
+    display: flex;
+    justify-content: space-between;
+    font-size: small;
+    color: white;
+}
+
+.noti {
+    margin: 8px;
+    margin-left: 15px;
+    font-family: sans-serif;
+    display: flex;
+    align-items: center;
+    width: 100px;
+}
+
+.symb {
+    margin: 8px;
+    margin-right: 15px;
+    display: flex;
+    align-items: center;
+    width: 100px;
+    justify-content: right;
+}
+
+.icon {
+    height: 16px;
+    margin: 3px;
+}
+
+.header-box {
+    border-left: solid;
+    border-right: solid;
+    border-width: 8px;
+    background-color: #222222;
+    display: flex;
+    align-items: center;
+    font-family: sans-serif;
+    font-size: medium;
+    padding: 5px;
+    border-color: black;
+    color: white;
+}
+
+.app-box {
+    border-left: solid;
+    border-right: solid;
+    border-width: 8px;
+    border-color: black;
+    background-color: white;
+    height: 500px;
+}
+
+.footer-box {
+    border: solid;
+    border-width: 8px;
+    border-radius: 0 0 30px 30px;
+    border-top: none;
+    border-color: black;
+    color: white;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+    background-color: #222222;
+}
+
+#attacker-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 400px;
+    width: 300px;
+    background-color: black;
+    color: white;
+    margin-top: 100px;
+    border-radius: 5px;
+    border: solid;
+    border-width: 5px;
+    border-color: #222222;
+    font-family: monospace;
+    margin-left: 30px;
+}
+
+#attacker-header {
+    background-color: #222222;
+    padding: 5px;
+}
+
+#attacker-app-box {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
+
+#alphabet-text {
+    margin: 10px 10px 0px 10px;
+}
+
+#alphabet {
+    resize: none;
+    margin: 10px;
+    background-color: #222222;
+    border: none;
+    color: lime;
+}
+
+#passwords-text {
+    margin: 10px 10px 0px 10px;
+}
+
+#passwords {
+    margin: 10px;
+    background-color: #222222;
+    color: lime;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    height: 150px;
+}
+
+#attack-button {
+    margin: 20px auto 20px auto;
+    background-color: #222222;
+    border: solid;
+    border-color: black;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: monospace;
+    font-size: 20px;
+    color: lime;
+    padding: 10px 30px 10px 30px;
+    text-decoration: none;
+    transition-duration: 0.2s;
+}
+
+#attack-button:hover {
+    box-shadow: 0 0px 10px 0 lime, 0 5px 5px 0 lime;
+    background-color: lime;
+    color: #222222;
+}
+
+#attack-button:active {
+    transform: translateY(4px);
+}
+
+#js-warning {
+    position: absolute;
+    left: 0; 
+    right: 0;
+    top: 20px;
+    margin-left: auto; 
+    margin-right: auto; 
+    width: 650px;
+    height: 800px;
+    border-radius: 30px;
+    background-color: rgba(255, 255, 255, 0.3);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    font-family: sans-serif;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+#warn-header {
+    font-size: 100px;
+}
+
+#warn-message {
+    font-size: 40px;
+    margin: 90px;
+}
+
+#github-link {
+    position: absolute;
+    position: fixed;
+    bottom: 0;
+    color: grey;
+    font-family: sans-serif;
+}
