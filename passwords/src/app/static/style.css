@@ -1,12 +1,11 @@
 body {
-    background-color: beige;
+    background-color: rgb(58, 98, 104);
 }
 
 #all-box {
     display: flex;
-    width: 1200px;
-    justify-content: center;
-    margin: 40px auto;
+    width: 1100px;
+    margin: 40px auto 0px auto;
     -webkit-user-select: none; /* Safari */        
     -moz-user-select: none; /* Firefox */
     -ms-user-select: none; /* IE10+/Edge */
@@ -15,7 +14,7 @@ body {
 
 .phone-box {
     width: 330px;
-    margin: 0px 30px 0px 30px;
+    margin: 0px 30px auto 30px;
 }
 
 .top-bar {
@@ -93,18 +92,15 @@ body {
 #attacker-box {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    height: 400px;
-    width: 300px;
+    width: 350px;
     background-color: black;
     color: white;
-    margin-top: 100px;
+    margin: 30px 30px auto 30px;
     border-radius: 5px;
     border: solid;
     border-width: 5px;
     border-color: #222222;
     font-family: monospace;
-    margin-left: 30px;
 }
 
 #attacker-header {
@@ -114,38 +110,63 @@ body {
 
 #attacker-app-box {
     display: flex;
-    flex: 1;
     flex-direction: column;
+    justify-content: flex-start;
+    height: 500px;
+    padding: 10px;
 }
 
-#alphabet-text {
-    margin: 10px 10px 0px 10px;
+.hack-tool-text {
+    margin-bottom: 10px;
+}
+
+#num-of-passwords-text {
+    display: none;
+}
+
+#num-of-passwords {
+    display: none;
+}
+
+#passwords-text {
+    display: none;
 }
 
 #alphabet {
     resize: none;
-    margin: 10px;
+    margin-bottom: 15px;
     background-color: #222222;
     border: none;
     color: lime;
 }
 
-#passwords-text {
-    margin: 10px 10px 0px 10px;
+#pw-len-box {
+    display: flex;
+    margin-bottom: 10px;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+#password-length {
+    background-color: #222222;
+    color: lime;
+    border: none;
+    width: 50px;
+    margin-left: 10px;
 }
 
 #passwords {
-    margin: 10px;
     background-color: #222222;
     color: lime;
-    display: flex;
+    display: none;
     flex-direction: column;
     overflow: auto;
     height: 150px;
 }
 
 #attack-button {
-    margin: 20px auto 20px auto;
+    margin-left: auto;
+    margin-right: auto;
     background-color: #222222;
     border: solid;
     border-color: black;
@@ -157,6 +178,8 @@ body {
     padding: 10px 30px 10px 30px;
     text-decoration: none;
     transition-duration: 0.2s;
+    margin-top: auto;
+    margin-bottom: 10px;
 }
 
 #attack-button:hover {

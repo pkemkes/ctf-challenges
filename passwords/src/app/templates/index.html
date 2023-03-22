@@ -96,41 +96,26 @@
                     Passwort Cracker v0.1
                 </div>
                 <div id="attacker-app-box">
-                    <div id="alphabet-text">
+                    <div class="hack-tool-text">
                         Passwort-Alphabet hier eingeben:
                     </div>
-                    <textarea id="alphabet" spellcheck="false">abcdef0123456789</textarea>
-                    <div id="passwords-text">
-                        Generierte Passwörter (die ersten 10000):
+                    <textarea id="alphabet" spellcheck="false"></textarea>
+                    <div class="hack-tool-text" id="pw-len-box">
+                        Länge der Passwörter:
+                        <input type="number" id="password-length" value="1" min="1" max="20">
                     </div>
-                    <div id="passwords">
-                        <span>aabbcc</span>
-                        <span>abcdef</span>
-                        <span>abc123</span>
-                        <span>aabbcc</span>
-                        <span>abcdef</span>
-                        <span>abc123</span>
-                        <span>aabbcc</span>
-                        <span>abcdef</span>
-                        <span>abc123</span>
-                        <span>aabbcc</span>
-                        <span>abcdef</span>
-                        <span>abc123</span>
-                        <span>aabbcc</span>
-                        <span>abcdef</span>
-                        <span>abc123</span>
-                        <span>aabbcc</span>
-                        <span>abcdef</span>
-                        <span>abc123</span>
-                        <span>aabbcc</span>
-                        <span>abcdef</span>
-                        <span>abc123</span>
+                    <div id="num-of-passwords-text" class="hack-tool-text">
+                        Anzahl der möglichen Passwörter:
                     </div>
+                    <div id="num-of-passwords" class="hack-tool-text">0</div>
+                    <div id="passwords-text" class="hack-tool-text"></div>
+                    <div id="passwords"></div>
                     <input id="attack-button" type="button" value="HACK">
                 </div>
             </div>
         </div>
         <a id="github-link" href="https://github.com/pkemkes/ctf-challenges">GitHub</a>
+        <span hidden id="pw-challenge">{{ challenge }}</span>
         <script src="/static/scripts/script.js"></script>
     </body>
 </html>

@@ -5,6 +5,9 @@ ENV PYTHONDONTWRITEBYTECODE=1
 ENV FLASK_DEBUG=0
 
 ENV DIFFICULTY=0
+ENV FLAG="flag{replace-me-with-your-flag}"
+ENV PASSWORD="s1ch3r"
+
 
 WORKDIR /usr/bin/passwords/src
 COPY ./src/requirements.txt ./

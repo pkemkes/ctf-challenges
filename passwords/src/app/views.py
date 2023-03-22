@@ -1,6 +1,7 @@
 import os
 from app import app
 from flask import render_template, Response
+from base64 import b64encode
 
 
 def parse_difficulty(difficulty: str) -> int:
@@ -16,8 +17,19 @@ def parse_difficulty(difficulty: str) -> int:
 DIFFICULTY = os.getenv("DIFFICULTY")
 assert DIFFICULTY is not None, "DIFFICULTY is not set!"
 DIFFICULTY = parse_difficulty(DIFFICULTY)
+FLAG = os.getenv("FLAG")
+assert FLAG is not None, "FLAG is not set!"
+PASSWORD = os.getenv("PASSWORD")
+assert PASSWORD is not None, "PASSWORD is not set!"
 
 
 @app.route("/", methods=["GET"])
 def index() -> Response:
-    return render_template("index.html", difficulty=DIFFICULTY)
+    challenge = enc_flag()
+    return render_template("index.html", difficulty=DIFFICULTY,
+                           challenge=challenge)
+
+
+def enc_flag():
+    return b64encode(bytes([ord(FLAG[i]) ^ ord(PASSWORD[i % len(PASSWORD)])
+                            for i in range(len(FLAG))])).decode()
