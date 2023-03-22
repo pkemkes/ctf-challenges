@@ -33,7 +33,7 @@ USER_DATA_DIR = os.getenv("USER_DATA_DIR")
 IMAGES_DIR = os.path.join("app", "static", "images")
 assert USER_DATA_DIR is not None, "USER_DATA_DIR is not set!"
 FLAG = os.getenv("FLAG")
-assert USER_DATA_DIR is not None, "FLAG is not set!"
+assert FLAG is not None, "FLAG is not set!"
 DIFFICULTY = os.getenv("DIFFICULTY")
 assert DIFFICULTY is not None, "DIFFICULTY is not set!"
 DIFFICULTY = parse_difficulty(DIFFICULTY)
