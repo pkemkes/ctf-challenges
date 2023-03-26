@@ -45,17 +45,27 @@ USER_LOCKS = {}
 def index() -> Response:
     error = request.args.get("error")
     user_id = get_user_id()
+    if user_id is None:
+        return render_template("index.html", user_id_is_set=False)
     with get_lock(user_id):
         data = get_user_data(user_id)
     if data.balance > 1000 ** 5:  # 1,000,000,000,000,000
         error = FLAG
     image_names = plot_data(data, user_id)
-    resp = make_response(render_template("index.html", data=data, error=error,
+    resp = make_response(render_template("index.html", user_id_is_set=True,
+                                         data=data, error=error,
                                          difficulty=DIFFICULTY,
                                          image_name_a=image_names[0],
                                          image_name_b=image_names[1],
                                          image_name_c=image_names[2]))
     resp.set_cookie(USER_COOKIE, user_id)
+    return resp
+
+
+@app.route("/start")
+def start() -> Response:
+    resp = redirect("/")
+    resp.set_cookie(USER_COOKIE, create_user_id())
     return resp
 
 
@@ -124,8 +134,11 @@ def get_lock(user_id: str) -> Lock:
 
 
 def get_user_id(strict: bool = False) -> str:
-    return request.cookies.get(USER_COOKIE,
-                               default=None if strict else str(uuid.uuid4()))
+    return request.cookies.get(USER_COOKIE)
+
+
+def create_user_id() -> str:
+    return str(uuid.uuid4())
 
 
 def get_user_file_path(user_id: str) -> str:
