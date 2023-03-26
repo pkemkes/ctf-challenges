@@ -31,5 +31,6 @@ def index() -> Response:
 
 
 def enc_flag():
-    return b64encode(bytes([ord(FLAG[i]) ^ ord(PASSWORD[i % len(PASSWORD)])
-                            for i in range(len(FLAG))])).decode()
+    chall = "crypt:" + FLAG
+    return b64encode(bytes([ord(chall[i]) ^ ord(PASSWORD[i % len(PASSWORD)])
+                            for i in range(len(chall))])).decode()

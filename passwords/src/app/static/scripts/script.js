@@ -4,6 +4,8 @@ var passwordsOutput = document.getElementById("passwords");
 var numOfPasswordsText = document.getElementById("num-of-passwords-text");
 var numOfPasswordsOutput = document.getElementById("num-of-passwords");
 var passwordsText = document.getElementById("passwords-text");
+var challenge = atob(document.getElementById("pw-challenge").innerHTML);
+var hackButton = document.getElementById("hack-button");
 
 function* PasswordGenerator(alphabet, passwordLen) {
     let alphaLen = alphabet.length;
@@ -40,8 +42,33 @@ function DisplayFirstPasswords() {
     }
 }
 
+function DecodeChallenge(password) {
+    decoded = "";
+    let keyLen = password.length;
+    for (let i = 0; i < challenge.length; i++) {
+        decoded += String.fromCharCode(challenge[i].charCodeAt() ^ password[i%keyLen].charCodeAt());
+        if (i == 5 && decoded != "crypt:") {
+            return null;
+        }
+    }
+    return decoded;
+}
+
+function BruteForce() {
+    let alphabet = alphabetInput.value;
+    let passwordLen = passwordLenInput.value;
+    for (let password of PasswordGenerator(alphabet, passwordLen)) {
+        let decoded = DecodeChallenge(password);
+        if (decoded) {
+            console.log(decoded);
+            return;
+        }
+    }
+}
+
 alphabetInput.addEventListener("input", DisplayFirstPasswords);
 passwordLenInput.addEventListener("input", DisplayFirstPasswords);
+hackButton.addEventListener("click", BruteForce);
 
 var clocks = Array.from(document.getElementsByClassName("time"));
 
