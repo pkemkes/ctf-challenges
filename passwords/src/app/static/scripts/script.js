@@ -1,45 +1,111 @@
+var usernameInput = document.getElementById("login-username");
+var passwordInput = document.getElementById("login-password");
+var hiddenUsername = document.getElementById("pw-challenge-username").innerHTML;
+var hiddenChecksum = document.getElementById("pw-challenge-checksum").innerHTML;
+var loginBox = document.getElementById("login-box");
+var profileBox = document.getElementById("profile-box");
+var flagBox = document.getElementById("flag-box");
+var loginButton = document.getElementById("login-button");
+var loginMessageBox = document.getElementById("login-message-box");
+var hackToolUsernameInput = document.getElementById("hack-tool-mail");
 var alphabetInput = document.getElementById("alphabet");
-var passwordLenInput = document.getElementById("password-length");
+var maxPasswordLenInput = document.getElementById("password-length");
+var maxPasswordLenIncButton = document.getElementById("pw-len-up");
+var maxPasswordLenDecButton = document.getElementById("pw-len-down");
+var minMaxPasswordLen = 1;
+var maxMaxPasswordLen = 20;
 var passwordsOutput = document.getElementById("passwords");
 var numOfPasswordsText = document.getElementById("num-of-passwords-text");
 var numOfPasswordsOutput = document.getElementById("num-of-passwords");
-var passwordsText = document.getElementById("passwords-text");
+var knownPT = document.getElementById("pw-known-pt").innerHTML;
 var challenge = atob(document.getElementById("pw-challenge").innerHTML);
+var outerLoadingBar = document.getElementById("outer-loading-bar");
+var innerLoadingBar = document.getElementById("inner-loading-bar");
+var loadingPercentage = document.getElementById("loading-percentage");
 var hackButton = document.getElementById("hack-button");
+var successMessageField = document.getElementById("success-msg");
+var breakBruteForce = false;
+var interruptedBruteForce = false;
+var passwordsDisplayGen = undefined;
+var loadingBarIntervals = CalcLoadingBarIntervals();
+var loadingBarPercentage = 0;
 
-function* PasswordGenerator(alphabet, passwordLen) {
-    let alphaLen = alphabet.length;
+function DeduplicateString(input) {
+    return Array.from(new Set(input.split(""))).join("");
+}
+
+function GetAlphabet() {
+    return DeduplicateString(alphabetInput.value);
+}
+
+function CalcNumberOfPasswords() {
+    let alphabet = GetAlphabet();
+    let maxPasswordLen = maxPasswordLenInput.innerHTML;
+    let numberOfPasswords = 0;
+    for (let i = 1; i <= maxPasswordLen; i++) {
+        numberOfPasswords += Math.pow(alphabet.length, i);
+    }
+    return numberOfPasswords;
+}
+
+function* AlphabetIndicesGenerator(alphaLen, passwordLen) {
+    let indices = new Array(passwordLen).fill(0);
+    yield indices;
+    let lastElemInd = indices.length - 1;
     let numOfPasswords = Math.pow(alphaLen, passwordLen);
-    for (let passwordIndex = 0; passwordIndex < numOfPasswords; passwordIndex++) {
-        let password = "";
-        for (let passwordPos = 0; passwordPos < passwordLen; passwordPos++) {
-            let alphabetPos = Math.floor(passwordIndex / Math.pow(alphaLen, passwordPos)) % alphaLen;
-            password = alphabet[alphabetPos] + password;
+    for (let i = 0; i < numOfPasswords - 1; i++) {
+        indices[lastElemInd] += 1;
+        for (let j = lastElemInd; j > 0; j--) {
+            if (indices[j] < alphaLen) break;
+            indices[j] = 0;
+            indices[j-1] += 1; 
         }
-        yield password;
+        yield indices;
     }
 }
 
-function DisplayFirstPasswords() {
-    let alphabet = alphabetInput.value;
-    let passwordLen = passwordLenInput.value;
-    let numOfPasswords = Math.pow(alphabet.length, passwordLen);
-    numOfPasswordsText.style.display = "inline";
-    numOfPasswordsOutput.innerHTML = numOfPasswords.toLocaleString();
-    numOfPasswordsOutput.style.display = "inline";
-    let maxDisplayedPasswords = 10000;
-    passwordsText.innerHTML = "Die ersten " + maxDisplayedPasswords.toLocaleString() + ":";
-    passwordsText.style.display = "inline";
-    passwordsOutput.innerHTML = "";
-    passwordsOutput.style.display = "flex";
-    let passwordIndex = 0;
-    for (let password of PasswordGenerator(alphabet, passwordLen)) {
-        if (passwordIndex >= 10000) break;
-        let passwordSpan = document.createElement("span");
-        passwordSpan.innerHTML = password;
-        passwordsOutput.appendChild(passwordSpan);
-        passwordIndex++;
+function GetPasswordFromIndices(indices, alphabet) {
+    let password = "";
+    for (let i of indices) {
+        password += alphabet[i];
     }
+    return password;
+}
+
+function* PasswordGenerator() {
+    let alphabet = GetAlphabet();
+    if (!alphabet) return;
+    let alphaLen = alphabet.length;
+    let maxPasswordLen = maxPasswordLenInput.innerHTML;
+    for (let passwordLen = 1; passwordLen <= maxPasswordLen; passwordLen++)
+    {
+        for (let alphabetIndices of AlphabetIndicesGenerator(alphaLen, passwordLen)) {
+            yield GetPasswordFromIndices(alphabetIndices, alphabet);
+        }
+    }
+}
+
+function DisplayPasswords(reset) {
+    if (reset) {
+        let numOfPasswords = CalcNumberOfPasswords();
+        numOfPasswordsText.style.display = "inline";
+        numOfPasswordsOutput.innerHTML = numOfPasswords.toLocaleString();
+        numOfPasswordsOutput.style.display = "inline";
+        passwordsOutput.style.display = "flex";
+        passwordsOutput.innerHTML = "";
+        passwordsDisplayGen = PasswordGenerator();
+    }
+    for (let i = 0; i < 100; i++) {
+        let nextPasswords = passwordsDisplayGen.next();
+        if (nextPasswords.done) return;
+        let passwordSpan = document.createElement("span");
+        passwordSpan.innerHTML = nextPasswords.value;
+        passwordsOutput.appendChild(passwordSpan);
+    }
+}
+
+function CalcChecksum(decoded) {
+    return Array.from(decoded).map(c => c.charCodeAt()).reduce((sum, x) => sum + x, 0)
 }
 
 function DecodeChallenge(password) {
@@ -47,28 +113,184 @@ function DecodeChallenge(password) {
     let keyLen = password.length;
     for (let i = 0; i < challenge.length; i++) {
         decoded += String.fromCharCode(challenge[i].charCodeAt() ^ password[i%keyLen].charCodeAt());
-        if (i == 5 && decoded != "crypt:") {
+        if (i == knownPT.length-1 && decoded != knownPT) {
             return null;
         }
     }
+    if (CalcChecksum(decoded) !== parseInt(hiddenChecksum)) return null;
     return decoded;
 }
 
-function BruteForce() {
-    let alphabet = alphabetInput.value;
-    let passwordLen = passwordLenInput.value;
-    for (let password of PasswordGenerator(alphabet, passwordLen)) {
-        let decoded = DecodeChallenge(password);
-        if (decoded) {
-            console.log(decoded);
-            return;
-        }
-    }
+function ReverseFancyExpFunc(y) {
+    return -Math.log(1 - (y / 1.1)) / 2.398;
 }
 
-alphabetInput.addEventListener("input", DisplayFirstPasswords);
-passwordLenInput.addEventListener("input", DisplayFirstPasswords);
+function CalcLoadingBarIntervals() {
+    let intervals = new Array(10000);
+    for (let i = 1; i <= 10000; i++) {
+        intervals[i-1] = ReverseFancyExpFunc(i/10000);
+    }
+    return intervals;
+}
+
+function UpdateLoadingBar(percentage) {
+    let displayNum = percentage.toFixed(2) + "%";
+    loadingPercentage.innerHTML = displayNum;
+    innerLoadingBar.style.width = displayNum;
+}
+
+function SetHackButtonToStop() {
+    hackButton.className = "stop-button";
+    hackButton.value = "STOP";
+    hackButton.removeEventListener("click", BruteForce);
+    hackButton.addEventListener("click", BreakBruteForce);
+}
+
+function SetHackButtonToHack() {
+    hackButton.className = "hack-button";
+    hackButton.value = "HACK";
+    hackButton.removeEventListener("click", BreakBruteForce);
+    hackButton.addEventListener("click", BruteForce);
+}
+
+function IsCorrectUsername() {
+    let username = hackToolUsernameInput.value;
+    if (!username) {
+        successMessageField.innerHTML = "> Bitte eine E-Mail Adresse eingeben."
+        successMessageField.style.color = "red";
+        return false;
+    }
+    if (username !== hiddenUsername) {
+        successMessageField.innerHTML = "> Zu dieser E-Mail existiert kein Benutzer."
+        successMessageField.style.color = "red";
+        return false;
+    }
+    return true;
+}
+
+function IsEnoughInputForTesting() {
+    if (GetAlphabet().length === 0) {
+        successMessageField.innerHTML = "> Bitte Buchstaben zum Generieren der Passwörter im Alphabet-Feld einfügen."
+        successMessageField.style.color = "red";
+        return false;
+    }
+    return true;
+}
+
+function BruteForce() {
+    if (!IsCorrectUsername()) return;
+    if (!IsEnoughInputForTesting()) return;
+    outerLoadingBar.style.display = "inline";
+    breakBruteForce = false;
+    interruptedBruteForce = false;
+    UpdateLoadingBar(0);
+    successMessageField.innerHTML = "";
+    SetHackButtonToStop();
+    let foundPassword = "";
+    let gen = PasswordGenerator();
+    let numOfPasswords = CalcNumberOfPasswords();
+    let intervalCount = 0;
+    let intervalLen = 100000;
+    let lastLoadingBarIntervalInd = 0;
+    let bruteForceInterval = setInterval(() => {
+        if (breakBruteForce) {
+            clearInterval(bruteForceInterval);
+            UpdateLoadingBar(interruptedBruteForce ? 0 : 100);
+            SetHackButtonToHack();
+            if (foundPassword){
+                successMessageField.innerHTML = "> Passwort gefunden: " + foundPassword;
+                successMessageField.style.color = "lime";
+            } 
+            else {
+                successMessageField.innerHTML = "> Kein Passwort gefunden :(";
+                successMessageField.style.color = "red";
+            }
+            return;
+        }
+        for (let i = 0; i < intervalLen; i++) {
+            let nextPassword = gen.next();
+            if (nextPassword.done) {
+                breakBruteForce = true;
+                break;
+            }
+            let decoded = DecodeChallenge(nextPassword.value);
+            if (i % 100 == 0) {
+                let currPassword = (intervalCount*intervalLen) + i;
+                if ((currPassword / numOfPasswords) > loadingBarIntervals[lastLoadingBarIntervalInd]) {
+                    lastLoadingBarIntervalInd += 1;
+                    UpdateLoadingBar(lastLoadingBarIntervalInd / 100);
+                }
+            }
+            if (decoded) {
+                loadingBarPercentage = 100;
+                foundPassword = nextPassword.value;
+                breakBruteForce = true;
+                break;
+            }
+        }
+        intervalCount++;
+    }, 20);
+}
+
+function BreakBruteForce() {
+    loadingBarPercentage = 0;
+    breakBruteForce = true;
+    interruptedBruteForce = true;
+}
+
+function IncMaxPwLen() {
+    let len = parseInt(maxPasswordLenInput.innerHTML);
+    if (len >= maxMaxPasswordLen) return;
+    maxPasswordLenInput.innerHTML = len + 1;
+    DisplayPasswords(true);
+}
+
+function DecMaxPwLen() {
+    let len = parseInt(maxPasswordLenInput.innerHTML);
+    if (len <= minMaxPasswordLen) return;
+    maxPasswordLenInput.innerHTML = len - 1;
+    DisplayPasswords(true);
+}
+
+function IsScrolledToBottom(element) {
+    return (element.clientHeight + element.scrollTop) - element.scrollHeight;
+}
+
+function Login() {
+    let username = usernameInput.value;
+    let password = passwordInput.value;
+    if (!username){
+        loginMessageBox.innerHTML = "Bitte eine E-Mail Adresse eingeben.";
+        return;
+    }
+    if (username !== hiddenUsername) {
+        loginMessageBox.innerHTML = "Zu dieser E-Mail existiert kein Benutzer.";
+        return;
+    };
+    if (!password){
+        loginMessageBox.innerHTML = "Bitte ein Passwort eingeben.";
+        return;
+    }
+    let decoded = DecodeChallenge(password);
+    if (!decoded) {
+        loginMessageBox.innerHTML = "Falsches Passwort.";
+        return;
+    }
+    loginBox.style.display = "none";
+    profileBox.style.display = "flex";
+    flagBox.innerHTML = decoded.substring(knownPT.length);
+}
+
+loginButton.addEventListener("click", Login);
+usernameInput.addEventListener("keypress", e => { if (e.key === "Enter") Login() });
+passwordInput.addEventListener("keypress", e => { if (e.key === "Enter") Login() });
+alphabetInput.addEventListener("input", () => DisplayPasswords(true));
 hackButton.addEventListener("click", BruteForce);
+passwordsOutput.addEventListener("scroll", () => {
+    if (IsScrolledToBottom(passwordsOutput)) DisplayPasswords(false);
+});
+maxPasswordLenDecButton.addEventListener("click", DecMaxPwLen);
+maxPasswordLenIncButton.addEventListener("click", IncMaxPwLen);
 
 var clocks = Array.from(document.getElementsByClassName("time"));
 

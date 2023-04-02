@@ -6,7 +6,8 @@ ENV FLASK_DEBUG=0
 
 ENV DIFFICULTY=0
 ENV FLAG="flag{replace-me-with-your-flag}"
-ENV PASSWORD="s1ch3r"
+ENV USERNAME="example@mail.net"
+ENV PASSWORD="example"
 
 
 WORKDIR /usr/bin/passwords/src

@@ -33,8 +33,22 @@ ctf-stonks-0:
     volumes:
         - ctf-stonks-0:/var/www/user_data
 
+ctf-stonks-1:
+    image: pkemkes/ctf-stonks-boerse
+    container_name: ctf-stonks-1
+    restart: always
+    environment:
+        - DIFFICULTY=1
+        - FLAG=flag{this-is-another-very-secret-flag}
+    ports:
+        - "80:80"
+    volumes:
+        - ctf-stonks-1:/var/www/user_data
+
 volumes:
     ctf-stonks-0:
+        driver: local
+    ctf-stonks-1:
         driver: local
 ```
 
