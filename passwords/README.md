@@ -6,7 +6,7 @@ This challenge simulates the situation that the player is tasked to hack into a 
 
 For this, the player is given a cracking tool, where a brute force algorithm is already implemented. They need to find clues in the social media stream of the victim to find details about the password.
 
-This is a challenge for beginners with 1 difficulty setting. It is currently in German but can easily be modified to support English players.
+This is a challenge for beginners with 2 difficulty settings. The first one focuses on a brute force attack, the second on a dictionary attack. It is currently in German but can easily be modified to support English players.
 
 ## Setting up the challenge:
 

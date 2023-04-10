@@ -273,7 +273,7 @@ body {
 #attacker-box {
     display: flex;
     flex-direction: column;
-    width: 350px;
+    width: 300px;
     background-color: black;
     color: white;
     margin: 10px 30px auto 30px;
@@ -293,7 +293,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    height: 550px;
+    height: 580px;
     padding: 10px;
 }
 
@@ -325,14 +325,14 @@ body {
     color: lime;
 }
 
-#pw-len-box {
+.pw-len-box {
     display: flex;
     margin-bottom: 10px;
     align-items: center;
     margin-bottom: 10px;
 }
 
-#password-length {
+.pw-len {
     background-color: #222222;
     color: lime;
     border: none;
@@ -352,6 +352,7 @@ body {
     cursor: pointer;
     font-size: 16px;
     height: 33px;
+    width: 33px;
     text-decoration: none;
     transition-duration: 0.2s;
 }
@@ -372,7 +373,37 @@ body {
     display: none;
     flex-direction: column;
     overflow: auto;
+}
+
+.passwords-0 {
     height: 150px;
+}
+
+.passwords-1 {
+    height: 70px;
+}
+
+#dictionary {
+    resize: none;
+    margin-bottom: 15px;
+    background-color: #222222;
+    border: none;
+    color: lime;
+    height: 60px;
+}
+
+#checkboxes {
+    margin-bottom: 5px;
+}
+
+.checkbox-box {
+    display: flex;
+    align-items: center;
+    margin: 2px;
+}
+
+.checkbox-label {
+    margin-left: 5px;
 }
 
 #outer-loading-bar {

@@ -8,12 +8,6 @@ var flagBox = document.getElementById("flag-box");
 var loginButton = document.getElementById("login-button");
 var loginMessageBox = document.getElementById("login-message-box");
 var hackToolUsernameInput = document.getElementById("hack-tool-mail");
-var alphabetInput = document.getElementById("alphabet");
-var maxPasswordLenInput = document.getElementById("password-length");
-var maxPasswordLenIncButton = document.getElementById("pw-len-up");
-var maxPasswordLenDecButton = document.getElementById("pw-len-down");
-var minMaxPasswordLen = 1;
-var maxMaxPasswordLen = 20;
 var passwordsOutput = document.getElementById("passwords");
 var numOfPasswordsText = document.getElementById("num-of-passwords-text");
 var numOfPasswordsOutput = document.getElementById("num-of-passwords");
@@ -29,61 +23,6 @@ var interruptedBruteForce = false;
 var passwordsDisplayGen = undefined;
 var loadingBarIntervals = CalcLoadingBarIntervals();
 var loadingBarPercentage = 0;
-
-function DeduplicateString(input) {
-    return Array.from(new Set(input.split(""))).join("");
-}
-
-function GetAlphabet() {
-    return DeduplicateString(alphabetInput.value);
-}
-
-function CalcNumberOfPasswords() {
-    let alphabet = GetAlphabet();
-    let maxPasswordLen = maxPasswordLenInput.innerHTML;
-    let numberOfPasswords = 0;
-    for (let i = 1; i <= maxPasswordLen; i++) {
-        numberOfPasswords += Math.pow(alphabet.length, i);
-    }
-    return numberOfPasswords;
-}
-
-function* AlphabetIndicesGenerator(alphaLen, passwordLen) {
-    let indices = new Array(passwordLen).fill(0);
-    yield indices;
-    let lastElemInd = indices.length - 1;
-    let numOfPasswords = Math.pow(alphaLen, passwordLen);
-    for (let i = 0; i < numOfPasswords - 1; i++) {
-        indices[lastElemInd] += 1;
-        for (let j = lastElemInd; j > 0; j--) {
-            if (indices[j] < alphaLen) break;
-            indices[j] = 0;
-            indices[j-1] += 1; 
-        }
-        yield indices;
-    }
-}
-
-function GetPasswordFromIndices(indices, alphabet) {
-    let password = "";
-    for (let i of indices) {
-        password += alphabet[i];
-    }
-    return password;
-}
-
-function* PasswordGenerator() {
-    let alphabet = GetAlphabet();
-    if (!alphabet) return;
-    let alphaLen = alphabet.length;
-    let maxPasswordLen = maxPasswordLenInput.innerHTML;
-    for (let passwordLen = 1; passwordLen <= maxPasswordLen; passwordLen++)
-    {
-        for (let alphabetIndices of AlphabetIndicesGenerator(alphaLen, passwordLen)) {
-            yield GetPasswordFromIndices(alphabetIndices, alphabet);
-        }
-    }
-}
 
 function DisplayPasswords(reset) {
     if (reset) {
@@ -168,15 +107,6 @@ function IsCorrectUsername() {
     return true;
 }
 
-function IsEnoughInputForTesting() {
-    if (GetAlphabet().length === 0) {
-        successMessageField.innerHTML = "> Bitte Buchstaben zum Generieren der Passwörter im Alphabet-Feld einfügen."
-        successMessageField.style.color = "red";
-        return false;
-    }
-    return true;
-}
-
 function BruteForce() {
     if (!IsCorrectUsername()) return;
     if (!IsEnoughInputForTesting()) return;
@@ -238,20 +168,6 @@ function BreakBruteForce() {
     interruptedBruteForce = true;
 }
 
-function IncMaxPwLen() {
-    let len = parseInt(maxPasswordLenInput.innerHTML);
-    if (len >= maxMaxPasswordLen) return;
-    maxPasswordLenInput.innerHTML = len + 1;
-    DisplayPasswords(true);
-}
-
-function DecMaxPwLen() {
-    let len = parseInt(maxPasswordLenInput.innerHTML);
-    if (len <= minMaxPasswordLen) return;
-    maxPasswordLenInput.innerHTML = len - 1;
-    DisplayPasswords(true);
-}
-
 function IsScrolledToBottom(element) {
     return (element.clientHeight + element.scrollTop) - element.scrollHeight;
 }
@@ -284,13 +200,11 @@ function Login() {
 loginButton.addEventListener("click", Login);
 usernameInput.addEventListener("keypress", e => { if (e.key === "Enter") Login() });
 passwordInput.addEventListener("keypress", e => { if (e.key === "Enter") Login() });
-alphabetInput.addEventListener("input", () => DisplayPasswords(true));
 hackButton.addEventListener("click", BruteForce);
 passwordsOutput.addEventListener("scroll", () => {
     if (IsScrolledToBottom(passwordsOutput)) DisplayPasswords(false);
 });
-maxPasswordLenDecButton.addEventListener("click", DecMaxPwLen);
-maxPasswordLenIncButton.addEventListener("click", IncMaxPwLen);
+AddSpecificEventListeners();
 
 var clocks = Array.from(document.getElementsByClassName("time"));
 
