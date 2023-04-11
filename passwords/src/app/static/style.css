@@ -1,0 +1,526 @@
+body {
+    background-color: rgb(58, 98, 104);
+}
+
+#all-box {
+    display: flex;
+    width: 1100px;
+    margin: 40px auto 0px auto;
+}
+
+.phone-box {
+    width: 300px;
+    margin: 0px 30px auto 30px;
+}
+
+.top-bar {
+    border-radius: 30px 30px 0 0;
+    border: solid;
+    border-color: black;
+    border-width: 8px;
+    border-bottom: none;
+    background-color: #111111;
+    display: flex;
+    justify-content: space-between;
+    font-size: small;
+    color: white;
+}
+
+.noti {
+    margin: 8px;
+    margin-left: 15px;
+    font-family: sans-serif;
+    display: flex;
+    align-items: center;
+    width: 100px;
+}
+
+.symb {
+    margin: 8px;
+    margin-right: 15px;
+    display: flex;
+    align-items: center;
+    width: 100px;
+    justify-content: right;
+}
+
+.icon {
+    height: 16px;
+    margin: 3px;
+}
+
+.header-box {
+    border-left: solid;
+    border-right: solid;
+    border-width: 8px;
+    background-color: #111111;
+    display: flex;
+    align-items: center;
+    font-family: sans-serif;
+    font-size: medium;
+    padding: 5px;
+    border-color: black;
+    color: white;
+    height: 35px;
+}
+
+.logo-font {
+    height: 35px;
+    margin: 5px;
+}
+
+.app-box {
+    border-left: solid;
+    border-right: solid;
+    border-width: 8px;
+    border-color: black;
+    background-color: #111111;
+    height: 500px;
+    overflow: auto;
+    font-family: sans-serif;
+    color: white;
+    font-size: 12px;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.app-box::-webkit-scrollbar {
+  display: none;
+}
+
+.post-header {
+    display: flex;
+    align-items: center;
+}
+
+.post-pfp {
+    height: 30px;
+    margin: 3px 10px 3px 10px;
+}
+
+.post-username {
+    font-weight: bold;
+}
+
+.post-img {
+    width: 100%;
+}
+
+.post-buttons {
+    display: flex;
+}
+
+.post-button {
+    height: 20px;
+    margin: 5px;
+}
+
+.post-like-button {
+    margin-left: 10px;
+}
+
+.post-bookmark-button {
+    margin-left: auto;
+    margin-right: 10px;
+}
+
+.post-likes {
+    font-weight: bold;
+    margin: 5px 10px 0 10px;
+}
+
+.post-description {
+    margin: 5px 10px 0 10px;
+}
+
+.post-comments {
+    display: flex;
+    margin: 3px 10px 0 10px;
+    align-items: center;
+    color: lightgray;
+}
+
+.post-comment-pfp {
+    height: 30px;
+    margin-right: 5px;
+}
+
+.post-time {
+    color: lightgray;
+    margin: 3px 10px 15px 10px;
+    font-size: 10px;
+}
+
+.hashtag {
+    color: lightblue;
+}
+
+.footer-box {
+    border: solid;
+    border-width: 8px;
+    border-radius: 0 0 30px 30px;
+    border-top: none;
+    border-color: black;
+    color: white;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+    background-color: #111111;
+}
+
+.second-app-box {
+    height: 545px;
+}
+
+#login-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#login-logo {
+    margin-top: 150px;
+}
+
+#login-username {
+    margin-top: 20px;
+}
+
+.login-input {
+    width: 200px;
+    padding: 7px;
+    margin-bottom: 10px;
+    background-color: #333333;
+    border: none;
+    color: white;
+    border-radius: 5px;
+}
+
+#login-button {
+    width: 215px;
+    padding: 7px;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    background-color: #449FDB;
+    transition-duration: 0.1s;
+}
+
+#login-button:active {
+    transform: translateY(2px);
+}
+
+#login-message-box {
+    margin-top: 10px;
+    color: red;
+}
+
+#profile-box {
+    display: none;
+    flex-direction: column;
+}
+
+#profile-header {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 10px 0 0 10px;
+}
+
+#profile-stats {
+    display: flex;
+    margin: 20px 0 0 10px;
+}
+
+#profile-pfp {
+    height: 70px;
+}
+
+#profile-stats-data {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.profile-stats-datapoint {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stat-number {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+#flag-box {
+    margin: 20px 0 0 10px;
+    font-family: monospace;
+}
+
+#profile-post-grid {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: auto auto auto;
+}
+
+.profile-post-img {
+    width: 100%;
+}
+
+#attacker-box {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    background-color: black;
+    color: white;
+    margin: 10px 30px auto 30px;
+    border-radius: 5px;
+    border: solid;
+    border-width: 5px;
+    border-color: #222222;
+    font-family: monospace;
+}
+
+#attacker-header {
+    background-color: #222222;
+    padding: 5px;
+}
+
+#attacker-app-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 580px;
+    padding: 10px;
+}
+
+.hack-tool-text {
+    margin-bottom: 10px;
+}
+
+#num-of-passwords-text {
+    display: none;
+}
+
+#num-of-passwords {
+    display: none;
+}
+
+#hack-tool-mail {
+    background-color: #222222;
+    border: none;
+    color: lime;
+    margin-bottom: 15px;
+    font-family: monospace;
+}
+
+#alphabet {
+    resize: none;
+    margin-bottom: 15px;
+    background-color: #222222;
+    border: none;
+    color: lime;
+}
+
+.pw-len-box {
+    display: flex;
+    margin-bottom: 10px;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.pw-len {
+    background-color: #222222;
+    color: lime;
+    border: none;
+    width: 30px;
+    margin-left: 10px;
+    text-align: center;
+    padding: 5px 0 5px 0;
+}
+
+.pw-len-button {
+    border: solid;
+    border-color: black;
+    background-color: #222222;
+    color: lime;
+    margin-left: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    height: 33px;
+    width: 33px;
+    text-decoration: none;
+    transition-duration: 0.2s;
+}
+
+.pw-len-button:hover {
+    box-shadow: 0 0px 5px 0 lime, 0 2px 2px 0 lime;
+    background-color: lime;
+    color: #222222;
+}
+
+.pw-len-button:active {
+    transform: translateY(4px);
+}
+
+#passwords {
+    background-color: #222222;
+    color: lime;
+    display: none;
+    flex-direction: column;
+    overflow: auto;
+}
+
+.passwords-0 {
+    height: 150px;
+}
+
+.passwords-1 {
+    height: 70px;
+}
+
+#dictionary {
+    resize: none;
+    margin-bottom: 15px;
+    background-color: #222222;
+    border: none;
+    color: lime;
+    height: 60px;
+}
+
+#checkboxes {
+    margin-bottom: 5px;
+}
+
+.checkbox-box {
+    display: flex;
+    align-items: center;
+    margin: 2px;
+}
+
+.checkbox-label {
+    margin-left: 5px;
+}
+
+#outer-loading-bar {
+    display: none;
+    margin-top: 20px;
+    border: solid;
+    border-width: 1px;
+    border-color: #555555;
+    height: 40px;
+    position: relative;
+}
+
+#inner-loading-bar {
+    position: relative;
+    left: 0;
+    top: 0;
+    text-align: center;
+    background-color: lime;
+    width: 0%;
+    height: 100%;
+    box-shadow: 0 0 5px 0 lime, 0 0 0 0 lime;
+}
+
+#loading-percentage {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: lime;
+    mix-blend-mode: difference;
+    font-weight: bolder;
+    font-size: 16px;
+}
+
+.hack-button:hover {
+    box-shadow: 0 0px 10px 0 lime, 0 5px 5px 0 lime;
+    background-color: lime;
+    color: #222222;
+}
+
+.hack-button {
+    color: lime;
+    background-color: #222222;
+}
+
+.stop-button:hover {
+    box-shadow: 0 0px 10px 0 red, 0 5px 5px 0 red;
+    background-color: red;
+    color: #222222;
+}
+
+.stop-button {
+    color: red;
+    background-color: #222222;
+}
+
+#hack-button {
+    margin-left: auto;
+    margin-right: auto;
+    border: solid;
+    border-color: black;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: monospace;
+    font-size: 20px;
+    padding: 10px 30px 10px 30px;
+    text-decoration: none;
+    transition-duration: 0.2s;
+    margin-top: auto;
+    margin-bottom: 10px;
+}
+
+#hack-button:active {
+    transform: translateY(4px);
+}
+
+#success-msg {
+    margin-top: 10px;
+}
+
+#js-warning {
+    position: absolute;
+    left: 0; 
+    right: 0;
+    top: 20px;
+    margin-left: auto; 
+    margin-right: auto; 
+    width: 650px;
+    height: 800px;
+    border-radius: 30px;
+    background-color: rgba(255, 255, 255, 0.3);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    font-family: sans-serif;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+#warn-header {
+    font-size: 100px;
+}
+
+#warn-message {
+    font-size: 40px;
+    margin: 90px;
+}
+
+#github-link {
+    position: absolute;
+    position: fixed;
+    bottom: 0;
+    color: grey;
+    font-family: sans-serif;
+}

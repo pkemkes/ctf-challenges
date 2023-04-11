@@ -31,7 +31,18 @@ ctf-crypto-0:
     restart: always
     environment:
         - DIFFICULTY=0
-        - FLAG=Nobody will ever know the flag{not-so-secure} with this immensly secure cipher.
+        - TEXT_TO_DECRYPT=Nobody will ever know the flag{not-so-secure} with this immensly secure cipher.
+    ports:
+        - "80:80"
+
+ctf-crypto-1:
+    image: pkemkes/ctf-crypto
+    container_name: ctf-crypto-1
+    restart: always
+    environment:
+        - DIFFICULTY=1
+        - KEY=MLKJIHGFEDCBAZYXWVUTSRQPON
+        - TEXT_TO_DECRYPT=But now nobody really will ever know the flag{still-not-so-secure} with this even securer cipher.
     ports:
         - "80:80"
 ```
