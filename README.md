@@ -6,3 +6,4 @@ Currently available challenges:
 
 - [stonks-boerse](./stonks-boerse/)
 - [crypto](./crypto/)
+- [passwords](./passwords/)
