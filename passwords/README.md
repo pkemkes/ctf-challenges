@@ -1,4 +1,4 @@
-# Passwords Challange
+# Passwords Challenge
 
 ## Description:
 
@@ -16,6 +16,7 @@ There are three important environment value that should be set when deploying th
 
 | Name | Default | Description |
 |--------|--------|---|
+| DIFFICULTY | 0 | Determines the difficulty of the challenge. Possible values: 0, 1 |
 | USERNAME | example@mail.net | The username that needs to be found in the social media stream. |
 | PASSWORD | example | The passwords that needs to be cracked. |
 | FLAG | flag{replace-me-with-your-flag} | The flag that is displayed when the challenge is won. Replace this with your flag that is registered in your CTF server. |
@@ -28,6 +29,7 @@ ctf-passwords-0:
     container_name: ctf-passwords-0
     restart: always
     environment:
+        - DIFFICULTY=0
         - FLAG=flag{th1s-1s-n0t-s3cur3}
         - USERNAME=arnie@schwarzenegger.com
         - PASSWORD=arrrgghh
