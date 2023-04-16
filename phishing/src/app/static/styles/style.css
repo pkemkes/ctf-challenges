@@ -1,0 +1,477 @@
+body {
+    background-color: #EEEEEE;
+    font-family: sans-serif;
+}
+
+#header-box {
+    border: solid;
+    border-width: 1px;
+    border-color: #CCCCCC;
+    background-color: #EEEEEE;
+    padding: 10px;
+    grid-column: 1 / 3;
+    grid-row: 1 / 2; 
+    text-align: center;
+    font-size: 34px;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    box-shadow: 2px 2px 4px #CCCCCC;
+}
+
+.contains-unread {
+    font-weight: bold;
+}
+
+#account-mail {
+    font-weight: bold;
+}
+
+#account-box div {
+    margin-bottom: 5px;
+}
+
+.account-dir:hover {
+    font-style: italic;
+    cursor: pointer;
+}
+
+.active-account-dir {
+    font-style: italic;
+}
+
+#account-box {
+    border: solid;
+    border-width: 1px;
+    border-color: #CCCCCC;
+    grid-column: 1 / 2;
+    grid-row: 2 / 3; 
+    padding: 10px;
+    min-width: 225px;
+    box-shadow: 2px 2px 4px #CCCCCC;
+    z-index: 1;
+}
+
+#tool-box {
+    border: solid;
+    border-width: 1px;
+    border-color: #CCCCCC;
+    grid-column: 1 / 2;
+    grid-row: 3 / 4; 
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 2px 2px 4px #CCCCCC;
+    z-index: 1;
+}
+
+#marker-btn {
+    text-align: center;
+    padding: 5px;
+    margin: 5px;
+    width: 80%;
+    font-size: 20px;
+    border-radius: 10px;
+    border-width: 5px;
+    transition-duration: 0.2s;
+    box-shadow: 2px 2px 4px #CCCCCC;
+    -webkit-user-select: none; /* Safari */        
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+    user-select: none; /* Standard */
+}
+
+#marker-btn:active {
+    transform: translateY(2px);
+}
+
+.marker-btn-inactive {
+    background-color: rgb(255, 100, 100);
+    border: solid;
+    border-color: rgb(255, 150, 150);
+    color: white;
+    font-weight: normal;
+}
+
+.marker-btn-active {
+    background-color: rgb(255, 150, 150);
+    border: solid;
+    border-color: rgb(255, 100, 100);
+    color: black;
+    font-weight: bold;
+}
+
+#tool-box .marker-btn-inactive:hover {
+    background-color: rgb(255, 150, 150);
+    cursor: pointer;
+    color: black;
+}
+
+#tool-box .marker-btn-active:hover {
+    background-color: rgb(255, 150, 150);
+    cursor: pointer;
+}
+
+#check-btn {
+    text-align: center;
+    padding: 5px;
+    margin: 5px;
+    width: 80%;
+    font-size: 20px;
+    border-radius: 10px;
+    background-color: rgb(100, 255, 100);
+    border: solid;
+    border-color: rgb(200, 255, 200);
+    border-width: 5px;
+    transition-duration: 0.2s;
+    color: white;
+    box-shadow: 2px 2px 4px #CCCCCC;
+    -webkit-user-select: none; /* Safari */        
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+    user-select: none; /* Standard */
+}
+
+#check-btn:hover {
+    background-color: rgb(150, 255, 150);
+    cursor: pointer;
+    color: black;
+}
+
+#check-btn:active {
+    transform: translateY(2px);
+}
+
+#check-results {
+    margin: 5px;
+    display: none;
+}
+
+#check-results tr td:first-child {
+    font-weight: bold;
+}
+
+#flag-box {
+    margin-top: 20px;
+    width: 60%;
+    background-color: rgb(200, 255, 200);
+    padding: 10px;
+    text-align: center;
+    border: dashed;
+    border-color: rgb(150, 255, 150);
+    border-radius: 10px;
+    font-weight: bold;
+    display: none;
+}
+
+#footer-box {
+    border: solid;
+    border-width: 1px;
+    border-color: #CCCCCC;
+    background-color: #EEEEEE;
+    grid-column: 1 / 3;
+    grid-row: 4 / 5; 
+    text-align: center;
+    padding: 10px;
+    position: sticky;
+    bottom: 0;
+    z-index: 1;
+}
+
+#mail-box {
+    border: solid;
+    border-width: 1px;
+    border-color: #CCCCCC;
+    background-color: #F5F5F5;
+    grid-column: 2 / 3;
+    grid-row: 2 / 3; 
+    display: none;
+    flex-direction: column;
+    overflow: auto;
+    padding: 10px;
+    min-height: 300px;
+}
+
+#mail-table .header-row {
+    font-weight: bold;
+    background-color: #DDDDDD;
+    position: sticky;
+    top: 0;
+}
+
+#mail-table .header-row td {
+    padding: 5px;
+}
+
+#mail-table .header-row .icon {
+    text-align: center;
+}
+
+.mail-row td {
+    padding: 5px;
+}
+
+.mail-marked-count {
+    text-align: center;
+}
+
+.mail-read {
+    text-align: center;
+}
+
+.mail-row:hover {
+    background-color: #EEEEEE;
+    cursor: pointer;
+}
+
+.active-mail {
+    background-color: #EEEEEE;
+}
+
+.unread-mail {
+    font-weight: bold;
+}
+
+.read-icon {
+    width: 20px;
+}
+
+#empty-box {
+    border: solid;
+    border-width: 1px;
+    border-color: #CCCCCC;
+    background-color: #FFFFFF;
+    grid-column: 2 / 3;
+    grid-row: 2 / 3; 
+    display: none;
+    padding: 10px;
+    min-height: 300px;
+}
+
+#empty-box-message {
+    font-style: italic;
+    color: #888888;
+}
+
+.content-header-box {
+    grid-column: 1 / 1;
+    grid-row: 1 / 2; 
+    border-bottom: solid;
+    border-width: 1px;
+    border-color: #CCCCCC;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    background-color: #F5F5F5;
+}
+
+.content-header-table tr td {
+    padding: 5px;
+}
+
+.content-header-th {
+    width: 100px;
+    font-weight: bold;
+}
+
+.content-header-date {
+    text-align: right;
+}
+
+.content-body-box {
+    grid-column: 1 / 1;
+    grid-row: 2 / 3; 
+    padding: 10px;
+    position: relative;
+}
+
+.content-attachments {
+    width: 100%;
+    display: flex;
+    border-top: solid;
+    border-width: 1px;
+    border-color: #CCCCCC;
+    background-color: #F5F5F5;
+}
+
+.attachment {
+    display: flex;
+    align-items: center;
+    margin: 5px;
+    border: solid;
+    padding: 5px 15px 5px 15px;
+    border-width: 1px;
+    border-color: #CCCCCC;
+    border-radius: 10px;
+    background-color: #FCFCFC;
+}
+
+.attachment-icon {
+    height: 40px;
+    margin-right: 10px;
+}
+
+.content-box {
+    border: solid;
+    border-width: 1px;
+    border-color: #CCCCCC;
+    background-color: #FFFFFF;
+    grid-column: 2 / 3;
+    grid-row: 3 / 4; 
+    display: none;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 7fr;
+    overflow: auto;
+    min-height: 300px;
+}
+
+.marked {
+    background-color: rgb(255, 100, 100) !important;
+    color: white !important;
+    border: dotted !important;
+    border-color: #AAAAAA !important;
+}
+
+.markable-hover:hover {
+    background-color: rgb(255, 150, 150) !important;
+    border: dotted !important;
+    border-color: #AAAAAA !important;
+}
+
+.pointer-cursor {
+    cursor: pointer;
+}
+
+.link-hover {
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: -10px;
+    margin-left: -10px;
+    padding: 5px;
+    background-color: #FCFCFC;
+    border-top: solid;
+    border-right: solid;
+    border-width: 1px;
+    border-color: #CCCCCC;
+    border-radius: 0 10px 0 0;
+    display: none;
+}
+
+
+#all-box {
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    grid-template-rows: 1fr 5fr 15fr 1fr;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: auto;
+    min-width: 1000px;
+}
+
+.security-warning {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 20vh;
+    margin-left: auto;
+    margin-right: auto;
+    z-index: 2;
+    background-color: rgb(255, 158, 158);
+    text-align: center;
+    padding: 50px 100px 50px 100px;
+    width: 50%;
+    display: none;
+    border: dashed;
+    border-color: rgb(255, 100, 100);
+    border-width: 10px;
+    border-radius: 40px;
+}
+
+.security-warn-header {
+    margin: 10px 5% 10px 5%;
+    font-size: 50px;
+    font-weight: bold;
+}
+
+.security-warn-message {
+    margin-left: 5%;
+    margin-right: 5%;
+    font-size: 20px;
+}
+
+.security-warn-button {
+    text-align: center;
+    padding: 5px;
+    margin-top: 40px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 250px;
+    font-size: 30px;
+    border-radius: 10px;
+    background-color: rgb(100, 255, 100);
+    border: solid;
+    border-color: rgb(150, 255, 150);
+    transition-duration: 0.2s;
+    color: white;
+    box-shadow: 2px 2px 4px #CCCCCC;
+    -webkit-user-select: none; /* Safari */        
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+    user-select: none; /* Standard */
+}
+
+.security-warn-button:hover {
+    background-color: rgb(150, 255, 150);
+    color: black;
+    cursor: pointer;
+}
+
+.security-warn-button:active {
+    transform: translateY(2px);
+}
+
+#js-warning {
+    position: absolute;
+    z-index: 2;
+    left: 0; 
+    right: 0;
+    top: 20px;
+    margin-left: auto; 
+    margin-right: auto; 
+    width: 80%;
+    height: 80vh;
+    border: dashed;
+    border-color: rgb(255, 100, 100);
+    border-width: 10px;
+    border-radius: 40px;
+    background-color: rgb(255, 158, 158);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    font-family: sans-serif;
+}
+
+#warn-header {
+    font-size: 100px;
+}
+
+#warn-message {
+    font-size: 40px;
+    margin: 50px;
+}
+
+#github-link {
+    position: absolute;
+    position: fixed;
+    bottom: 0;
+    color: grey;
+    font-family: sans-serif;
+}
