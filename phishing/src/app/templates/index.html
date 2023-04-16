@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="/static/styles/style.css" type="text/css">
+        <link rel="stylesheet" href="/static/styles/style-{{ difficulty }}.css" type="text/css">
+    </head>
+    <body>
+        <div id="js-warning">
+            <h1 id="warn-header">Ohje.</h1>
+            <p id="warn-message">Da ist wohl etwas schief gelaufen.<br>Bitte sag einem von uns Bescheid.</p>
+        </div>
+        <div class="security-warning" id="security-warning-link">
+            <div class="security-warn-header">Vorsicht!</div>
+            <div class="security-warn-message">Der Super-Sicher Modus ist aktiviert. Wir haben das Aufrufen des Links verhindert. Bitte beachten Sie, dass das Anklicken unbekannter Links ohne spezielle Tools wie dem <b>Markierstift</b> gefährlich sein kann!</div>
+            <div class="security-warn-button" id="security-warn-link-button">Verstanden</div>
+        </div>
+        <div class="security-warning" id="security-warning-attachment">
+            <div class="security-warn-header">Vorsicht!</div>
+            <div class="security-warn-message">Der Super-Sicher Modus ist aktiviert. Wir haben das Öffnen des Anhangs verhindert. Bitte beachten Sie, dass das Öffnen unbekannter Anhänge ohne spezielle Tools wie dem <b>Markierstift</b> gefährlich sein kann!</div>
+            <div class="security-warn-button" id="security-warn-attachment-button">Verstanden</div>
+        </div>
+        <div id="all-box">
+            <div id="header-box">
+                <span id="site-headline">Super-Sicher Mail ✉️</span>
+            </div>
+            <div id="account-box">
+                <div id="account-mail">h.ackerperson@susi-mail.net</div>
+                <div class="account-dir" id="account-inbox">&gt; <span id="inbox">Posteingang (<span id="unread-num">0</span>)</span></div>
+                <div class="account-dir" id="account-sent">&gt; Gesendet</div>
+                <div class="account-dir" id="account-trash">&gt; Papierkorb</div>
+            </div>
+            <div id="tool-box">
+                <div id="marker-btn" class="marker-btn-inactive">Markierstift</div>
+                <div id="check-btn">Überprüfen</div>
+                <table id="check-results">
+                    <tr>
+                        <td>Richtig markiert:</td>
+                        <td id="results-correct">0</td>
+                    </tr>
+                    <tr>
+                        <td>Falsch markiert:</td>
+                        <td id="results-incorrect">0</td>
+                    </tr>
+                    <tr>
+                        <td>Übersehen:</td>
+                        <td id="results-missed">0</td>
+                    </tr>
+                </table>
+                <div id="flag-box"></div>
+            </div>
+            <div id="mail-box">
+                <table id="mail-table">
+                    <tr class="header-row">
+                        <td class="icon"><img src="/static/images/marker.png" height="16px"></td>
+                        <td class="icon">👀</td>
+                        <td>Betreff</td>
+                        <td>Absender</td>
+                        <td>Datum</td>
+                    </tr>
+                    <tr class="mail-row">
+                        <td class="mail-marked-count">0</td>
+                        <td class="mail-read"><img class="read-icon" src="/static/images/unread.png"></td>
+                        <td class="mail-subject unread-mail">Teilnahme an Anti-Phishing-Programm</td>
+                        <td class="mail-from unread-mail">Super-Sicher Mail Team</td>
+                        <td class="mail-date unread-mail">27.05.2023, 10:00</td>
+                    </tr>
+                    {% if difficulty == 0 %}
+                    <tr class="mail-row">
+                        <td class="mail-marked-count">0</td>
+                        <td class="mail-read"><img class="read-icon" src="/static/images/unread.png"></td>
+                        <td class="mail-subject unread-mail">Du bist doof</td>
+                        <td class="mail-from unread-mail">Peter Illermann</td>
+                        <td class="mail-date unread-mail">27.05.2023, 04:39</td>
+                    </tr>
+                    <tr class="mail-row">
+                        <td class="mail-marked-count">0</td>
+                        <td class="mail-read"><img class="read-icon" src="/static/images/unread.png"></td>
+                        <td class="mail-subject unread-mail">Sie hat gewonen!</td>
+                        <td class="mail-from unread-mail">Glückslotterie</td>
+                        <td class="mail-date unread-mail">26.05.2023, 21:59</td>
+                    </tr>
+                    <tr class="mail-row">
+                        <td class="mail-marked-count">0</td>
+                        <td class="mail-read"><img class="read-icon" src="/static/images/unread.png"></td>
+                        <td class="mail-subject unread-mail">Meeting Mitschrift 24.05.2023</td>
+                        <td class="mail-from unread-mail">Marianne Itarbei-Terin</td>
+                        <td class="mail-date unread-mail">25.05.2023, 15:55</td>
+                    </tr>
+                    <tr class="mail-row">
+                        <td class="mail-marked-count">0</td>
+                        <td class="mail-read"><img class="read-icon" src="/static/images/unread.png"></td>
+                        <td class="mail-subject unread-mail">richtigg wiechtig dokumennt</td>
+                        <td class="mail-from unread-mail">dein koleg frank</td>
+                        <td class="mail-date unread-mail">25.05.2023, 03:13</td>
+                    </tr>
+                    <tr class="mail-row">
+                        <td class="mail-marked-count">0</td>
+                        <td class="mail-read"><img class="read-icon" src="/static/images/unread.png"></td>
+                        <td class="mail-subject unread-mail">Beleg für Ihre Zahlung an www.steampowered.com</td>
+                        <td class="mail-from unread-mail">service@paypal.de</td>
+                        <td class="mail-date unread-mail">24.05.2023, 11:01</td>
+                    </tr>
+                    {% elif difficulty == 1 %}
+                    <tr class="mail-row">
+                        <td class="mail-marked-count">0</td>
+                        <td class="mail-read"><img class="read-icon" src="/static/images/unread.png"></td>
+                        <td class="mail-subject unread-mail">Mahnung! Rechnung - Bestellung 18403583</td>
+                        <td class="mail-from unread-mail">MediaMarkt Onlineshop</td>
+                        <td class="mail-date unread-mail">26.05.2023, 01:59</td>
+                    </tr>
+                    <tr class="mail-row">
+                        <td class="mail-marked-count">0</td>
+                        <td class="mail-read"><img class="read-icon" src="/static/images/unread.png"></td>
+                        <td class="mail-subject unread-mail">Rechnung zu Ihrer Bestellung 20-9383-12543</td>
+                        <td class="mail-from unread-mail">eBay - topseller123</td>
+                        <td class="mail-date unread-mail">25.05.2023, 18:45</td>
+                    </tr>
+                    <tr class="mail-row">
+                        <td class="mail-marked-count">0</td>
+                        <td class="mail-read"><img class="read-icon" src="/static/images/unread.png"></td>
+                        <td class="mail-subject unread-mail">Wichtige Angelegenheit - Ihre Hilfe benötigt</td>
+                        <td class="mail-from unread-mail">Prinz Abimbola Olatunji Adebanjo</td>
+                        <td class="mail-date unread-mail">24.05.2023, 23:45</td>
+                    </tr>
+                    <tr class="mail-row">
+                        <td class="mail-marked-count">0</td>
+                        <td class="mail-read"><img class="read-icon" src="/static/images/unread.png"></td>
+                        <td class="mail-subject unread-mail">Login mit neuem Gerät</td>
+                        <td class="mail-from unread-mail">service@paypal.de</td>
+                        <td class="mail-date unread-mail">22.05.2023, 12:51</td>
+                    </tr>
+                    {% endif %}
+                </table>
+            </div>
+            <div id="empty-box">
+                <div id="empty-box-message">Dieser Ordner ist leer.</div>
+            </div>
+            <div id="content-mail-00" class="content-box">
+                <div class="content-header-box">
+                    <table class="content-header-table">
+                        <tr>
+                            <td class="content-header-th">
+                                Absender:
+                            </td>
+                            <td>
+                                <span id="m0-00" class="markable">
+                                    Super-Sicher Mail Team &lt;team@susi-mail.net&gt;
+                                </span>
+                            </td>
+                            <td class="content-header-date">
+                                27.05.2023, 10:00
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="content-header-th">
+                                Empfänger:
+                            </td>
+                            <td>
+                                <span id="m0-01" class="markable">
+                                    Hayden Ackerperson &lt;h.ackerperson@susi-mail.net&gt;
+                                </span>
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="content-header-th">
+                                Betreff:
+                            </td>
+                            <td>
+                                <span id="m0-02" class="markable">
+                                    Teilnahme an Anti-Phishing-Programm
+                                </span>
+                            </td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="content-body-box">
+                    <span id="m0-03" class="markable">Hallo Hayden Ackerperson,</span><br><br>
+                    <span id="m0-04" class="markable">vielen Dank für die Anmeldung zu unserem Anti-Phishing-Programm!</span><br>
+                    <span id="m0-05" class="markable">Wir benötigen Ihre Mithilfe zur Verbesserung unserer Phishing-Erkennung. Wir haben Ihren Account für dieses Wochenende in den <b>Super-Sicher</b> Modus (TM) für Experten versetzt. Das bedeutet, dass wir den allgemeinen Phishing-Schutz deaktiviert haben und alle E-Mails an Sie durchgelassen werden.</span><br><br>
+                    <span id="m0-06" class="markable">Nutzen Sie bitte den patentierten <b>Super-Sicher</b> Markierstift (TM), um Phishing-Inhalte zu kennzeichnen. Dabei müssen alle verdächtigen Elemente markiert und via <i>Überprüfen</i> zur Kontrolle an uns gesendet werden.</span><br><br>
+                    <div id="m0-07" class="markable">
+                        Beispiele für verdächtige Elemente sind:
+                        <ul>
+                            <li>Texte mit auffällig schlechter Rechtschreibung oder Grammatik</li>
+                            <li>Namen und E-Aail Adressen von Absendern, die nicht zueinander passen</li>
+                            <li>Anhänge mit offensichtlich falschen Dateiendungen</li>
+                            <li>Leicht veränderte Webseiten-Namen in Links</li>
+                            <li>Aufforderungen, empfindliche persönliche Daten preiszugeben</li>
+                        </ul>
+                    </div>
+                    <span id="m0-08" class="markable">Vielen Dank für Ihre Unterstützung!</span><br><br>
+                    <span id="m0-09" class="markable">Freundliche Grüße<br>
+                    Das Super-Sicher Mail Team</span>
+                </div>
+            </div>
+            {% if difficulty == 0 %}
+            <div id="content-mail-01" class="content-box">
+                <div class="content-header-box">
+                    <table class="content-header-table">
+                        <tr>
+                            <td class="content-header-th">
+                                Absender:
+                            </td>
+                            <td>
+                                <span id="m1-00" class="markable">
+                                    Peter Illermann &lt;p.illermann@susi-mail.net&gt;
+                                </span>
+                            </td>
+                            <td class="content-header-date">
+                                27.05.2023, 04:39
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="content-header-th">
+                                Empfänger:
+                            </td>
+                            <td>
+                                <span id="m1-01" class="markable">
+                                    Hayden Ackerperson &lt;h.ackerperson@susi-mail.net&gt;
+                                </span>
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="content-header-th">
+                                Betreff:
+                            </td>
+                            <td>
+                                <span id="m1-02" class="markable">
+                                    Du bist doof
+                                </span>
+                            </td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="content-body-box">
+                    <span id="m1-03" class="markable">Hallo Hayden,</span><br><br>
+                    <span id="m1-04" class="markable">nach unserem letzten Gespräch bin ich zum Schluss gekommen,<br>
+                    dass du sehr doof bist.</span><br><br>
+                    <span id="m1-05" class="markable">Hochachtungsvoll<br>
+                    Peter Illermann<br>
+                    Diplom-Ökonom</span>
+                </div>
+            </div>
+            <div id="content-mail-02" class="content-box">
+                <div class="content-header-box">
+                    <table class="content-header-table">
+                        <tr>
+                            <td class="content-header-th">
+                                Absender:
+                            </td>
+                            <td>
+                                <span id="m2-00" class="markable">Glückslotterie &lt;bashdhqwek12k3jja@ajskqwkejqwe.ru&gt;</span>
+                            </td>
+                            <td class="content-header-date">
+                                26.05.2023, 21:59
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="content-header-th">
+                                Empfänger:
+                            </td>
+                            <td>
+                                <span id="m2-01" class="markable">Hayden Ackerperson &lt;h.ackerperson@susi-mail.net&gt;</span>
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="content-header-th">
+                                Betreff:
+                            </td>
+                            <td>
+                                <span id="m2-02" class="markable">Sie hat gewonen!</span>
+                            </td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="content-body-box">
+                    <div id="m2-win-text">
+                        <div id="m2-03" class="markable">
+                            Glückswunsh, Sie hat gewonen!<br>
+                            Holen Sie jetzt Gewinn:
+                        </div>
+                        <div id="m2-04" class="link pointer-cursor markable">
+                            &lt;&lt;&lt; Hier kliken &gt;&gt;&gt;
+                        </div>
+                    </div>
+                    <div id="m2-04-link-hover" class="link-hover">http://www.ajskqwkejqwe.ru/malware.exe</div>
+                </div>
+            </div>
+            <div id="content-mail-03" class="content-box">
+                <div class="content-header-box">
+                    <table class="content-header-table">
+                        <tr>
+                            <td class="content-header-th">
+                                Absender:
+                            </td>
+                            <td>
+                                <span id="m3-00" class="markable">Marianne Itarbei-Terin &lt;m.iterbei-terin@susi-mail.net&gt;</span>
+                            </td>
+                            <td class="content-header-date">
+                                25.05.2023, 15:55
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="content-header-th">
+                                Empfänger:
+                            </td>
+                            <td>
+                                <span id="m3-01" class="markable">Hayden Ackerperson &lt;h.ackerperson@susi-mail.net&gt;</span>
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="content-header-th">
+                                Betreff:
+                            </td>
+                            <td>
+                                <span id="m3-02" class="markable">Meeting Mitschrift 24.05.2023</span>
+                            </td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="content-body-box">
+                    <span id="m3-03" class="markable">Hallo Hayden,</span><br><br>
+                    <span id="m3-04" class="markable">anbei findest du die Mitschrift unseres letzten Meetings.<br>
+                    Bitte lies einmal darüber, damit wir das im Intranet veröffentlichen können.</span><br><br>
+                    <span id="m3-05" class="markable">Besten Dank<br>
+                    Marianne</span>
+                </div>
+                <div class="content-attachments">
+                    <div id="m3-06" class="attachment markable pointer-cursor">
+                        <img class="attachment-icon" src="/static/images/word.png">Mitschrift_2023-05-24.docx
+                    </div>
+                </div>
+            </div>
+            <div id="content-mail-04" class="content-box">
+                <div class="content-header-box">
+                    <table class="content-header-table">
+                        <tr>
+                            <td class="content-header-th">
+                                Absender:
+                            </td>
+                            <td>
+                                <span id="m4-00" class="markable">dein koleg frank &lt;dein-koleg-frank@qopwpiep21.xyz&gt;</span>
+                            </td>
+                            <td class="content-header-date">
+                                25.05.2023, 03:13
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="content-header-th">
+                                Empfänger:
+                            </td>
+                            <td>
+                                <span id="m4-01" class="markable">Hayden Ackerperson &lt;h.ackerperson@susi-mail.net&gt;</span>
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="content-header-th">
+                                Betreff:
+                            </td>
+                            <td>
+                                <span id="m4-02" class="markable">richtigg wiechtig dokumennt</span>
+                            </td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="content-body-box">
+                    <span id="m4-03" class="markable">hi h.ackerperson,</span><br><br>
+                    <span id="m4-04" class="markable">hier ist richtigg wiechtig dokument wie sie wollen.<br>
+                    oefne sie annangg shnel.</span><br><br>
+                    <span id="m4-05" class="markable">hgdgl<br>
+                    dein koleg frank</span>
+                </div>
+                <div class="content-attachments">
+                    <div id="m4-06" class="attachment markable pointer-cursor">
+                        <img class="attachment-icon" src="/static/images/exe.png">wiechtig-dokument.exe
+                    </div>
+                </div>
+            </div>
+            <div id="content-mail-05" class="content-box">
+                <div class="content-header-box">
+                    <table class="content-header-table">
+                        <tr>
+                            <td class="content-header-th">
+                                Absender:
+                            </td>
+                            <td>
+                                <span id="m5-00" class="markable">service@paypal.de &lt;service@paypal.de&gt;</span>
+                            </td>
+                            <td class="content-header-date">
+                                24.05.2023, 11:01
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="content-header-th">
+                                Empfänger:
+                            </td>
+                            <td>
+                                <span id="m5-01" class="markable">Hayden Ackerperson &lt;h.ackerperson@susi-mail.net&gt;</span>
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="content-header-th">
+                                Betreff:
+                            </td>
+                            <td>
+                                <span id="m5-02" class="markable">Beleg für Ihre Zahlung an www.steampowered.com</span>
+                            </td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="content-body-box">
+                    <div id="m5-text-box">
+                        <span id="m5-03" class="markable">Hallo Hayden Ackerperson!</span>
+                        <img id="m5-04" class="markable" src="/static/images/pp-logo.png">
+                        <span id="m5-05" class="markable">Sie haben eine Zahlung über €4,99 EUR an www.steampowered.com gesendet</span>
+                        <div id="m5-06" class="markable link pointer-cursor">Zahlung anzeigen oder verwalten</div>
+                        <span id="m5-07" class="markable">Wir buchen den Betrag innerhalb von ein bis zwei Werktagen von Ihrem Bankkonto ab. Achten Sie bitte darauf, dass Ihr Bankkonto ausreichend gedeckt ist, damit keine Gebühren anfallen.</span>
+                        <span id="m5-08" class="markable">Probleme mit dieser Transaktion?<br>
+                        Sie haben 180 Tage ab dem Datum der Transaktion Zeit, ein Problem unter "Konfliktlösungen" zu melden.</span>
+                        <img id="m5-09" class="markable" src="/static/images/pp-logo2.png">
+                    </div>
+                    <div id="m5-06-link-hover" class="link-hover">https://www.paypal.com/cgp/app-redirect?ref_id=458DE42S4566WAA1</div>
+                </div>
+            </div>
+            {% elif difficulty == 1 %}
+            <div id="content-mail-01" class="content-box">
+                <div class="content-header-box">
+                    <table class="content-header-table">
+                        <tr>
+                            <td class="content-header-th">
+                                Absender:
+                            </td>
+                            <td>
+                                <span id="m1-00" class="markable">MediaMarkt Onlineshop &lt;onlineshop@medimarkt.de&gt;</span>
+                            </td>
+                            <td class="content-header-date">
+                                26.05.2023, 01:59
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="content-header-th">
+                                Empfänger:
+                            </td>
+                            <td>
+                                <span id="m1-01" class="markable">Hayden Ackerperson &lt;h.ackerperson@susi-mail.net&gt;</span>
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="content-header-th">
+                                Betreff:
+                            </td>
+                            <td>
+                                <span id="m1-02" class="markable">Mahnung! Rechnung - Bestellung 18403583</span>
+                            </td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="content-body-box">
+                    <img id="m1-03" class="markable" src="/static/images/mm-logo.png">
+                    <div id="m1-text-box">
+                        <span id="m1-04" class="markable">Hallo Hayden Ackerperson,</span><br><br>
+                        <span id="m1-05" class="markable">dies ist die erste Mahnung zur Rechnung Ihrer Bestellung mit der Bestellnummer 18403583.<br>
+                        Überweisen Sie den folgenden Betrag zzgl. der Mahnungskosten bis zum 02.07.2023 auf das untenstehende Konto.</span><br>
+                        <div id="m1-detail-box">
+                            <table id="m1-06" class="markable">
+                                <tr>
+                                    <th>Menge</th>
+                                    <th>Bezeichnung</th>
+                                    <th>Summe</th>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>LG OLED88Z29LA OLED TV</td>
+                                    <td>24.999,00 EUR</td>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Mahnungskosten</td>
+                                    <td>249,99 EUR</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <span id="m1-07" class="markable">Weitere Details entnehmen Sie bitte der dem Anhang beigefügten Rechnung.</span><br><br>
+                        <span id="m1-08" class="markable">Mit freundlichen Grüßen<br>
+                        <b>Ihr MediaMarkt.de Team</b></span>
+                    </div>
+                    <img id="m1-09" class="markable" src="/static/images/mm-logo.png">
+                </div>
+                <div class="content-attachments">
+                    <div id="m1-10" class="attachment markable pointer-cursor">
+                        <img class="attachment-icon" src="/static/images/exe.png">Rechnung-18403583.pdf.exe
+                    </div>
+                </div>
+            </div>
+            <div id="content-mail-02" class="content-box">
+                <div class="content-header-box">
+                    <table class="content-header-table">
+                        <tr>
+                            <td class="content-header-th">
+                                Absender:
+                            </td>
+                            <td>
+                                <span id="m2-00" class="markable">eBay - topseller123 &lt;1cfe837472c9283@members.ebay.com&gt;</span>
+                            </td>
+                            <td class="content-header-date">
+                                25.05.2023, 18:45
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="content-header-th">
+                                Empfänger:
+                            </td>
+                            <td>
+                                <span id="m2-01" class="markable">Hayden Ackerperson &lt;h.ackerperson@susi-mail.net&gt;</span>
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="content-header-th">
+                                Betreff:
+                            </td>
+                            <td>
+                                <span id="m2-02" class="markable">Rechnung zu Ihrer Bestellung 20-9383-12543</span>
+                            </td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="content-body-box">
+                    <span id="m2-03" class="markable">Sehr geehrte Damen und Herren,</span><br><br>
+                    <span id="m2-04" class="markable">
+                        vielen Dank für Ihren Einkauf bei SellerX Commerce.<br>
+                        Bestellnummer: 20-9383-12543<br>
+                        Im Anhang finden Sie Ihre Rechnung.
+                    </span><br><br>
+                    <span id="m2-05" class="markable">
+                        Mit freundlichen Grüßen<br>
+                        Ihr SellerX Commerce Kundenservice-Team
+                    </span>
+                </div>
+                <div class="content-attachments">
+                    <div id="m2-06" class="attachment markable pointer-cursor">
+                        <img class="attachment-icon" src="/static/images/pdf.png">RE230244223.pdf
+                    </div>
+                </div>
+            </div>
+            <div id="content-mail-03" class="content-box">
+                <div class="content-header-box">
+                    <table class="content-header-table">
+                        <tr>
+                            <td class="content-header-th">
+                                Absender:
+                            </td>
+                            <td>
+                                <span id="m3-00" class="markable">Prinz Abimbola Olatunji Adebanjo &lt;abimbola-olatunji@prince-adebanjo.ng&gt;</span>
+                            </td>
+                            <td class="content-header-date">
+                                24.05.2023, 23:45
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="content-header-th">
+                                Empfänger:
+                            </td>
+                            <td>
+                                <span id="m3-01" class="markable">Hayden Ackerperson &lt;h.ackerperson@susi-mail.net&gt;</span>
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="content-header-th">
+                                Betreff:
+                            </td>
+                            <td>
+                                <span id="m3-02" class="markable">Wichtige Angelegenheit - Ihre Hilfe benötigt</span>
+                            </td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="content-body-box">
+                    <span id="m3-03" class="markable">Sehr geehrte*r Hayden Ackerperson,</span><br><br>
+                    <span id="m3-04" class="markable">Ich hoffe, diese E-Mail findet Sie bei bester Gesundheit und in guter Stimmung. Mein Name ist Prinz Abimbola Olatunji Adebanjo und ich schreibe Ihnen aus Nigeria. Ich habe von einer zuverlässigen Quelle erfahren, dass Sie eine ehrliche und vertrauenswürdige Person sind, die mir bei einer wichtigen Angelegenheit helfen kann.</span><br><br>
+                    <span id="m3-05" class="markable">Mein Vater, König Adetokunbo Olusegun Adeolu, ist vor kurzem verstorben und hat mir ein immenses Erbe hinterlassen. Es besteht aus Gold, Diamanten und Bargeld in Höhe von über 10 Millionen Dollar. Leider ist mein Konto derzeit eingefroren, und ich habe keinen Zugriff auf das Erbe. Ich benötige dringend Ihre Hilfe, um das Erbe zu erhalten.</span><br><br>
+                    <div id="m3-06" class="markable">
+                        Um dies zu tun, benötige ich Ihre Unterstützung, um meine persönlichen Daten und Dokumente bei der Bank zu aktualisieren. Die Bank benötigt eine Kopie Ihres Personalausweises sowie folgende persönliche Informationen:
+                        <ul>
+                            <li>Ihr vollständiger Name</li>
+                            <li>Ihr Geburtsdatum</li>
+                            <li>Ihre Anschrift</li>
+                            <li>Ihre Telefonnummer</li>
+                            <li>Ihre Steuer-ID-Nummer</li>
+                            <li>Bankdaten (IBAN/BIC-Nummer)</li>
+                        </ul>
+                    </div>
+                    <span id="m3-07" class="markable">Sobald dies abgeschlossen ist, wird das Erbe auf Ihr Bankkonto überwiesen und Sie erhalten einen Teil des Geldes als Dankeschön.</span><br><br>
+                    <span id="m3-08" class="markable">Ich vertraue darauf, dass Sie mir bei diesem Vorhaben helfen werden, da es dringend ist und ich nicht viel Zeit habe. Bitte lassen Sie mich so bald wie möglich wissen, ob Sie mir helfen können, indem Sie mir die benötigten Informationen und Dokumente zur Verfügung stellen.</span><br><br>
+                    <span id="m3-09" class="markable">Ich bedanke mich im Voraus für Ihre Hilfe und stehe Ihnen für weitere Informationen zur Verfügung.</span><br><br>
+                    <span id="m3-10" class="markable">Mit freundlichen Grüßen<br>                    
+                    Prinz Abimbola Olatunji Adebanjo</span>
+                </div>
+            </div>
+            <div id="content-mail-04" class="content-box">
+                <div class="content-header-box">
+                    <table class="content-header-table">
+                        <tr>
+                            <td class="content-header-th">
+                                Absender:
+                            </td>
+                            <td>
+                                <span id="m4-00" class="markable">service@paypal.de &lt;service@papyal.de&gt;</span>
+                            </td>
+                            <td class="content-header-date">
+                                22.05.2023, 12:51
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="content-header-th">
+                                Empfänger:
+                            </td>
+                            <td>
+                                <span id="m4-01" class="markable">Hayden Ackerperson &lt;h.ackerperson@susi-mail.net&gt;</span>
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="content-header-th">
+                                Betreff:
+                            </td>
+                            <td>
+                                <span id="m4-02" class="markable">Login mit neuem Gerät</span>
+                            </td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="content-body-box">
+                    <div id="m4-text-box">
+                        <span id="m4-03" class="markable">Hallo Hayden Ackerperson!</span>
+                        <img id="m4-04" class="markable" src="/static/images/pp-logo.png">
+                        <span id="m4-05" class="markable">Login mit neuem Gerät</span>
+                        <span id="m4-06" class="markable">Auf Ihr PayPal-Konto wurde mit einem neuen Gerät zugegriffen, h.ackerperson@susi-mail.net:</span>
+                        <div id="m4-07" class="markable m4-info-box">
+                            <img src="/static/images/pp-system.png" class="m4-symbol">Firefox Windows 10
+                        </div>
+                        <div id="m4-08" class="markable m4-info-box">
+                            <img src="/static/images/pp-location.png" class="m4-symbol">bochum by de
+                        </div>
+                        <div id="m4-09" class="markable m4-info-box">
+                            <img src="/static/images/pp-time.png" class="m4-symbol">22-May-2023 12:50 PM CEST
+                        </div>
+                        <span id="m4-10" class="markable">Wenn Sie das waren:
+                            <ul><li>Müssen Sie nichts weiter tun. Wir merken uns dieses Gerät, damit Sie schneller mit Ihrem PayPal-Konto bezahlen können.</li></ul>
+                        </span>
+                        <span id="m4-11" class="markable">Wenn das nicht Sie waren:
+                            <ul>
+                                <li><span id="m4-l0" class="link pointer-cursor">Ändern Sie Ihr Passwort</span> umgehend und prüfen Sie Ihr Konto auf unbefugte Kontozugriffe.</li>
+                                <li>Entfernen Sie dieses Gerät aus Ihrem Konto in den <span id="m4-l1" class="link pointer-cursor">PayPal-Einstellungen</span>.</li>
+                            </ul>
+                        </span>
+                        <img id="m4-12" class="markable" src="/static/images/pp-logo2.png">
+                    </div>
+                    <div id="m4-l0-link-hover" class="link-hover">https://www.papyal.com/login</div>
+                    <div id="m4-l1-link-hover" class="link-hover">https://www.papyal.com/login</div>
+                </div>
+            </div>
+            {% endif %}
+            <div id="footer-box">
+                Super-Sicher Mail - Denn mit uns kann Ihnen gar nichts passieren. Klicken Sie. Na los!
+            </div>
+        </div>
+        <a id="github-link" href="https://github.com/pkemkes/ctf-challenges">GitHub</a>
+        <script src="/static/scripts/script.js"></script>
+    </body>
+</html>

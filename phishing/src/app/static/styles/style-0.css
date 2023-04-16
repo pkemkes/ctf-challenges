@@ -1,0 +1,91 @@
+#content-mail-02 .content-body-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#m2-win-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: Comic Sans MS, Comic Sans, cursive;
+}
+
+#m2-03 {
+    font-size: 30px;
+    background-image: linear-gradient(to left, violet, indigo, blue, green, yellow, orange, red);
+    background-clip: text;
+    -webkit-background-clip: text;
+    padding: 10px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    color: transparent;
+}
+
+#m2-03.marked {
+    background-image: none !important;
+    background-clip: unset !important;
+    -webkit-background-clip: unset !important;
+    color: white !important;
+}
+
+#m2-03.markable-hover:hover {
+    background-image: none !important;
+    background-clip: unset !important;
+    -webkit-background-clip: unset !important;
+    color: black !important;
+}
+
+#m2-04 {
+    margin-top: 30px;
+    font-size: 20px;
+    color: blue;
+}
+
+#content-mail-05 .content-body-box {
+    background-color: #FAF8F5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#m5-text-box {
+    margin: 10px 25% 10px 25%;
+    display: flex;
+    flex-direction: column;
+}
+
+#m5-03 {
+    font-weight: bold;
+}
+
+#m5-04 {
+    width: 60px;
+}
+
+#m5-05 {
+    padding: 10px;
+    font-size: 30px;
+    font-weight: bold;
+    color: rgb(0, 0, 100);
+}
+
+#m5-06 {
+    background-color: rgb(0, 0, 100);
+    color: white;
+    padding: 10px 20px 10px 20px;
+    font-weight: bold;
+    border-radius: 20px;
+    margin: 5px 5px 15px 5px;
+    width: 300px;
+    text-align: center;
+}
+
+#m5-07 {
+    margin-bottom: 10px;
+}
+
+#m5-09 {
+    width: 400px;
+}
