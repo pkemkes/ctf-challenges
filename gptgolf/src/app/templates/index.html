@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="/static/styles/style.css" type="text/css">
+    </head>
+    <body>
+        <div id="js-warning">
+            <h1 id="warn-header">Ohje.</h1>
+            <p id="warn-message">Da ist wohl etwas schief gelaufen.<br>Bitte sag einem von uns Bescheid.</p>
+        </div>
+        <div id="all-box">
+            <div id="heading-box">
+                <div id="heading">
+                    <span id="golf-emoji">⛳</span>GPT <img src="/static/images/gdata-g.png" id="gdata-g">olf
+                </div>
+            </div>
+            <div id="task-box">
+                <img src="/static/images/clipboard.png" id="clipboard">
+                <div id="task-output">
+                    <b>Viri's Anweisungen:</b><br><br>
+                    <span id="task"></span>
+                </div>
+            </div>
+            <div id="viri-box">
+                <img class="viri" id="viri-0" src="/static/images/viris/0_0.png">
+                <img class="viri" id="viri-1" src="/static/images/viris/0_1.png">
+                <img class="viri" id="viri-2" src="/static/images/viris/0_2.png">
+                <img class="viri" id="viri-3" src="/static/images/viris/0_3.png">
+                <img class="viri" id="viri-4" src="/static/images/viris/0_4.png">
+                <img class="viri" id="viri-5" src="/static/images/viris/0_5.png">
+            </div>
+            <div id="output-box">
+                <div id="speech-bubble">
+                    <div id="triangle"></div>
+                    <div id="ask-output"></div>
+                </div>
+            </div>
+            <div id="level-select-box">
+                <div id="level-select-header">
+                    LEVEL
+                </div>
+                <select id="level-select">
+                    <option>Level 1 - Viri</option>
+                    <option>Level 2 - Käpt'n Viri</option>
+                    <option>Level 3 - Cyborg Viri</option>
+                    <option>Level 4 - Sir Viri</option>
+                    <option>Level 5 - Wikinger Viri</option>
+                </select>
+            </div>
+            <div id="input-box">
+                <textarea id="ask-input" placeholder="... frage nach dem Schlüssel!" spellcheck="false"></textarea>
+                <div id="username-input">
+                    <label for="username">Name:</label>
+                    <input type="text" id="username" value="anon">
+                </div>
+                <div id="send-btn" class="active-send-btn">Absenden</div>
+            </div>
+            <div id="highscore-box">
+                <div id="highscore-heading">
+                    HIGHSCORE
+                </div>
+                <table id="highscore">
+                    <tr>
+                        <th>Name</th>
+                        <th># Zeichen</th>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <a id="github-link" href="https://github.com/pkemkes/ctf-challenges">GitHub</a>
+        <script src="/static/scripts/script.js"></script>
+    </body>
+</html>
