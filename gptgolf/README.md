@@ -2,32 +2,38 @@
 
 ## Description:
 
-This challenge simulates an in-browser e-mail client. The player has to correctly identify all aspects of the phishing mails by selecting them with a special "marker" cursor.
+This challenge is inspired by this variant of GPT Trick Golf: https://ggpt.43z.one/
 
-This is a challenge for beginners with 2 difficulty settings. The only difference are the mails that are present. The phishing mails of the second difficulty setting are a lot more sophisticated.
+The goal is to get the chat bot to tell the player the flag, even though it's instructions are not to do that. There are 5 difficutly settings, all included in the same instance.
 
 ## Setting up the challenge:
 
-Build the docker image using the provided Dockerfile or use the image provided on DockerHub ([pkemkes/ctf-phishing](https://hub.docker.com/repository/docker/pkemkes/ctf-phishing/general)).
+Build the docker image using the provided Dockerfile or use the image provided on DockerHub ([pkemkes/ctf-gptgolf](https://hub.docker.com/repository/docker/pkemkes/ctf-gptgolf/general)).
 
-There are three important environment value that should be set when deploying the image on your challenge server:
+There are two important environment value that should be set when deploying the image on your challenge server:
 
 | Name | Default | Description |
 |--------|--------|---|
-| DIFFICULTY | 0 | Determines the difficulty of the challengen. Possible values: 0, 1 |
-| FLAG | flag{replace-me-with-your-flag} | The flag that is displayed when the challenge is won. Replace this with your flag that is registered in your CTF server. |
+| FLAGS | flag{example0},flag{example1},flag{example2},flag{example3},flag{example4} | The comma-separated flags that are displayed when the challenge is won. Replace this with your flags that are registered in your CTF server. |
+| DATADIR | /var/www/data | This is the directory used to store the highscore data. You should create a volume for this path, if you want to persist the data between restarts. |
 
 ### Example docker-compose.yml:
 
 ```yaml
-ctf-phishing-0:
-    image: pkemkes/ctf-phishing
-    container_name: ctf-phishing-0
+ctf-gptgolf:
+    image: pkemkes/ctf-gptgolf
+    container_name: ctf-gptgolf
     restart: always
     environment:
-        - FLAG=flag{th1s-1s-n0t-s3cur3}
+        - FLAGS=flag{f0},flag{f1},flag{f2},flag{f3},flag{f4}
     ports:
         - "80:80"
+    volumes:
+        - ctf-gptgolf:/var/www/data
+
+volumes:
+    ctf-gptgolf:
+        driver: local
 ```
 
 ## Screenshot:

@@ -4,7 +4,7 @@ ENV PYTHONUNBUFFERED=1
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV FLASK_DEBUG=0
 
-ENV FLAGS="flag{PlPmcRT8},flag{mhXEY7Bi},flag{ipLYRIZ9},flag{sIccoukA},flag{kwwVxNUV}"
+ENV FLAGS="flag{example0},flag{example1},flag{example2},flag{example3},flag{example4}"
 ENV DATADIR="/var/www/data"
 
 WORKDIR /usr/bin/gptgolf/src

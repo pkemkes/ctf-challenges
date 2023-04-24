@@ -8,3 +8,4 @@ Currently available challenges:
 - [crypto](./crypto/)
 - [passwords](./passwords/)
 - [phishing](./phishing/)
+- [gptgolf](./gptgolf/)
