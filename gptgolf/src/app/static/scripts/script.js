@@ -167,7 +167,7 @@ async function Ask() {
     }
     let respData = await resp.json();
     await Say(respData);
-    if (respData.win) {
+    if (respData.w) {
         await new Promise(r => setTimeout(r, 1000));
         await LoadHighscore();
         SetWinSpeechBubble();

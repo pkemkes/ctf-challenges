@@ -6,6 +6,9 @@ from flask import render_template, Response, request, jsonify
 from queue import Queue
 from threading import Thread
 import openai
+import json_logging
+import logging
+import sys
 
 
 prompts = [
@@ -72,6 +75,10 @@ openai.api_key = APIKEY
 HIGHSCORE_Q = Queue()
 WORKER = Thread(target=write_to_highscore)
 WORKER.start()
+json_logging.init_non_web(enable_json=True)
+logger = logging.getLogger("prompt-logger")
+logger.setLevel(logging.INFO)
+logger.addHandler(logging.FileHandler(os.path.join(DATADIR, "prompts.log")))
 
 
 def str_to_int(number: str) -> Optional[int]:
@@ -99,9 +106,12 @@ def ask() -> Response:
     else:
         a, f = send_prompt(l, q)
         data = { "a": a, "f": f }
-    if "a" in data and FLAGS[l].lower() in data["a"].lower():
-        data["win"] = True
+    data["w"] = "a" in data and FLAGS[l].lower() in data["a"].lower()
+    if data["w"]:
         HIGHSCORE_Q.put((u, len(q), l))
+    log_data = { "q": q, "u": u, "l": l }
+    log_data.update(data)
+    logger.info("Sent prompt", extra={"props": log_data})
     return jsonify(data), 400 if "error" in data else 200
 
 
