@@ -140,7 +140,7 @@ body {
 
 #ask-input {
     width: 90%;
-    margin: 20px auto 20px auto;
+    margin: 10px auto 10px auto;
     background-color: rgb(255, 246, 168);
     box-shadow: 5px 5px 5px grey;
     border: none;
@@ -154,6 +154,7 @@ body {
 
 #username-input {
     display: grid;
+    margin-top: 10px;
     grid-template-columns: 1fr 224px 1fr;
 }
 
