@@ -4,11 +4,13 @@ ENV PYTHONUNBUFFERED=1
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV FLASK_DEBUG=0
 
-ENV FLAGS="flag{example0},flag{example1},flag{example2},flag{example3},flag{example4}"
+ENV FLAG1="flag{replace-me-with-your-first-flag}"
+ENV FLAG2="flag{replace-me-with-your-second-flag}"
 ENV DATADIR="/var/www/data"
 
-WORKDIR /usr/bin/gptgolf/src
+WORKDIR /usr/bin/zwitscher/src
 COPY ./src/requirements.txt ./
+COPY ./assets/pfp/* $DATADIR/pfp/
 
 RUN pip install -r requirements.txt
 

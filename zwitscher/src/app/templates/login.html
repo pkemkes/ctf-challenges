@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="/static/styles/style.css" type="text/css">
+        <link rel="stylesheet" href="/static/styles/login.css" type="text/css">
+    </head>
+    <body>
+        <div id="js-warning">
+            <h1 id="warn-header">Ohje.</h1>
+            <p id="warn-message">Da ist wohl etwas schief gelaufen.<br>Bitte sag einem von uns Bescheid.</p>
+        </div>
+        <script src="/static/scripts/script.js"></script>
+        <div id="login-box">
+            <img id="logo" src="/static/images/bird-white.png">
+            <div id="text">Bei Zwitscher <span id="text-verb">einloggen</span></div>
+            <form method="POST" action="/login" id="form">
+                <input class="field" type="text" name="username" placeholder="Benutzername" autofocus>
+                <input class="field" type="password" name="password" placeholder="Passwort">
+                <input id="submit-btn" class="button" type="submit" value="Einloggen">
+                <input id="switch-btn" class="button" type="button" value="Registrieren">
+            </form>
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div id="error-msg">
+                    {% for message in messages %}
+                        <div class="error">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            {% endwith %}
+        </div>
+        <a id="github-link" href="https://github.com/pkemkes/ctf-challenges">GitHub</a>
+        <script src="/static/scripts/login.js"></script>
+    </body>
+</html>
