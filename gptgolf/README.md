@@ -1,4 +1,4 @@
-# GPT Golf Challange
+# GPT Golf Challenge
 
 ## Description:
 

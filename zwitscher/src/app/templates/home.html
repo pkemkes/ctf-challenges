@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="/static/styles/style.css" type="text/css">
+        <link rel="stylesheet" href="/static/styles/home.css" type="text/css">
+    </head>
+    <body>
+        <div id="js-warning">
+            <h1 id="warn-header">Ohje.</h1>
+            <p id="warn-message">Da ist wohl etwas schief gelaufen.<br>Bitte sag einem von uns Bescheid.</p>
+        </div>
+        <script src="/static/scripts/script.js"></script>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div id="error-box">
+                {% for message in messages %}
+                    <div class="error">{{ message }}</div>
+                {% endfor %}
+                <div id="close-btn">Okay</div>
+            </div>
+        {% endif %}
+        {% endwith %}
+        <div id="all-box">
+            <div id="left-sidebar">
+                <img id="logo" src="/static/images/bird-white.png">
+                <div class="sidebar-elem" id="feed-btn">Hauptseite</div>
+                <div class="sidebar-elem" id="profile-btn">Profil</div>
+                <div class="sidebar-elem" id="logout-btn">Logout</div>
+            </div>
+            <div id="feed">
+                <div id="header">
+                    {% if mode == "zwitsches" %}
+                        Hauptseite
+                    {% elif mode == "search" %}
+                        Suche nach "<span id="search-q"></span>"
+                    {% elif mode == "profile" %}
+                        Profil
+                    {% elif mode == "edit" %}
+                        Profil bearbeiten
+                    {% endif %}
+                </div>
+                {% if mode == "zwitsches" %}
+                    <div id="zwitsch-send-box">
+                        <form id="zwitsch-form" action="/zwitsch" method="POST">
+                            <textarea maxlength="280" autofocus id="zwitsch-input" name="text" placeholder="Was gibt's neues?"></textarea>
+                            <div id="max-char-display">
+                                <span id="current-chars">0</span> / 280
+                            </div>
+                            <input id="zwitsch-submit" type="submit" value="Zwitsch">
+                        </form>
+                    </div>
+                {% elif mode == "profile" %}
+                    <div id="profile">
+                        <span id="user-id" hidden>{{ user_id }}</span>
+                        <img id="pfp" src="/pfp/{{ userinfo[2] }}">
+                        <div id="nickname">{{ userinfo[0] }}</div>
+                        <div id="username">@{{ userinfo[1] }}</div>
+                        {% if is_own_profile %}
+                            <div id="edit-btn">Profil bearbeiten</div>
+                        {% endif %}
+                    </div>
+                {% elif mode == "edit" %}
+                    <form id="profile" action="/update-user" method="POST" enctype="multipart/form-data">
+                        <span id="user-id" hidden>{{ user_id }}</span>
+                        <img id="pfp" src="/pfp/{{ userinfo[2] }}">
+                        <input type="file" name="pfp" id="pfp-edit">
+                        <input type="text" id="nickname-edit" name="nickname" value="{{ userinfo[0] }}">
+                        <div id="username-edit">@{{ userinfo[1] }}</div>
+                        <textarea id="secret-note" name="secret" placeholder="Private Notiz">{{ secret }}</textarea>
+                        <input type="submit" id="edit-submit" value="Speichern">
+                    </form>
+                {% endif %}
+                <span id="zwitsch-count" hidden>{{ z_len }}</span>
+                <div id="zwitsches">
+                    {% for zwitsch in zwitsches %}
+                        <div class="zwitsch">
+                            <span class="zwitsch-id" hidden>{{ zwitsch[0] }}</span>
+                            <span class="user-id" hidden>{{ zwitsch[2] }}</span>
+                            <img class="pfp" src="/pfp/{{ zwitsch[7] }}">
+                            <div class="top-line">
+                                <div class="nickname">{{ zwitsch[5] }}</div>
+                                <div class="username">@{{ zwitsch[6] }}</div>
+                                <div class="timestamp">{{ zwitsch[3] }}</div>
+                            </div>
+                            <div class="text">{{ zwitsch[1]|safe }}</div>
+                            <div class="likes">
+                                <img class="like-btn" src="/static/images/not-liked.png">
+                                <span class="like-count">{{ zwitsch[8] }}</span>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div id="zwitsch-page-select">
+                    <div class="page-selector" id="current"></div>
+                </div>
+            </div>
+            <div id="right-sidebar">
+                <form id="search" action="/" method="GET">
+                    <input name="q" id="search-field" type="search" placeholder="Durchsuche Zwitscher">
+                    <input type="submit" id="search-btn" value="🔍">
+                </form>
+            </div>
+        </div>
+        <a id="github-link" href="https://github.com/pkemkes/ctf-challenges">GitHub</a>
+        <script src="/static/scripts/home.js"></script>
+    </body>
+</html>

@@ -1,0 +1,1 @@
+document.getElementById("js-warning").style.display = "none";

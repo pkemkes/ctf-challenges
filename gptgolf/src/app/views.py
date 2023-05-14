@@ -8,7 +8,6 @@ from threading import Thread
 import openai
 import json_logging
 import logging
-import sys
 
 
 prompts = [
