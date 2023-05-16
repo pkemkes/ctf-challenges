@@ -250,12 +250,22 @@ def create_tables() -> None:
 
 
 def create_init_state() -> None:
-    add_user("admin", FLAG2, True)
-    update_nickname(1, "Leon Moschus")
-    update_pfp(1, "doge.png")
-    update_secret(1, FLAG1)
-    add_zwitsch(Zwitsch(f"Endlich habe ich meine neue Social Media Platform aufgesetzt: Zwitscher 🚀💯", 1, int(datetime.now().timestamp())))
-    add_like(1, 1)
+    with sqlite3.connect(DATABASE_PATH_RO, uri=True) as con:
+        cur = con.cursor()
+        cur.execute("SELECT COUNT(*) FROM users")
+        num_users = cur.fetchone()[0]
+    if num_users == 0:
+        add_user("admin", FLAG2, True)
+        update_nickname(1, "Leon Moschus")
+        update_pfp(1, "doge.png")
+        update_secret(1, FLAG1)
+    with sqlite3.connect(DATABASE_PATH_RO, uri=True) as con:
+        cur = con.cursor()
+        cur.execute("SELECT COUNT(*) FROM zwitsches")
+        num_zwitsches = cur.fetchone()[0]
+    if num_zwitsches == 0:
+        add_zwitsch(Zwitsch(f"Endlich habe ich meine neue Social Media Platform aufgesetzt: Zwitscher 🚀💯", 1, int(datetime.now().timestamp())))
+        add_like(1, 1)
 
 
 def init() -> None:
