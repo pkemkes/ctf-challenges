@@ -8,13 +8,15 @@ This challenge simulates a well known social media platform. It reeks of many we
 
 Build the docker image using the provided Dockerfile or use the image provided on DockerHub ([pkemkes/ctf-zwitscher](https://hub.docker.com/repository/docker/pkemkes/ctf-zwitscher/general)).
 
-There are 3 important environment value that should be set when deploying the image on your challenge server:
+There are 5 important environment value that should be set when deploying the image on your challenge server:
 
 | Name | Default | Description |
 |--------|--------|---|
 | FLAG1 | flag{replace-me-with-your-first-flag} | The comma-separated flag that is displayed when the IDOR challenge is solved. Replace this with your flag that is registered in your CTF server. |
 | FLAG2 | flag{replace-me-with-your-second-flag} | The comma-separated flag that is displayed when the SQLi challenge is solved. Replace this with your flag that is registered in your CTF server. |
 | DATADIR | /var/www/data | This is the directory used to store the database and user data. You should create a volume for this path, if you want to persist the data between restarts. |
+| SOFT_RESET_PATH | /soft-reset | The path in the web application that can be used to delete all messages ("zwitsches") in the system, except the ones created by the admin account. All user accounts will not be changed. You should change this in your deployment, if you do not want your players to find this. |
+| HARD_RESET_PATH | /hard-reset | The path in the web application that can be used to drop all tables from the database and reset the system into its initial state. You should change this in your deployment, if you do not want your players to find this. |
 
 ### Example docker-compose.yml:
 

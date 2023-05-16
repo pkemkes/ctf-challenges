@@ -1,4 +1,5 @@
 import os
+import shutil
 from app import app
 from flask import render_template, Response, request, session, redirect, flash, jsonify, send_from_directory
 import sqlite3
@@ -17,6 +18,12 @@ FLAG2 = os.getenv("FLAG2")
 assert FLAG2 is not None, "FLAG2 is not set!"
 DATADIR = os.getenv("DATADIR")
 assert DATADIR is not None, "DATADIR is not set!"
+SOFT_RESET_PATH = os.getenv("SOFT_RESET_PATH")
+assert SOFT_RESET_PATH is not None, "SOFT_RESET_PATH is not set!"
+HARD_RESET_PATH = os.getenv("HARD_RESET_PATH")
+assert HARD_RESET_PATH is not None, "HARD_RESET_PATH is not set!"
+FLAG1 = os.getenv("FLAG1")
+assert FLAG1 is not None, "FLAG1 is not set!"
 os.makedirs(DATADIR, exist_ok=True)
 DATABASE_PATH = os.path.join(DATADIR, "zwitscher.db")
 DATABASE_PATH_RO = f"file:{DATABASE_PATH}?mode=ro"
@@ -53,7 +60,8 @@ def get_user(username: str, password: str) -> int | None:
         cur = con.cursor()
         try:
             cur.execute(query)
-            return cur.fetchone()
+            result = cur.fetchone()
+            return result if result is None else result[0]
         except sqlite3.Error as e:
             flash(f"Datenbankfehler<br>\"{e}\"<br>bei folgendem Query:<br>{query}")
             return None
@@ -63,7 +71,8 @@ def get_user_safe(username: str, password: str) -> int | None:
     with sqlite3.connect(DATABASE_PATH_RO, uri=True) as con:
         cur = con.cursor()
         cur.execute(f"SELECT user_id FROM users WHERE username = ? AND password = ?", [username, password])
-        return cur.fetchone()[0]
+        result = cur.fetchone()
+    return result if result is None else result[0]
 
 
 def update_nickname(user_id: int, nickname: str) -> None:
@@ -95,7 +104,7 @@ def add_user(username: str, password: str, suppress_flash: bool = False) -> None
                 flash("Dieser Benutzer existiert bereits")
 
 
-def get_userinfo(user_id: int) -> List[any]:
+def get_userinfo(user_id: int) -> List[any] | None:
     with sqlite3.connect(DATABASE_PATH_RO, uri=True) as con:
         cur = con.cursor()
         cur.execute(
@@ -104,7 +113,7 @@ def get_userinfo(user_id: int) -> List[any]:
         return cur.fetchone()
 
 
-def get_secret(user_id: int) -> List[any]:
+def get_secret(user_id: int) -> str:
     with sqlite3.connect(DATABASE_PATH_RO, uri=True) as con:
         cur = con.cursor()
         cur.execute(
@@ -206,6 +215,55 @@ def select_by_page(zwitsches: List[any], p: int | None, z_len: int) -> List[any]
         return zwitsches[:10]
 
 
+def delete_all_zwitsches() -> None:
+    with sqlite3.connect(DATABASE_PATH) as con:
+        cur = con.cursor()
+        cur.execute("DELETE FROM zwitsches WHERE user_id != 1")
+        cur.execute("DELETE FROM likes WHERE zwitsch_id != 1")
+
+
+def drop_all_tables() -> None:
+    with sqlite3.connect(DATABASE_PATH) as con:
+        cur = con.cursor()
+        cur.execute("DROP TABLE IF EXISTS users")
+        cur.execute("DROP TABLE IF EXISTS zwitsches")
+        cur.execute("DROP TABLE IF EXISTS secrets")
+        cur.execute("DROP TABLE IF EXISTS likes")
+
+
+def delete_pfp_dir() -> None:
+    shutil.rmtree(PFPDIR)
+
+
+def create_initial_pfps() -> None:
+    os.makedirs(PFPDIR, exist_ok=True)
+    for fn in os.listdir("pfp"):
+        shutil.copyfile(os.path.join("pfp", fn), os.path.join(PFPDIR, fn))
+
+
+def create_tables() -> None:
+    with open("db_init.sql") as f:
+        db_init_script = f.read()
+    with sqlite3.connect(DATABASE_PATH) as con:
+        cur = con.cursor()
+        cur.executescript(db_init_script)
+
+
+def create_init_state() -> None:
+    add_user("admin", FLAG2, True)
+    update_nickname(1, "Leon Moschus")
+    update_pfp(1, "doge.png")
+    update_secret(1, FLAG1)
+    add_zwitsch(Zwitsch(f"Endlich habe ich meine neue Social Media Platform aufgesetzt: Zwitscher 🚀💯", 1, int(datetime.now().timestamp())))
+    add_like(1, 1)
+
+
+def init() -> None:
+    create_initial_pfps()
+    create_tables()
+    create_init_state()
+
+
 @app.route("/", methods=["GET"])
 def index() -> str:
     if session.get("user_id") is None:
@@ -229,10 +287,12 @@ def login() -> Response:
         flash("Bitte Passwort eingeben")
     else:
         user_id = get_user(username, password)
-        if user_id is not None:
-            session["user_id"] = user_id[0]
-        else:
+        if user_id is None:
             flash("Benutzername oder Passwort falsch")
+        elif user_id == 1:
+            flash("Dieses Benutzerkonto ist vorübergehend deaktiviert.")
+        else:
+            session["user_id"] = user_id
     return redirect("/")
 
 
@@ -293,6 +353,9 @@ def update_user() -> Response:
     user_id = session.get("user_id")
     if user_id is None:
         flash("Konnte angegebenen Benutzer nicht finden")
+        return redirect("/")
+    if user_id == 1:
+        flash("Diese Benutzerkonto ist vorübergehend eingefroren")
         return redirect("/")
     pfp = request.files.get("pfp")
     if pfp is not None and pfp.filename != "":
@@ -363,14 +426,18 @@ def pfp(filename):
     return send_from_directory(PFPDIR, filename)
 
 
-with open("db_init.sql") as f:
-    db_init_script = f.read()
-with sqlite3.connect(DATABASE_PATH) as con:
-    cur = con.cursor()
-    cur.executescript(db_init_script)
-add_user("admin", FLAG2, True)
-update_nickname(1, "Leon Moschus")
-update_pfp(1, "doge.png")
-update_secret(1, FLAG1)
-add_zwitsch(Zwitsch(f"Endlich habe ich meine neue Social Media Platform aufgesetzt: Zwitscher 🚀💯", 1, int(datetime.now().timestamp())))
-add_like(1, 1)
+@app.route(SOFT_RESET_PATH)
+def soft_reset() -> Response:
+    delete_all_zwitsches()
+    return redirect("/")
+
+
+@app.route(HARD_RESET_PATH)
+def hard_reset() -> Response:
+    drop_all_tables()
+    delete_pfp_dir()
+    init()
+    return redirect("/logout")
+
+
+init()
