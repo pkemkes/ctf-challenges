@@ -7,14 +7,15 @@ body {
     z-index: 2;
     left: 0; 
     right: 0;
-    top: 20px;
+    top: 100px;
     margin-left: auto; 
     margin-right: auto; 
-    width: 80%;
-    height: 80vh;
+    width: 400px;
+    height: 250px;
     border: dashed;
+    padding: 0 20px;
     border-color: rgb(255, 100, 100);
-    border-width: 10px;
+    border-width: 7px;
     border-radius: 40px;
     background-color: rgb(255, 158, 158);
     display: flex;
@@ -25,12 +26,11 @@ body {
 }
 
 #warn-header {
-    font-size: 100px;
+    font-size: 50px;
 }
 
 #warn-message {
-    font-size: 40px;
-    margin: 50px;
+    font-size: 20px;
 }
 
 #github-link {
