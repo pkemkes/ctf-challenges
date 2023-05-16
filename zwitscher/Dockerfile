@@ -7,10 +7,11 @@ ENV FLASK_DEBUG=0
 ENV FLAG1="flag{replace-me-with-your-first-flag}"
 ENV FLAG2="flag{replace-me-with-your-second-flag}"
 ENV DATADIR="/var/www/data"
+ENV SOFT_RESET_PATH="/soft-reset"
+ENV HARD_RESET_PATH="/hard-reset"
 
 WORKDIR /usr/bin/zwitscher/src
 COPY ./src/requirements.txt ./
-COPY ./assets/pfp/* $DATADIR/pfp/
 
 RUN pip install -r requirements.txt
 
