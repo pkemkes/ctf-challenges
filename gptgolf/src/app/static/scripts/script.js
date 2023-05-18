@@ -202,4 +202,10 @@ askInput.addEventListener("keypress", e => {
 
 levelSelect.addEventListener("change", LoadLevel);
 
+let preloadLevel = window.location.hash.substring(1);
+if (preloadLevel && preloadLevel >= 1 && preloadLevel <= 5) {
+    levelSelect.selectedIndex = preloadLevel - 1;
+    LoadLevel();
+}
+
 document.getElementById("js-warning").style.display = "none";
