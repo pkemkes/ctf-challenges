@@ -9,7 +9,6 @@ ENV OPTIONAL_ELEMS=""
 
 ENV FLAG="flag{replace-me-with-your-flag}"
 
-
 WORKDIR /usr/bin/phishing/src
 COPY ./src/requirements.txt ./
 
