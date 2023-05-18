@@ -15,6 +15,8 @@ body {
 
 #phone-box {
     width: 370px;
+    border-radius: 30px;
+    box-shadow: 3px 3px 5px grey;
 }
 
 #top-bar {
