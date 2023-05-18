@@ -10,11 +10,13 @@ This is a challenge for beginners with 2 difficulty settings. The only differenc
 
 Build the docker image using the provided Dockerfile or use the image provided on DockerHub ([pkemkes/ctf-phishing](https://hub.docker.com/repository/docker/pkemkes/ctf-phishing/general)).
 
-There are three important environment value that should be set when deploying the image on your challenge server:
+There are four important environment value that should be set when deploying the image on your challenge server:
 
 | Name | Default | Description |
 |--------|--------|---|
-| DIFFICULTY | 0 | Determines the difficulty of the challengen. Possible values: 0, 1 |
+| DIFFICULTY | 0 | Determines the difficulty of the challenge. Possible values: 0, 1 |
+| PHISHING_ELEMS | | Needs to be set with a comma separated list of HTML tags that **must** be marked in order to win the challenge. If these are not marked, the player won't receive the flag. Example: `m2-00,m2-02,m2-04,m4-07` |
+| OPTIONAL_ELEMS | "" | Can be set with a comma separated list of HTML tags to allow optional elements. These are elements that are **not** indicators for a phishing mail, but won't count as "incorrectly marked" and therefore don't prevent the player in receiving the flag. Example: `m2-01,m3-04,m4-05,m6-07` |
 | FLAG | flag{replace-me-with-your-flag} | The flag that is displayed when the challenge is won. Replace this with your flag that is registered in your CTF server. |
 
 ### Example docker-compose.yml:

@@ -17,14 +17,14 @@ def parse_difficulty(difficulty: str) -> int:
 DIFFICULTY = os.getenv("DIFFICULTY")
 assert DIFFICULTY is not None, "DIFFICULTY is not set!"
 DIFFICULTY = parse_difficulty(DIFFICULTY)
+PHISHING_ELEMS = os.getenv("PHISHING_ELEMS")
+assert PHISHING_ELEMS is not None, "PHISHING_ELEMS is not set!"
+phishing_elements = PHISHING_ELEMS.split(",")
+OPTIONAL_ELEMS = os.getenv("OPTIONAL_ELEMS")
+assert OPTIONAL_ELEMS is not None, "OPTIONAL_ELEMS is not set!"
+optional_elements = OPTIONAL_ELEMS.split(",")
 FLAG = os.getenv("FLAG")
 assert FLAG is not None, "FLAG is not set!"
-phishing_elements = [
-        "m2-00", "m2-02", "m2-03", "m2-04",
-        "m4-00", "m4-02", "m4-03", "m4-04", "m4-05", "m4-06"
-    ] if DIFFICULTY == 0 else [
-        "m1-00", "m1-10", "m3-06", "m4-00", "m4-11"
-    ]
 
 
 @app.route("/", methods=["GET"])
@@ -36,7 +36,8 @@ def index() -> Response:
 def check() -> Response:
     marked = request.get_json()
     correct = len([m for m in marked if m in phishing_elements])
-    incorrect = len([m for m in marked if m not in phishing_elements])
+    incorrect = len([m for m in marked if m not in phishing_elements 
+                     and m not in optional_elements])
     missed = len([m for m in phishing_elements if m not in marked])
     data = { "correct": correct, "incorrect": incorrect, "missed": missed }
     if incorrect == 0 and missed == 0:
