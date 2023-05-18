@@ -1,6 +1,7 @@
 from typing import Dict, List
 from dataclasses import dataclass, asdict, field
 from random import gauss
+import json
 
 BASE_A = 50
 BASE_B = 500
@@ -31,6 +32,9 @@ class UserData:
 
     def to_dict(self) -> Dict:
         return asdict(self)
+    
+    def to_json(self) -> str:
+        return json.dumps(self.to_dict())
 
     def new_prices(self):
         self.values_a.append(

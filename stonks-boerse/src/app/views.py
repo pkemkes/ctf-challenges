@@ -3,12 +3,10 @@ import os
 import json
 from multiprocessing import Lock
 from app import app
-from flask import render_template, make_response, request, redirect, Response
+from flask import render_template, make_response, request, redirect, Response, flash
 from app.user_data import UserData
-from typing import Tuple, List
+from typing import Tuple
 from urllib.parse import quote
-from matplotlib import pyplot as plt
-from matplotlib import ticker
 
 
 class FormDataException(Exception):
@@ -25,6 +23,7 @@ def parse_difficulty(difficulty: str) -> int:
     return diff_int
 
 
+app.secret_key = os.urandom(32)
 NOT_ENOUGH_MONEY_MSG = "Dafür besitzt du nicht genug Geld!"
 NOT_ENOUGH_STOCKS_MSG = "So viele Aktien besitzt du nicht!"
 NOT_A_NUMBER_MSG = "Eine deiner Eingaben war keine Nummer!"
@@ -50,14 +49,9 @@ def index() -> Response:
     with get_lock(user_id):
         data = get_user_data(user_id)
     if data.balance > 1000 ** 5:  # 1,000,000,000,000,000
-        error = FLAG
-    image_names = plot_data(data, user_id)
+        flash(FLAG)
     resp = make_response(render_template("index.html", user_id_is_set=True,
-                                         data=data, error=error,
-                                         difficulty=DIFFICULTY,
-                                         image_name_a=image_names[0],
-                                         image_name_b=image_names[1],
-                                         image_name_c=image_names[2]))
+                                         data=data, difficulty=DIFFICULTY))
     resp.set_cookie(USER_COOKIE, user_id)
     return resp
 
@@ -71,7 +65,7 @@ def start() -> Response:
 
 @app.route("/advance")
 def advance() -> Response:
-    user_id = get_user_id(strict=True)
+    user_id = get_user_id()
     if not user_id:
         return "No user ID found!", 400
     with get_lock(user_id):
@@ -87,14 +81,14 @@ def buy() -> Response:
     try:
         a, b, c = get_form_data()
     except FormDataException as e:
-        error = quote(str(e))
-        return redirect(f"/?error={error}")
+        flash(str(e))
+        return redirect("/")
     with get_lock(user_id):
         data = get_user_data(user_id)
         cost = calc_cost(data, a, b, c)
         if cost > data.balance:
-            error = quote(NOT_ENOUGH_MONEY_MSG)
-            return redirect(f"/?error={error}")
+            flash(NOT_ENOUGH_MONEY_MSG)
+            return redirect("/")
         data.amount_a += a
         data.amount_b += b
         data.amount_c += c
@@ -109,13 +103,13 @@ def sell() -> Response:
     try:
         a, b, c = get_form_data()
     except FormDataException as e:
-        error = quote(str(e))
-        return redirect(f"/?error={error}")
+        flash(str(e))
+        return redirect("/")
     with get_lock(user_id):
         data = get_user_data(user_id)
         if data.amount_a < a or data.amount_b < b or data.amount_c < c:
-            error = quote(NOT_ENOUGH_STOCKS_MSG)
-            return redirect(f"/?error={error}")
+            flash(NOT_ENOUGH_STOCKS_MSG)
+            return redirect("/")
         cost = calc_cost(data, a, b, c)
         data.amount_a -= a
         data.amount_b -= b
@@ -133,7 +127,7 @@ def get_lock(user_id: str) -> Lock:
     return lock
 
 
-def get_user_id(strict: bool = False) -> str:
+def get_user_id() -> str:
     return request.cookies.get(USER_COOKIE)
 
 
@@ -176,34 +170,3 @@ def get_form_data() -> Tuple[int, int, int]:
 
 def calc_cost(data: UserData, a: int, b: int, c: int) -> float:
     return a*data.values_a[-1] + b*data.values_b[-1] + c*data.values_c[-1]
-
-
-def plot_data(data: UserData, user_id: str) -> None:
-    image_names = []
-    image_names.append(plot_values(data.values_a, "a", user_id))
-    image_names.append(plot_values(data.values_b, "b", user_id))
-    image_names.append(plot_values(data.values_c, "c", user_id))
-    return image_names
-
-
-def plot_values(data: List[float], data_name: str, user_id: str) -> None:
-    image_name = f"{user_id}_{data_name}.png"
-    fig, ax = plt.subplots()
-
-    ax.plot(list(range(len(data))), data, color="orange")
-    ax.grid(color="#3f4547")
-    ax.xaxis.set_visible(False)
-    ax.set_xlim([0, len(data)-1])
-    ax.set_facecolor("#00212e")
-    for c in ["top", "bottom", "left", "right"]:
-        ax.spines[c].set_color("grey")
-    ax.yaxis.label.set_color("grey")
-    ax.tick_params(axis="y", which="both", colors="grey")
-    ax.yaxis.set_major_formatter(ticker.FormatStrFormatter("%d €"))
-
-    fig.set_size_inches(8, 2)
-    fig.set_facecolor("#00212e")
-    fig.tight_layout()
-    fig.savefig(os.path.join(IMAGES_DIR, image_name), dpi=200)
-
-    return image_name

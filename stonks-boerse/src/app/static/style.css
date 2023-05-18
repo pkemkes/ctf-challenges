@@ -87,6 +87,10 @@ h1 {
     margin-left: 30px;
 }
 
+#values {
+    display: none;
+}
+
 .value-label {
     font-size: 20px;
     margin: 15px;
@@ -94,8 +98,9 @@ h1 {
 }
 
 .value-graph {
-    width: 550px;
-    margin-right: 20px;
+    width: 680px;
+    height: 140px;
+    background-color: red;
 }
 
 .value-box {
@@ -117,6 +122,7 @@ h1 {
 #close-button {
     padding: 5px;
     font-size: 20px;
+    color: black;
 }
 
 #trade-box {
@@ -127,7 +133,6 @@ h1 {
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
 }
-
 
 #buy-box {
     text-align: center;

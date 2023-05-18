@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <head>
     <link rel="stylesheet" href="/static/style.css" type="text/css">
+    <script src="https://cdn.plot.ly/plotly-2.20.0.min.js" charset="utf-8"></script>
 </head>
 <body>
     <div id="app-box">
@@ -33,35 +34,38 @@
                     </form>
                 </div>
             </div>
-            {% if error %}
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
                 <div id="msg-box">
-                    <p id="msg">{{ error }}</p>
-                    <form method="get" action="/">
-                        <input id="close-button" class="button" type="submit" value="Schließen">
-                    </form>
+                    {% for message in messages %}
+                        <p id="msg">{{ message }}</p>
+                    {% endfor %}
+                    <div id="close-button" class="button">Schließen</div>
                 </div>
             {% endif %}
+            {% endwith %}
             <div id="values-box">
+                <span id="values">{{ data.to_json() }}</span>
                 <div class="value-box">
                     <div>
                         <p class="value-label"><b>Cate Coin</b></p>
                         <p class="value">{{ data.value_str_a() }} €</p>
                     </div>
-                    <img class="value-graph" src="/static/images/{{ image_name_a }}">
+                    <div id="value-graph-a" class="value-graph"></div>
                 </div>
                 <div class="value-box">
                     <div>
                         <p class="value-label"><b>Banana Inc.</b></p>
                         <p class="value">{{ data.value_str_b() }} €</p>
                     </div>
-                    <img class="value-graph" src="/static/images/{{ image_name_b }}">
+                    <div id="value-graph-b" class="value-graph"></div>
                 </div>
                 <div class="value-box">
                     <div>
                         <p class="value-label"><b>Lesta AG</b></p>
                         <p class="value">{{ data.value_str_c() }} €</p>
                     </div>
-                    <img class="value-graph" src="/static/images/{{ image_name_c }}">
+                    <div id="value-graph-c" class="value-graph"></div>
                 </div>
             </div>
             <div id="trade-box">
@@ -133,6 +137,7 @@
                 </div>
             </div>
         {% endif %}
+        <script src="/static/scripts/script.js" charset="utf-8"></script>
     </div>
     <a id="github-link" href="https://github.com/pkemkes/ctf-challenges">GitHub</a>
 </body>
