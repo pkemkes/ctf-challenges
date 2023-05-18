@@ -1,6 +1,8 @@
 var textEnc = document.getElementById("text-enc");
 var textDec = document.getElementById("text-dec");
 
+var isCorrectDrag = false;
+
 function getDecDict() {
     let encLetters = placeholderLetters.map(l => l.innerHTML);
     let decDict = {};
@@ -47,11 +49,13 @@ function handleDragStart(e) {
     dragSrcE1 = this;
     e.dataTransfer.effectAllowed = "move";
     e.dataTransfer.setData("text/html", this.innerHTML);
+    isCorrectDrag = true;
 }
 
 function handleDragEnd() {
     if (this.style.opacity != "0") this.style.opacity = "1";
     placeholderLetters.forEach(l => l.classList.remove("over"));
+    isCorrectDrag = false;
 }
 
 function handleDragOver(e) {
@@ -86,6 +90,7 @@ function handleRestore() {
 }
 
 function handleDrop(e) {
+    if (!isCorrectDrag) return;
     e.stopPropagation();
     dragSrcE1.innerHTML = this.innerHTML;
     dragSrcE1.style.opacity = "0";
