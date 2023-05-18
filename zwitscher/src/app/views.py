@@ -334,6 +334,9 @@ def user() -> Response:
     if user_id is None:
         user_id = own_user_id
     userinfo = get_userinfo(user_id)
+    if userinfo is None:
+        flash("Konnte angegebenen Benutzer nicht finden")
+        return redirect("/")
     zwitsches = get_user_zwitsches(user_id)
     z_len = len(zwitsches)
     p = try_parse_int(request.args.get("p", "0"))
