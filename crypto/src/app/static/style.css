@@ -113,6 +113,10 @@ body {
     padding: 12px;
     font-family: sans-serif;
     font-size: small;
+    -webkit-user-select: text; /* Safari */        
+    -moz-user-select: text; /* Firefox */
+    -ms-user-select: text; /* IE10+/Edge */
+    user-select: text; /* Standard */
 }
 
 .secret {
