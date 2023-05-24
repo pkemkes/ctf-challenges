@@ -71,6 +71,14 @@
     box-shadow: none;
 }
 
+#password-note {
+    text-align: center;
+    font-size: 14px;
+    color: white;
+    display: none;
+    transition-duration: 0.05s;
+}
+
 #switch-btn {
     background-color: white !important;
     color: rgb(0, 124, 0) !important;
