@@ -6,8 +6,8 @@ CREATE TABLE IF NOT EXISTS users (
     profile_pic TEXT NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS zwitsches (
-    zwitsch_id INTEGER PRIMARY KEY,
+CREATE TABLE IF NOT EXISTS yeets (
+    yeet_id INTEGER PRIMARY KEY,
     text TEXT NOT NULL,
     user_id INTEGER NOT NULL,
     timestamp INTEGER NOT NULL,
@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS secrets (
 );
 
 CREATE TABLE IF NOT EXISTS likes (
-    zwitsch_id INTEGER NOT NULL,
+    yeet_id INTEGER NOT NULL,
     user_id INTEGER NOT NULL,
-    PRIMARY KEY (zwitsch_id, user_id)
+    PRIMARY KEY (yeet_id, user_id)
 );

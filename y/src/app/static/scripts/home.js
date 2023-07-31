@@ -1,4 +1,4 @@
-var zwitschesBox = document.getElementById("zwitsches");
+var yeetsBox = document.getElementById("yeets");
 
 function UnixToRelative(unixtime) {
     if (isNaN(unixtime)) return "vor langer Zeit";
@@ -19,8 +19,8 @@ function ReplaceTimestamps() {
     );
 }
 
-async function IsLikedByMe(zwitschId) {
-    let resp = await fetch("/is-liked-by-me?" + new URLSearchParams({ z: zwitschId }), {
+async function IsLikedByMe(yeetId) {
+    let resp = await fetch("/is-liked-by-me?" + new URLSearchParams({ z: yeetId }), {
         method: "GET",
         headers: {
             "Accept": "application/json"
@@ -33,42 +33,42 @@ async function IsLikedByMe(zwitschId) {
     return result["a"];
 }
 
-async function Like(zwitschId) {
-    await fetch("/like?z=" + zwitschId);
+async function Like(yeetId) {
+    await fetch("/like?z=" + yeetId);
     window.location.reload();
 }
 
-async function Unlike(zwitschId) {
-    await fetch("/unlike?z=" + zwitschId);
+async function Unlike(yeetId) {
+    await fetch("/unlike?z=" + yeetId);
     window.location.reload();
 }
 
-function AddLikeButtonEventListener(zwitsch) {
-    let zwitschId = Array.from(zwitsch.children).filter(c => c.classList.contains("zwitsch-id"))[0].innerHTML;
-    let likes = Array.from(zwitsch.children).filter(c => c.classList.contains("likes"))[0];
+function AddLikeButtonEventListener(yeet) {
+    let yeetId = Array.from(yeet.children).filter(c => c.classList.contains("yeet-id"))[0].innerHTML;
+    let likes = Array.from(yeet.children).filter(c => c.classList.contains("likes"))[0];
     let likeBtn = Array.from(likes.children).filter(c => c.classList.contains("like-btn"))[0];
-    IsLikedByMe(zwitschId).then(res => {
+    IsLikedByMe(yeetId).then(res => {
         if (res) {
             likeBtn.src = "/static/images/liked.png";
-            likeBtn.addEventListener("click", async () => await Unlike(zwitschId));
+            likeBtn.addEventListener("click", async () => await Unlike(yeetId));
         }
         else {
-            likeBtn.addEventListener("click", async () => await Like(zwitschId));
+            likeBtn.addEventListener("click", async () => await Like(yeetId));
         }
     });
 }
 
-function AddProfileLinkEventListener(zwitsch) {
-    let userId = Array.from(zwitsch.children).filter(c => c.classList.contains("user-id"))[0].innerHTML;
-    let topLineElems = Array.from(zwitsch.children).filter(c => c.classList.contains("top-line"))[0].children;
+function AddProfileLinkEventListener(yeet) {
+    let userId = Array.from(yeet.children).filter(c => c.classList.contains("user-id"))[0].innerHTML;
+    let topLineElems = Array.from(yeet.children).filter(c => c.classList.contains("top-line"))[0].children;
     let clickableElems = Array.from(topLineElems).filter(c => c.classList.contains("nickname") || c.classList.contains("username"));
-    let pfp = Array.from(zwitsch.children).filter(c => c.classList.contains("pfp"))[0]
+    let pfp = Array.from(yeet.children).filter(c => c.classList.contains("pfp"))[0]
     clickableElems = clickableElems.concat([pfp]);
     clickableElems.forEach(e => e.addEventListener("click", () => window.location = "/user?id=" + userId));
 }
 
-function AddZwitschEventListeners() {
-    Array.from(document.getElementsByClassName("zwitsch")).forEach(z => {
+function AddYeetEventListeners() {
+    Array.from(document.getElementsByClassName("yeet")).forEach(z => {
         AddLikeButtonEventListener(z);
         AddProfileLinkEventListener(z);
     });
@@ -82,10 +82,10 @@ function GetCurrentPage() {
 }
 
 function GetLastPage() {
-    let zwitschCount = document.getElementById("zwitsch-count").innerHTML;
-    if (zwitschCount == 0) return 0;
-    zwitschCount = isNaN(zwitschCount) || zwitschCount < 0 ? 0 : parseInt(zwitschCount);
-    return Math.floor((zwitschCount-1) / 10);
+    let yeetCount = document.getElementById("yeet-count").innerHTML;
+    if (yeetCount == 0) return 0;
+    yeetCount = isNaN(yeetCount) || yeetCount < 0 ? 0 : parseInt(yeetCount);
+    return Math.floor((yeetCount-1) / 10);
 }
 
 function ChangePage(page) {
@@ -109,7 +109,7 @@ function CreatePageSelector(page, label = undefined) {
 }
 
 function AdjustPageSelector() {
-    let pageSelect = document.getElementById("zwitsch-page-select");
+    let pageSelect = document.getElementById("yeet-page-select");
     let lastPage = GetLastPage();
     if (lastPage == 0) {
         document.getElementById("feed").removeChild(pageSelect);
@@ -147,9 +147,9 @@ function AddBreaksToFlashes() {
 }
 
 function DisplayCharCount() {
-    let zwitschInput = document.getElementById("zwitsch-input");
+    let yeetInput = document.getElementById("yeet-input");
     let currentCharsDisplay = document.getElementById("current-chars");
-    let charCount = zwitschInput.value.length;
+    let charCount = yeetInput.value.length;
     currentCharsDisplay.innerHTML = charCount;
     if (charCount >= 280) {
         currentCharsDisplay.style.color = "red";
@@ -161,7 +161,7 @@ function DisplayCharCount() {
 
 function InitAll() {
     ReplaceTimestamps();
-    AddZwitschEventListeners();
+    AddYeetEventListeners();
     AdjustPageSelector();
     ShowSearchQ();
     AddBreaksToFlashes();
@@ -182,13 +182,13 @@ document.getElementById("logo").addEventListener("click", () => window.location 
 document.getElementById("feed-btn").addEventListener("click", () => window.location = "/");
 document.getElementById("profile-btn").addEventListener("click", () => window.location = "/user");
 document.getElementById("logout-btn").addEventListener("click", () => window.location = "/logout");
-let zwitschInput = document.getElementById("zwitsch-input");
-if (zwitschInput != undefined) {
-    zwitschInput.addEventListener("keypress", e => { 
+let yeetInput = document.getElementById("yeet-input");
+if (yeetInput != undefined) {
+    yeetInput.addEventListener("keypress", e => { 
         if (e.key !== "Enter") return;
         e.preventDefault();
-        document.getElementById("zwitsch-form").submit();
+        document.getElementById("yeet-form").submit();
     });
-    zwitschInput.addEventListener("input", DisplayCharCount);
+    yeetInput.addEventListener("input", DisplayCharCount);
 }
 window.onload = InitAll;

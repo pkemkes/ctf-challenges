@@ -25,7 +25,7 @@ assert HARD_RESET_PATH is not None, "HARD_RESET_PATH is not set!"
 FLAG1 = os.getenv("FLAG1")
 assert FLAG1 is not None, "FLAG1 is not set!"
 os.makedirs(DATADIR, exist_ok=True)
-DATABASE_PATH = os.path.join(DATADIR, "zwitscher.db")
+DATABASE_PATH = os.path.join(DATADIR, "y.db")
 DATABASE_PATH_RO = f"file:{DATABASE_PATH}?mode=ro"
 DEFAULT_PFP = "default-pfp.png"
 PFPDIR = os.path.join(DATADIR, "pfp")
@@ -33,11 +33,11 @@ ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
 
 @dataclass
-class Zwitsch:
+class Yeet:
     text: str
     user_id: int
     timestamp: int
-    zwitsch_id: int = None
+    yeet_id: int = None
     username: str = None
     nickname: str = None
     profile_pic: str = None
@@ -123,110 +123,110 @@ def get_secret(user_id: int) -> str:
     return "" if result is None else result[0]
 
 
-def add_zwitsch(new_zwitsch: Zwitsch) -> None:
+def add_yeet(new_yeet: Yeet) -> None:
     with sqlite3.connect(DATABASE_PATH) as con:
         cur = con.cursor()
         try:
             cur.execute(
-                "INSERT INTO zwitsches(text, user_id, timestamp) VALUES(?,?,?)",
-                (new_zwitsch.text, new_zwitsch.user_id, new_zwitsch.timestamp)
+                "INSERT INTO yeets(text, user_id, timestamp) VALUES(?,?,?)",
+                (new_yeet.text, new_yeet.user_id, new_yeet.timestamp)
             )
         except sqlite3.Error as e:
             flash(f"Datenbankfehler:<br>\"{e}\"")
 
 
-def get_like_count(zwitsch_id: int) -> int:
+def get_like_count(yeet_id: int) -> int:
     with sqlite3.connect(DATABASE_PATH_RO, uri=True) as con:
         cur = con.cursor()
         try:
-            cur.execute("SELECT COUNT(*) FROM likes WHERE zwitsch_id = ?", (zwitsch_id, ))
+            cur.execute("SELECT COUNT(*) FROM likes WHERE yeet_id = ?", (yeet_id, ))
             return cur.fetchone()
         except sqlite3.Error:
             return 0
 
 
-def enrich_with_data(zwitsches: List[List[any]]) -> None:
+def enrich_with_data(yeets: List[List[any]]) -> None:
     userinfo_cache = {}
-    enriched_zwitsches = []
-    for zwitsch in zwitsches:
-        user_id = zwitsch[2]
+    enriched_yeets = []
+    for yeet in yeets:
+        user_id = yeet[2]
         userinfo = userinfo_cache.get(user_id)
         if userinfo is None:
             userinfo = get_userinfo(user_id)
             userinfo_cache[user_id] = userinfo
-        likes = get_like_count(zwitsch[0])
-        z = zwitsch + userinfo + likes
-        enriched_zwitsches.append(z)
-    return enriched_zwitsches
+        likes = get_like_count(yeet[0])
+        z = yeet + userinfo + likes
+        enriched_yeets.append(z)
+    return enriched_yeets
 
 
-def get_zwitsches(text_search: str = None) -> List[any]:
-    query = "SELECT * FROM zwitsches"
+def get_yeets(text_search: str = None) -> List[any]:
+    query = "SELECT * FROM yeets"
     if text_search:
         query += f" WHERE text LIKE '%{text_search}%'"
     with sqlite3.connect(DATABASE_PATH_RO, uri=True) as con:
         cur = con.cursor()
         try:
             cur.execute(query)
-            zwitsches = cur.fetchall()
+            yeets = cur.fetchall()
         except sqlite3.Error as e:
             flash(f"Datenbankfehler<br>\"{e}\"<br>bei folgendem Query:<br>{query}")
             return []
     try:
-        zwitsches = enrich_with_data(zwitsches)
-        return list(reversed(zwitsches))
+        yeets = enrich_with_data(yeets)
+        return list(reversed(yeets))
     except:
-        flash(f"Konnte Ergebnis von Query<br>{query}<br>nicht verarbeiten. Ergebnis lautete:<br>{zwitsches}")
+        flash(f"Konnte Ergebnis von Query<br>{query}<br>nicht verarbeiten. Ergebnis lautete:<br>{yeets}")
         return []
 
 
-def get_user_zwitsches(user_id: int) -> List[any]:
+def get_user_yeets(user_id: int) -> List[any]:
     with sqlite3.connect(DATABASE_PATH_RO, uri=True) as con:
         cur = con.cursor()
-        cur.execute("SELECT * FROM zwitsches WHERE user_id = ?", (user_id, ))
-        zwitsches = cur.fetchall()
-    zwitsches = enrich_with_data(zwitsches)
-    return list(reversed(zwitsches))
+        cur.execute("SELECT * FROM yeets WHERE user_id = ?", (user_id, ))
+        yeets = cur.fetchall()
+    yeets = enrich_with_data(yeets)
+    return list(reversed(yeets))
 
 
-def add_like(zwitsch_id: int, user_id: int) -> None:
+def add_like(yeet_id: int, user_id: int) -> None:
     with sqlite3.connect(DATABASE_PATH) as con:
         cur = con.cursor()
-        cur.execute("INSERT OR IGNORE INTO likes (zwitsch_id, user_id) VALUES (?,?)", (zwitsch_id, user_id))
+        cur.execute("INSERT OR IGNORE INTO likes (yeet_id, user_id) VALUES (?,?)", (yeet_id, user_id))
 
 
-def remove_like(zwitsch_id: int, user_id: int) -> None:
+def remove_like(yeet_id: int, user_id: int) -> None:
     with sqlite3.connect(DATABASE_PATH) as con:
         cur = con.cursor()
-        cur.execute("DELETE FROM likes WHERE zwitsch_id = ? AND user_id = ?", (zwitsch_id, user_id))
+        cur.execute("DELETE FROM likes WHERE yeet_id = ? AND user_id = ?", (yeet_id, user_id))
 
 
-def is_liked_by(zwitsch_id: int, user_id: int) -> bool:
+def is_liked_by(yeet_id: int, user_id: int) -> bool:
     with sqlite3.connect(DATABASE_PATH_RO, uri=True) as con:
         cur = con.cursor()
-        cur.execute("SELECT COUNT(*) FROM likes WHERE zwitsch_id = ? AND user_id = ?", (zwitsch_id, user_id))
+        cur.execute("SELECT COUNT(*) FROM likes WHERE yeet_id = ? AND user_id = ?", (yeet_id, user_id))
         return cur.fetchone()[0] > 0
 
 
-def select_by_page(zwitsches: List[any], p: int | None, z_len: int) -> List[any]:
+def select_by_page(yeets: List[any], p: int | None, z_len: int) -> List[any]:
     if p is not None and p >= 0 and p <= ((z_len - 1) // 10):
-        return zwitsches[p*10:(p+1)*10]
+        return yeets[p*10:(p+1)*10]
     else:
-        return zwitsches[:10]
+        return yeets[:10]
 
 
-def delete_all_zwitsches() -> None:
+def delete_all_yeets() -> None:
     with sqlite3.connect(DATABASE_PATH) as con:
         cur = con.cursor()
-        cur.execute("DELETE FROM zwitsches WHERE user_id != 1")
-        cur.execute("DELETE FROM likes WHERE zwitsch_id != 1")
+        cur.execute("DELETE FROM yeets WHERE user_id != 1")
+        cur.execute("DELETE FROM likes WHERE yeet_id != 1")
 
 
 def drop_all_tables() -> None:
     with sqlite3.connect(DATABASE_PATH) as con:
         cur = con.cursor()
         cur.execute("DROP TABLE IF EXISTS users")
-        cur.execute("DROP TABLE IF EXISTS zwitsches")
+        cur.execute("DROP TABLE IF EXISTS yeets")
         cur.execute("DROP TABLE IF EXISTS secrets")
         cur.execute("DROP TABLE IF EXISTS likes")
 
@@ -261,10 +261,10 @@ def create_init_state() -> None:
         update_secret(1, FLAG1)
     with sqlite3.connect(DATABASE_PATH_RO, uri=True) as con:
         cur = con.cursor()
-        cur.execute("SELECT COUNT(*) FROM zwitsches")
-        num_zwitsches = cur.fetchone()[0]
-    if num_zwitsches == 0:
-        add_zwitsch(Zwitsch(f"Endlich habe ich meine neue Social Media Platform aufgesetzt: Zwitscher 🚀💯", 1, int(datetime.now().timestamp())))
+        cur.execute("SELECT COUNT(*) FROM yeets")
+        num_yeets = cur.fetchone()[0]
+    if num_yeets == 0:
+        add_yeet(Yeet(f"Zwitscher war gestern. Ab jetzt heißt der Laden hier 𝕐 🚀💯", 1, int(datetime.now().timestamp())))
         add_like(1, 1)
 
 
@@ -279,12 +279,12 @@ def index() -> str:
     if session.get("user_id") is None:
         return render_template("login.html")
     q = request.args.get("q")
-    zwitsches = get_zwitsches(q)
-    z_len = len(zwitsches)
+    yeets = get_yeets(q)
+    z_len = len(yeets)
     p = try_parse_int(request.args.get("p", "0"))
-    zwitsches = select_by_page(zwitsches, p, z_len)
-    mode = "zwitsches" if q is None else "search"
-    return render_template("home.html", mode=mode, zwitsches=zwitsches, z_len=z_len)
+    yeets = select_by_page(yeets, p, z_len)
+    mode = "yeets" if q is None else "search"
+    return render_template("home.html", mode=mode, yeets=yeets, z_len=z_len)
 
 
 @app.route("/login", methods=["POST"])
@@ -337,12 +337,12 @@ def user() -> Response:
     if userinfo is None:
         flash("Konnte angegebenen Benutzer nicht finden")
         return redirect("/")
-    zwitsches = get_user_zwitsches(user_id)
-    z_len = len(zwitsches)
+    yeets = get_user_yeets(user_id)
+    z_len = len(yeets)
     p = try_parse_int(request.args.get("p", "0"))
-    zwitsches = select_by_page(zwitsches, p, z_len)
+    yeets = select_by_page(yeets, p, z_len)
     return render_template(
-        "home.html", mode="profile", userinfo=userinfo, zwitsches=zwitsches, z_len=z_len, 
+        "home.html", mode="profile", userinfo=userinfo, yeets=yeets, z_len=z_len, 
         user_id=user_id, is_own_profile=own_user_id == user_id
     )
 
@@ -388,19 +388,19 @@ def update_user() -> Response:
     return redirect("/user")
 
 
-@app.route("/zwitsch", methods=["POST"])
-def zwitsch() -> Response:
+@app.route("/yeet", methods=["POST"])
+def yeet() -> Response:
     text = request.form.get("text")
     user_id = session.get("user_id")
     if text is None or text == "":
-        flash("Kann keinen Zwitsch ohne Text speichern.")
+        flash("Kann keinen Yeet ohne Text speichern.")
     elif len(text) > 280:
-        flash("Dieser Zwitsch überschreitet das Limit von 280 Zeichen.")
+        flash("Dieser Yeet überschreitet das Limit von 280 Zeichen.")
     elif user_id is None:
         flash("Anmeldung ist nicht valide")
     else:
         timestamp = int(datetime.now().timestamp())
-        add_zwitsch(Zwitsch(text, user_id, timestamp))
+        add_yeet(Yeet(text, user_id, timestamp))
     return redirect("/")
 
 
@@ -441,7 +441,7 @@ def pfp(filename):
 
 @app.route(SOFT_RESET_PATH)
 def soft_reset() -> Response:
-    delete_all_zwitsches()
+    delete_all_yeets()
     return redirect("/")
 
 
