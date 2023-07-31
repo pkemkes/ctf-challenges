@@ -22,14 +22,14 @@
         {% endwith %}
         <div id="all-box">
             <div id="left-sidebar">
-                <img id="logo" src="/static/images/bird-white.png">
+                <img id="logo" src="/static/images/logo-white.png">
                 <div class="sidebar-elem" id="feed-btn">Hauptseite</div>
                 <div class="sidebar-elem" id="profile-btn">Profil</div>
                 <div class="sidebar-elem" id="logout-btn">Logout</div>
             </div>
             <div id="feed">
                 <div id="header">
-                    {% if mode == "zwitsches" %}
+                    {% if mode == "yeets" %}
                         Hauptseite
                     {% elif mode == "search" %}
                         Suche nach "<span id="search-q"></span>"
@@ -39,14 +39,14 @@
                         Profil bearbeiten
                     {% endif %}
                 </div>
-                {% if mode == "zwitsches" %}
-                    <div id="zwitsch-send-box">
-                        <form id="zwitsch-form" action="/zwitsch" method="POST">
-                            <textarea maxlength="280" autofocus id="zwitsch-input" name="text" placeholder="Was gibt's neues?"></textarea>
+                {% if mode == "yeets" %}
+                    <div id="yeet-send-box">
+                        <form id="yeet-form" action="/yeet" method="POST">
+                            <textarea maxlength="280" autofocus id="yeet-input" name="text" placeholder="Was gibt's neues?"></textarea>
                             <div id="max-char-display">
                                 <span id="current-chars">0</span> / 280
                             </div>
-                            <input id="zwitsch-submit" type="submit" value="Zwitsch">
+                            <input id="yeet-submit" type="submit" value="Yeet">
                         </form>
                     </div>
                 {% elif mode == "profile" %}
@@ -70,33 +70,33 @@
                         <input type="submit" id="edit-submit" value="Speichern">
                     </form>
                 {% endif %}
-                <span id="zwitsch-count" hidden>{{ z_len }}</span>
-                <div id="zwitsches">
-                    {% for zwitsch in zwitsches %}
-                        <div class="zwitsch">
-                            <span class="zwitsch-id" hidden>{{ zwitsch[0] }}</span>
-                            <span class="user-id" hidden>{{ zwitsch[2] }}</span>
-                            <img class="pfp" src="/pfp/{{ zwitsch[7] }}">
+                <span id="yeet-count" hidden>{{ z_len }}</span>
+                <div id="yeets">
+                    {% for yeet in yeets %}
+                        <div class="yeet">
+                            <span class="yeet-id" hidden>{{ yeet[0] }}</span>
+                            <span class="user-id" hidden>{{ yeet[2] }}</span>
+                            <img class="pfp" src="/pfp/{{ yeet[7] }}">
                             <div class="top-line">
-                                <div class="nickname">{{ zwitsch[5] }}</div>
-                                <div class="username">@{{ zwitsch[6] }}</div>
-                                <div class="timestamp">{{ zwitsch[3] }}</div>
+                                <div class="nickname">{{ yeet[5] }}</div>
+                                <div class="username">@{{ yeet[6] }}</div>
+                                <div class="timestamp">{{ yeet[3] }}</div>
                             </div>
-                            <div class="text">{{ zwitsch[1]|safe }}</div>
+                            <div class="text">{{ yeet[1]|safe }}</div>
                             <div class="likes">
                                 <img class="like-btn" src="/static/images/not-liked.png">
-                                <span class="like-count">{{ zwitsch[8] }}</span>
+                                <span class="like-count">{{ yeet[8] }}</span>
                             </div>
                         </div>
                     {% endfor %}
                 </div>
-                <div id="zwitsch-page-select">
+                <div id="yeet-page-select">
                     <div class="page-selector" id="current"></div>
                 </div>
             </div>
             <div id="right-sidebar">
                 <form id="search" action="/" method="GET">
-                    <input name="q" id="search-field" type="search" placeholder="Durchsuche Zwitscher">
+                    <input name="q" id="search-field" type="search" placeholder="Durchsuche Y">
                     <input type="submit" id="search-btn" value="🔍">
                 </form>
             </div>

@@ -10,7 +10,7 @@ ENV DATADIR="/var/www/data"
 ENV SOFT_RESET_PATH="/soft-reset"
 ENV HARD_RESET_PATH="/hard-reset"
 
-WORKDIR /usr/bin/zwitscher/src
+WORKDIR /usr/bin/y/src
 COPY ./src/requirements.txt ./
 
 RUN pip install -r requirements.txt

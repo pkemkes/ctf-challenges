@@ -11,4 +11,4 @@ Currently available challenges:
 - [passwords](./passwords/)
 - [phishing](./phishing/)
 - [gptgolf](./gptgolf/)
-- [zwitscher](./zwitscher/)
+- [y](./y/)
