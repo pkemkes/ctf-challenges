@@ -1,7 +1,7 @@
 #login-box {
     width: 600px;
     margin: 12vh auto 0 auto;
-    box-shadow: 5px 5px 5px grey;
+    box-shadow: 5px 5px 5px rgb(73, 73, 73);
     border-radius: 5px;
     background-color: rgb(46, 46, 46);
     display: flex;
@@ -20,7 +20,7 @@
     font-size: 30px;
     margin: 10px auto 0 auto;
     font-weight: bold;
-    text-shadow: 1px 1px 2px grey;
+    text-shadow: 1px 1px 2px rgb(73, 73, 73);
 }
 
 #login-box #form {
@@ -37,7 +37,7 @@
     margin: 10px 55px;
     border: none;
     border-radius: 5px;
-    box-shadow: inset 2px 2px 3px grey;
+    box-shadow: inset 2px 2px 3px rgb(73, 73, 73);
     background-color: white;
     font-family: sans-serif;
     font-size: 16px;
@@ -63,7 +63,7 @@
 
 #login-box #form .button:hover {
     transform: translate(-2px, -2px);
-    box-shadow: 2px 2px 3px grey;
+    box-shadow: 2px 2px 3px rgb(73, 73, 73);
 }
 
 #login-box #form .button:active {
