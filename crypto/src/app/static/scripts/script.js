@@ -11,5 +11,3 @@ function UpdateClock() {
 
 UpdateClock();
 setInterval(UpdateClock, 1000);
-
-document.getElementById("js-warning").style.display = "none";

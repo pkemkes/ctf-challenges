@@ -28,6 +28,8 @@ ctf-y:
     environment:
         - FLAG1=flag{IDOR-flag}
         - FLAG2=flag{SQLi-flag}
+        - SOFT_RESET_PATH=/soft-reset-WbC08Kj6mLs8KbvXxNlL
+        - HARD_RESET_PATH=/hard-reset-keQxNkHoT2fLOaO9uEVa
     ports:
         - "80:80"
     volumes:

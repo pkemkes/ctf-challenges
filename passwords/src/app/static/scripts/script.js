@@ -221,5 +221,3 @@ clocks.forEach(clock => {
     UpdateClock(clock);
     setInterval(() => UpdateClock(clock), 1000);
 });
-
-document.getElementById("js-warning").style.display = "none";
