@@ -80,5 +80,3 @@ arrowUp.addEventListener("click", () => changeKey(true));
 arrowDown.addEventListener("click", () => changeKey(false));
 
 decrypt();
-
-document.getElementById("js-warning").style.display = "none";

@@ -27,9 +27,24 @@ ctf-phishing-0:
     container_name: ctf-phishing-0
     restart: always
     environment:
+        - DIFFICULTY=0
         - FLAG=flag{th1s-1s-n0t-s3cur3}
+        - PHISHING_ELEMS=m2-00,m2-02,m2-04,m4-07
+        - OPTIONAL_ELEMS=m2-01,m3-04,m4-05,m6-07
     ports:
-        - "80:80"
+        - "8080:80"
+
+ctf-phishing-1:
+    image: pkemkes/ctf-phishing
+    container_name: ctf-phishing-1
+    restart: always
+    environment:
+        - DIFFICULTY=1
+        - FLAG=flag{th1s-1s-4150-n0t-s3cur3}
+        - PHISHING_ELEMS=m2-00,m2-02,m2-04,m4-07
+        - OPTIONAL_ELEMS=m2-01,m3-04,m4-05,m6-07
+    ports:
+        - "8081:80"
 ```
 
 ## Screenshot:

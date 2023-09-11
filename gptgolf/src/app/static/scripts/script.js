@@ -207,5 +207,3 @@ if (preloadLevel && preloadLevel >= 1 && preloadLevel <= 5) {
     levelSelect.selectedIndex = preloadLevel - 1;
     LoadLevel();
 }
-
-document.getElementById("js-warning").style.display = "none";

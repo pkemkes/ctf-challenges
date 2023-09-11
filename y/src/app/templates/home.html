@@ -5,11 +5,6 @@
         <link rel="stylesheet" href="/static/styles/home.css" type="text/css">
     </head>
     <body>
-        <div id="js-warning">
-            <h1 id="warn-header">Ohje.</h1>
-            <p id="warn-message">Wenn diese Meldung nicht verschwindet ist etwas schief gelaufen.<br>Bitte sag einem von uns Bescheid.</p>
-        </div>
-        <script src="/static/scripts/script.js"></script>
         {% with messages = get_flashed_messages() %}
         {% if messages %}
             <div id="error-box">

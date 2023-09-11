@@ -6,6 +6,7 @@ ENV FLASK_DEBUG=0
 
 ENV FLAGS="flag{example0},flag{example1},flag{example2},flag{example3},flag{example4}"
 ENV DATADIR="/var/www/data"
+ENV RESET_PATH="/reset"
 
 WORKDIR /usr/bin/gptgolf/src
 COPY ./src/requirements.txt ./

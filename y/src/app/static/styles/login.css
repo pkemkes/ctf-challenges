@@ -80,8 +80,9 @@
 }
 
 #switch-btn {
-    background-color: white !important;
-    color: rgb(27, 27, 27) !important;
+    background-color: transparent !important;
+    box-shadow: none;
+    font-style: italic;
 }
 
 #error-msg {

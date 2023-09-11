@@ -242,35 +242,6 @@ body {
     font-weight: bold;
 }
 
-#js-warning {
-    position: absolute;
-    left: 0; 
-    right: 0;
-    top: 20px;
-    margin-left: auto; 
-    margin-right: auto; 
-    width: 650px;
-    height: 800px;
-    border-radius: 30px;
-    background-color: rgba(255, 255, 255, 0.3);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
-    font-family: sans-serif;
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(10px);
-}
-
-#warn-header {
-    font-size: 100px;
-}
-
-#warn-message {
-    font-size: 40px;
-    margin: 90px;
-}
-
 #github-link {
     position: absolute;
     position: fixed;

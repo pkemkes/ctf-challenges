@@ -246,5 +246,3 @@ securityWarningAttachmentButton.addEventListener("click", () => securityWarningA
 markerBtn.addEventListener("click", ToggleMarker);
 checkBtn.addEventListener("click", CheckMarked);
 window.onload = Initialize;
-
-document.getElementById("js-warning").style.display = "none";

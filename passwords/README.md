@@ -12,7 +12,7 @@ This is a challenge for beginners with 2 difficulty settings. The first one focu
 
 Build the docker image using the provided Dockerfile or use the image provided on DockerHub ([pkemkes/ctf-passwords](https://hub.docker.com/repository/docker/pkemkes/ctf-passwords/general)).
 
-There are three important environment value that should be set when deploying the image on your challenge server:
+There are four important environment value that should be set when deploying the image on your challenge server:
 
 | Name | Default | Description |
 |--------|--------|---|
@@ -32,9 +32,21 @@ ctf-passwords-0:
         - DIFFICULTY=0
         - FLAG=flag{th1s-1s-n0t-s3cur3}
         - USERNAME=arnie@schwarzenegger.com
-        - PASSWORD=arrrgghh
+        - PASSWORD=choppa
     ports:
-        - "80:80"
+        - "8080:80"
+
+ctf-passwords-1:
+    image: pkemkes/ctf-passwords
+    container_name: ctf-passwords-1
+    restart: always
+    environment:
+        - DIFFICULTY=1
+        - FLAG=flag{th1s-1s-4150-n0t-s3cur3}
+        - USERNAME=arnie@schwarzenegger.com
+        - PASSWORD=1llbeb4ck
+    ports:
+        - "8081:80"
 ```
 
 ## Screenshot:

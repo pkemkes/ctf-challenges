@@ -2,37 +2,6 @@ body {
     background-color: rgb(100, 100, 100); 
 }
 
-#js-warning {
-    position: absolute;
-    z-index: 2;
-    left: 0; 
-    right: 0;
-    top: 100px;
-    margin-left: auto; 
-    margin-right: auto; 
-    width: 400px;
-    height: 250px;
-    border: dashed;
-    padding: 0 20px;
-    border-color: rgb(255, 100, 100);
-    border-width: 7px;
-    border-radius: 40px;
-    background-color: rgb(255, 158, 158);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
-    font-family: sans-serif;
-}
-
-#warn-header {
-    font-size: 50px;
-}
-
-#warn-message {
-    font-size: 20px;
-}
-
 #github-link {
     position: absolute;
     position: fixed;

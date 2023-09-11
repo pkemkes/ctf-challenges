@@ -33,6 +33,8 @@ IMAGES_DIR = os.path.join("app", "static", "images")
 assert USER_DATA_DIR is not None, "USER_DATA_DIR is not set!"
 FLAG = os.getenv("FLAG")
 assert FLAG is not None, "FLAG is not set!"
+RESET_PATH = os.getenv("RESET_PATH")
+assert RESET_PATH is not None, "RESET_PATH is not set!"
 DIFFICULTY = os.getenv("DIFFICULTY")
 assert DIFFICULTY is not None, "DIFFICULTY is not set!"
 DIFFICULTY = parse_difficulty(DIFFICULTY)
@@ -117,6 +119,13 @@ def sell() -> Response:
         data.balance = round(data.balance + cost, 2)
         write_user_data(data, user_id)
         return redirect("/")
+
+
+@app.route(RESET_PATH)
+def reset() -> Response:
+    for f in os.listdir(USER_DATA_DIR):
+        os.remove(os.path.join(USER_DATA_DIR, f))
+    return redirect("/")
 
 
 def get_lock(user_id: str) -> Lock:
