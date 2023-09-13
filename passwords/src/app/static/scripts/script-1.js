@@ -7,7 +7,7 @@ var checkboxVarNums = document.getElementById("var-nums");
 var checkboxVarDate = document.getElementById("var-date");
 var minMaxWordCount = 1;
 var maxMaxWordCount = 10;
-var datePattern = /^(\d{1,2})([\.-/])(\d{1,2})\2(\d{1,4})$/;
+var datePattern = /^(\d{1,2})([\.\/\-])(\d{1,2})\2(\d{1,4})$/;
 
 var numsDict = {
     "a": "4",
