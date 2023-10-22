@@ -197,13 +197,19 @@ function Login() {
     flagBox.innerHTML = decoded.substring(knownPT.length);
 }
 
-loginButton.addEventListener("click", Login);
-usernameInput.addEventListener("keypress", e => { if (e.key === "Enter") Login() });
-passwordInput.addEventListener("keypress", e => { if (e.key === "Enter") Login() });
-hackButton.addEventListener("click", BruteForce);
-passwordsOutput.addEventListener("scroll", () => {
-    if (IsScrolledToBottom(passwordsOutput)) DisplayPasswords(false);
-});
+if (IsRegularLoginActive()) {
+    loginButton.addEventListener("click", Login);
+    usernameInput.addEventListener("keypress", e => { if (e.key === "Enter") Login() });
+    passwordInput.addEventListener("keypress", e => { if (e.key === "Enter") Login() });
+}
+if (hackButton) {
+    hackButton.addEventListener("click", BruteForce);
+}
+if (passwordsOutput) {
+    passwordsOutput.addEventListener("scroll", () => {
+        if (IsScrolledToBottom(passwordsOutput)) DisplayPasswords(false);
+    });
+}
 AddSpecificEventListeners();
 
 var clocks = Array.from(document.getElementsByClassName("time"));

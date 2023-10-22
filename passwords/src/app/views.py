@@ -10,8 +10,8 @@ def parse_difficulty(difficulty: str) -> int:
         diff_int = int(difficulty)
     except ValueError:
         raise Exception("DIFFICULTY is not a number")
-    if diff_int < 1 or diff_int > 2:
-        raise Exception("DIFFICULTY is not set to a supported value (1-2).")
+    if diff_int < 0 or diff_int > 2:
+        raise Exception("DIFFICULTY is not set to a supported value (0-2).")
     return diff_int
 
 

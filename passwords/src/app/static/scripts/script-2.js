@@ -270,3 +270,7 @@ function AddSpecificEventListeners() {
     maxWordCountIncButton.addEventListener("click", IncMaxWordCount);
     maxWordCountDecButton.addEventListener("click", DecMaxDictLen);
 }
+
+function IsRegularLoginActive() {
+    return true;
+}

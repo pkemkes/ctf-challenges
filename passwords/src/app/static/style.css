@@ -6,6 +6,7 @@ body {
     display: flex;
     width: 1100px;
     margin: 40px auto 0px auto;
+    justify-content: space-evenly;
 }
 
 .phone-box {
@@ -174,10 +175,14 @@ body {
     height: 545px;
 }
 
-#login-box {
+.login-box {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+#login-security-header {
+    font-weight: bold;
 }
 
 #login-logo {
@@ -188,35 +193,38 @@ body {
     margin-top: 20px;
 }
 
-.login-input {
-    width: 200px;
+.login-element {
     padding: 7px;
     margin-bottom: 10px;
-    background-color: #333333;
     border: none;
     color: white;
     border-radius: 5px;
 }
 
-#login-button {
+.login-input {
+    width: 200px;
+    background-color: #333333;
+}
+
+.login-button {
     width: 215px;
-    padding: 7px;
-    border: none;
-    color: white;
-    border-radius: 5px;
     cursor: pointer;
     text-decoration: none;
     background-color: #449FDB;
     transition-duration: 0.1s;
 }
 
-#login-button:active {
+.login-button:active {
     transform: translateY(2px);
 }
 
 #login-message-box {
     margin-top: 10px;
     color: red;
+}
+
+#backup-login {
+    display: none;
 }
 
 #profile-box {

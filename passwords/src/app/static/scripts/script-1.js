@@ -88,3 +88,7 @@ function AddSpecificEventListeners() {
     maxPasswordLenDecButton.addEventListener("click", DecMaxPwLen);
     maxPasswordLenIncButton.addEventListener("click", IncMaxPwLen);
 }
+
+function IsRegularLoginActive() {
+    return true;
+}

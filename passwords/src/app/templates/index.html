@@ -577,6 +577,34 @@
                             </div>
                         </div>
                     {% endif %}
+                    {% if difficulty == 0 %}
+                        <div class="post-box">
+                            <div class="post-header">
+                                <img class="post-pfp" src="/static/images/profile-small.png">
+                                <span class="post-username">sebastiansonderling</span>
+                            </div>
+                            <img class="post-img" src="/static/images/safari.png">
+                            <div class="post-buttons">
+                                <img class="post-button post-like-button" src="/static/images/like.png">
+                                <img class="post-button post-comment-button" src="/static/images/comment.png">
+                                <img class="post-button post-message-button" src="/static/images/message.png">
+                                <img class="post-button post-bookmark-button" src="/static/images/bookmark.png">
+                            </div>
+                            <div class="post-text">
+                                <p class="post-likes">Gefällt 441 Mal</p>
+                                <p class="post-description">
+                                    <span class="post-username">sebastiansonderling</span> Diese Woche bin ich spontan auf Safari! Das wurde aber auch mal wieder Zeit, das letzte Mal ist schon vier Monate her.<span class="hashtag">#urlaub</span> <span class="hashtag">#wildlife</span> <span class="hashtag">#tiere</span> 
+                                </p>
+                            </div>
+                            <div class="post-comments">
+                                <img class="post-comment-pfp" src="/static/images/hacker-small.png">
+                                <p class="post-comment-text">Kommentieren ...</p>
+                            </div>
+                            <div class="post-time">
+                                Vor 20 Tagen
+                            </div>
+                        </div>
+                    {% endif %}
                 </div>
                 <div class="footer-box">
                     <svg width="30" height="30">
@@ -609,11 +637,25 @@
                         <img class="icon" src="/static/images/battery.png">
                     </div>
                 </div>
-                <div class="second-app-box app-box" id="login-box">
+                <div class="second-app-box app-box login-box" id="login-box">
                     <div id="login-logo"><img class="logo-font" src="/static/images/logo.png"></div>
-                    <input class="login-input" id="login-username" type="text" placeholder="E-Mail" spellcheck="false">
-                    <input class="login-input" id="login-password" type="password" placeholder="Passwort">
-                    <input id="login-button" type="button" value="Anmelden">
+                    <input class="login-input login-element" id="login-username" type="text" placeholder="E-Mail" spellcheck="false">
+                    <div id="regular-login" class="login-box">
+                        <input class="login-input login-element" id="login-password" type="password" placeholder="Passwort">
+                        <input class="login-button login-element" id="login-button" type="button" value="Anmelden">
+                        {% if difficulty == 0 %}
+                        <input class="login-button login-element" id="forgot-password-button" type="button" value="Passwort vergessen">
+                        {% endif %}
+                    </div>
+                    {% if difficulty == 0 %}
+                    <div id="backup-login" class="login-box">
+                        <p id="login-security-header">Sicherheitsfrage:</p>
+                        <p id="login-security-question">Welches ist dein Lieblingstier?</p>
+                        <input class="login-input login-element" id="login-security-answer" type="text" spellcheck="false">
+                        <input class="login-button login-element" id="restore-login-button" type="button" value="Zugang wiederherstellen">
+                        <input class="login-button login-element" id="return-to-login-button" type="button" value="Zurück zum Login">
+                    </div>
+                    {% endif %}
                     <div id="login-message-box"></div>
                 </div>
                 <div class="second-app-box app-box" id="profile-box">
@@ -664,6 +706,9 @@
                             <img class="profile-post-img" src="/static/images/brain.png">
                             <img class="profile-post-img" src="/static/images/cars.png">
                         {% endif %}
+                        {% if difficulty == 0 %}
+                            <img class="profile-post-img" src="/static/images/safari.png">
+                        {% endif %}
                     </div>
                 </div>
                 <div class="footer-box">
@@ -679,6 +724,7 @@
                     </svg>
                 </div>
             </div>
+            {% if difficulty != 0 %}
             <div id="attacker-box">
                 <div id="attacker-header">
                     Passwort Cracker v0.{% if difficulty == 1 %}1{% elif difficulty == 2%}2{% endif %}
@@ -745,13 +791,16 @@
                     <input class="hack-button" id="hack-button" type="button" value="HACK">
                 </div>
             </div>
+            {% endif %}
         </div>
         <a id="github-link" href="https://github.com/pkemkes/ctf-challenges">GitHub</a>
         <span hidden id="pw-known-pt">{{ known_pt }}</span>
         <span hidden id="pw-challenge">{{ challenge }}</span>
         <span hidden id="pw-challenge-checksum">{{ checksum }}</span>
         <span hidden id="pw-challenge-username">{{ username }}</span>
-        {% if difficulty == 1 %}
+        {% if difficulty == 0 %}
+            <script src="/static/scripts/script-0.js"></script>
+        {% elif difficulty == 1 %}
             <script src="/static/scripts/script-1.js"></script>
         {% elif difficulty == 2 %}
             <script src="/static/scripts/script-2.js"></script>
