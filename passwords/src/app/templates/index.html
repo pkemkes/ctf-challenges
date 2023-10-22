@@ -27,7 +27,7 @@
                     <img class="logo-font" src="/static/images/logo.png">
                 </div>
                 <div class="app-box">
-                    {% if difficulty == 1 %}
+                    {% if difficulty == 2 %}
                         <div class="post-box">
                             <div class="post-header">
                                 <img class="post-pfp" src="/static/images/profile-small.png">
@@ -289,7 +289,7 @@
                             Vor 6 Tagen
                         </div>
                     </div>
-                    {% if difficulty == 0 %}
+                    {% if difficulty == 1 %}
                         <div class="post-box">
                             <div class="post-header">
                                 <img class="post-pfp" src="/static/images/profile-small.png">
@@ -639,7 +639,7 @@
                     </div>
                     <div id="flag-box"></div>
                     <div id="profile-post-grid">
-                        {% if difficulty == 1 %}
+                        {% if difficulty == 2 %}
                             <img class="profile-post-img" src="/static/images/sad-profile.png">
                             <img class="profile-post-img" src="/static/images/heart.png">
                             <img class="profile-post-img" src="/static/images/party.png">
@@ -651,7 +651,7 @@
                         {% endif %}
                         <img class="profile-post-img" src="/static/images/coffee.png">
                         <img class="profile-post-img" src="/static/images/mail.png">
-                        {% if difficulty == 0 %}
+                        {% if difficulty == 1 %}
                             <img class="profile-post-img" src="/static/images/profile.png">
                             <img class="profile-post-img" src="/static/images/catamaran.png">
                             <img class="profile-post-img" src="/static/images/desk.png">
@@ -681,14 +681,14 @@
             </div>
             <div id="attacker-box">
                 <div id="attacker-header">
-                    Passwort Cracker v0.{% if difficulty == 0 %}1{% elif difficulty == 1%}2{% endif %}
+                    Passwort Cracker v0.{% if difficulty == 1 %}1{% elif difficulty == 2%}2{% endif %}
                 </div>
                 <div id="attacker-app-box">
                     <div class="hack-tool-text">
                         E-Mail des Accounts hier eingeben:
                     </div>
                     <input type="text" id="hack-tool-mail" spellcheck="false">
-                    {% if difficulty == 0 %}
+                    {% if difficulty == 1 %}
                         <div class="hack-tool-text">
                             Passwort-Alphabet hier eingeben:
                         </div>
@@ -699,7 +699,7 @@
                             <input type="button" class="pw-len-button" id="pw-len-up" value="▲">
                             <input type="button" class="pw-len-button" id="pw-len-down" value="▼">
                         </div>
-                    {% elif difficulty == 1 %}
+                    {% elif difficulty == 2 %}
                         <div class="hack-tool-text">
                             Wörterbuch hier eingeben:
                         </div>
@@ -732,10 +732,10 @@
                         Anzahl der möglichen Passwörter:
                     </div>
                     <div id="num-of-passwords" class="hack-tool-text">0</div>
-                    {% if difficulty == 0 %}
-                        <div id="passwords" class="passwords-0"></div>
-                    {% elif difficulty == 1 %}
+                    {% if difficulty == 1 %}
                         <div id="passwords" class="passwords-1"></div>
+                    {% elif difficulty == 2 %}
+                        <div id="passwords" class="passwords-2"></div>
                     {% endif %}
                     <div id="outer-loading-bar">
                         <span id="loading-percentage">0.00%</span>
@@ -751,10 +751,10 @@
         <span hidden id="pw-challenge">{{ challenge }}</span>
         <span hidden id="pw-challenge-checksum">{{ checksum }}</span>
         <span hidden id="pw-challenge-username">{{ username }}</span>
-        {% if difficulty == 0 %}
-            <script src="/static/scripts/script-0.js"></script>
-        {% elif difficulty == 1 %}
+        {% if difficulty == 1 %}
             <script src="/static/scripts/script-1.js"></script>
+        {% elif difficulty == 2 %}
+            <script src="/static/scripts/script-2.js"></script>
         {% endif %}
         <script src="/static/scripts/script.js"></script>
     </body>

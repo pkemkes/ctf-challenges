@@ -16,7 +16,7 @@ There are four important environment value that should be set when deploying the
 
 | Name | Default | Description |
 |--------|--------|---|
-| DIFFICULTY | 0 | Determines the difficulty of the challenge. Possible values: 0, 1 |
+| DIFFICULTY | 1 | Determines the difficulty of the challenge. Possible values: 1, 2 |
 | USERNAME | example@mail.net | The username that needs to be found in the social media stream. |
 | PASSWORD | example | The passwords that needs to be cracked. |
 | FLAG | flag{replace-me-with-your-flag} | The flag that is displayed when the challenge is won. Replace this with your flag that is registered in your CTF server. |
@@ -24,24 +24,24 @@ There are four important environment value that should be set when deploying the
 ### Example docker-compose.yml:
 
 ```yaml
-ctf-passwords-0:
-    image: pkemkes/ctf-passwords
-    container_name: ctf-passwords-0
-    restart: always
-    environment:
-        - DIFFICULTY=0
-        - FLAG=flag{th1s-1s-n0t-s3cur3}
-        - USERNAME=arnie@schwarzenegger.com
-        - PASSWORD=choppa
-    ports:
-        - "8080:80"
-
 ctf-passwords-1:
     image: pkemkes/ctf-passwords
     container_name: ctf-passwords-1
     restart: always
     environment:
         - DIFFICULTY=1
+        - FLAG=flag{th1s-1s-n0t-s3cur3}
+        - USERNAME=arnie@schwarzenegger.com
+        - PASSWORD=choppa
+    ports:
+        - "8080:80"
+
+ctf-passwords-2:
+    image: pkemkes/ctf-passwords
+    container_name: ctf-passwords-2
+    restart: always
+    environment:
+        - DIFFICULTY=2
         - FLAG=flag{th1s-1s-4150-n0t-s3cur3}
         - USERNAME=arnie@schwarzenegger.com
         - PASSWORD=1llbeb4ck
