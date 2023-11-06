@@ -6,7 +6,7 @@ This challenge simulates the situation that the player is tasked to hack into a 
 
 For this, the player is given a cracking tool, where a brute force algorithm is already implemented. They need to find clues in the social media stream of the victim to find details about the password.
 
-This is a challenge for beginners with 2 difficulty settings. The first one focuses on a brute force attack, the second on a dictionary attack. It is currently in German but can easily be modified to support English players.
+This is a challenge for beginners with 3 difficulty settings. The fist one utilizes security questions, the second one focuses on a brute force attack, the third on a dictionary attack. It is currently in German but can easily be modified to support English players.
 
 ## Setting up the challenge:
 
@@ -16,9 +16,9 @@ There are four important environment value that should be set when deploying the
 
 | Name | Default | Description |
 |--------|--------|---|
-| DIFFICULTY | 0 | Determines the difficulty of the challenge. Possible values: 0, 1 |
+| DIFFICULTY | 0 | Determines the difficulty of the challenge. Possible values: 0, 1, 2 |
 | USERNAME | example@mail.net | The username that needs to be found in the social media stream. |
-| PASSWORD | example | The passwords that needs to be cracked. |
+| PASSWORD | example | The passwords that needs to be cracked. For DIFFICULTY=0, this is the answer to the security question. |
 | FLAG | flag{replace-me-with-your-flag} | The flag that is displayed when the challenge is won. Replace this with your flag that is registered in your CTF server. |
 
 ### Example docker-compose.yml:
@@ -30,9 +30,9 @@ ctf-passwords-0:
     restart: always
     environment:
         - DIFFICULTY=0
-        - FLAG=flag{th1s-1s-n0t-s3cur3}
+        - FLAG=flag{v3ry-b4d-1d34}
         - USERNAME=arnie@schwarzenegger.com
-        - PASSWORD=choppa
+        - PASSWORD=something
     ports:
         - "8080:80"
 
@@ -42,6 +42,18 @@ ctf-passwords-1:
     restart: always
     environment:
         - DIFFICULTY=1
+        - FLAG=flag{th1s-1s-n0t-s3cur3}
+        - USERNAME=arnie@schwarzenegger.com
+        - PASSWORD=choppa
+    ports:
+        - "8080:80"
+
+ctf-passwords-2:
+    image: pkemkes/ctf-passwords
+    container_name: ctf-passwords-2
+    restart: always
+    environment:
+        - DIFFICULTY=2
         - FLAG=flag{th1s-1s-4150-n0t-s3cur3}
         - USERNAME=arnie@schwarzenegger.com
         - PASSWORD=1llbeb4ck

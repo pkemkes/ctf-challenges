@@ -1,5 +1,6 @@
 var usernameInput = document.getElementById("login-username");
 var passwordInput = document.getElementById("login-password");
+var securityAnswerInput = document.getElementById("login-security-answer");
 var hiddenUsername = document.getElementById("pw-challenge-username").innerHTML;
 var hiddenChecksum = document.getElementById("pw-challenge-checksum").innerHTML;
 var loginBox = document.getElementById("login-box");
@@ -22,7 +23,6 @@ var breakBruteForce = false;
 var interruptedBruteForce = false;
 var passwordsDisplayGen = undefined;
 var loadingBarIntervals = CalcLoadingBarIntervals();
-var loadingBarPercentage = 0;
 
 function DisplayPasswords(reset) {
     if (reset) {
@@ -44,7 +44,7 @@ function DisplayPasswords(reset) {
 }
 
 function CalcChecksum(decoded) {
-    return Array.from(decoded).map(c => c.charCodeAt()).reduce((sum, x) => sum + x, 0)
+    return Array.from(decoded).map(c => c.charCodeAt()).reduce((sum, x) => sum + x, 0);
 }
 
 function DecodeChallenge(password) {
@@ -95,12 +95,12 @@ function SetHackButtonToHack() {
 function IsCorrectUsername() {
     let username = hackToolUsernameInput.value;
     if (!username) {
-        successMessageField.innerHTML = "> Bitte eine E-Mail Adresse eingeben."
+        successMessageField.innerHTML = "> Bitte eine E-Mail Adresse eingeben.";
         successMessageField.style.color = "red";
         return false;
     }
     if (username !== hiddenUsername) {
-        successMessageField.innerHTML = "> Zu dieser E-Mail existiert kein Benutzer."
+        successMessageField.innerHTML = "> Zu dieser E-Mail existiert kein Benutzer.";
         successMessageField.style.color = "red";
         return false;
     }
@@ -152,7 +152,7 @@ function BruteForce() {
                 }
             }
             if (decoded) {
-                loadingBarPercentage = 100;
+                UpdateLoadingBar(100);
                 foundPassword = nextPassword.value;
                 breakBruteForce = true;
                 break;
@@ -163,7 +163,7 @@ function BruteForce() {
 }
 
 function BreakBruteForce() {
-    loadingBarPercentage = 0;
+    UpdateLoadingBar(0);
     breakBruteForce = true;
     interruptedBruteForce = true;
 }
@@ -174,7 +174,10 @@ function IsScrolledToBottom(element) {
 
 function Login() {
     let username = usernameInput.value;
-    let password = passwordInput.value;
+    let secret = passwordInput.value;
+    if (!isRegularLoginMode) {
+        secret = securityAnswerInput.value.toLocaleLowerCase().trim();
+    }
     if (!username){
         loginMessageBox.innerHTML = "Bitte eine E-Mail Adresse eingeben.";
         return;
@@ -182,14 +185,22 @@ function Login() {
     if (username !== hiddenUsername) {
         loginMessageBox.innerHTML = "Zu dieser E-Mail existiert kein Benutzer.";
         return;
-    };
-    if (!password){
-        loginMessageBox.innerHTML = "Bitte ein Passwort eingeben.";
+    }
+    if (!secret){
+        loginMessageBox.innerHTML = isRegularLoginMode
+            ? "Bitte ein Passwort eingeben." 
+            : "Bitte eine Antwort eingeben.";
         return;
     }
-    let decoded = DecodeChallenge(password);
-    if (!decoded) {
+    if (!trySecretDecode) {
         loginMessageBox.innerHTML = "Falsches Passwort.";
+        return;
+    }
+    let decoded = DecodeChallenge(secret);
+    if (!decoded) {
+        loginMessageBox.innerHTML = isRegularLoginMode
+            ? "Falsches Passwort." 
+            : "Falsche Antwort.";
         return;
     }
     loginBox.style.display = "none";
@@ -198,12 +209,16 @@ function Login() {
 }
 
 loginButton.addEventListener("click", Login);
-usernameInput.addEventListener("keypress", e => { if (e.key === "Enter") Login() });
-passwordInput.addEventListener("keypress", e => { if (e.key === "Enter") Login() });
-hackButton.addEventListener("click", BruteForce);
-passwordsOutput.addEventListener("scroll", () => {
-    if (IsScrolledToBottom(passwordsOutput)) DisplayPasswords(false);
-});
+usernameInput.addEventListener("keypress", e => { if (e.key === "Enter") { Login(); }});
+passwordInput.addEventListener("keypress", e => { if (e.key === "Enter") { Login(); }});
+if (hackButton) {
+    hackButton.addEventListener("click", BruteForce);
+}
+if (passwordsOutput) {
+    passwordsOutput.addEventListener("scroll", () => {
+        if (IsScrolledToBottom(passwordsOutput)) DisplayPasswords(false);
+    });
+}
 AddSpecificEventListeners();
 
 var clocks = Array.from(document.getElementsByClassName("time"));
