@@ -4,6 +4,8 @@ var maxPasswordLenIncButton = document.getElementById("pw-len-up");
 var maxPasswordLenDecButton = document.getElementById("pw-len-down");
 var minMaxPasswordLen = 1;
 var maxMaxPasswordLen = 20;
+var isRegularLoginMode = true;
+var trySecretDecode = true;
 
 function DeduplicateString(input) {
     return Array.from(new Set(input.split(""))).join("");
@@ -87,8 +89,4 @@ function AddSpecificEventListeners() {
     alphabetInput.addEventListener("input", () => DisplayPasswords(true));
     maxPasswordLenDecButton.addEventListener("click", DecMaxPwLen);
     maxPasswordLenIncButton.addEventListener("click", IncMaxPwLen);
-}
-
-function IsRegularLoginActive() {
-    return true;
 }

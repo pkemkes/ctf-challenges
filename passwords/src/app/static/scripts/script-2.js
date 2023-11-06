@@ -8,6 +8,8 @@ var checkboxVarDate = document.getElementById("var-date");
 var minMaxWordCount = 1;
 var maxMaxWordCount = 10;
 var datePattern = /^(\d{1,2})([\.\/\-])(\d{1,2})\2(\d{1,4})$/;
+var isRegularLoginMode = true;
+var trySecretDecode = true;
 
 var numsDict = {
     "a": "4",
@@ -269,8 +271,4 @@ function AddSpecificEventListeners() {
     checkboxVarDate.addEventListener("input", () => DisplayPasswords(true));
     maxWordCountIncButton.addEventListener("click", IncMaxWordCount);
     maxWordCountDecButton.addEventListener("click", DecMaxDictLen);
-}
-
-function IsRegularLoginActive() {
-    return true;
 }
