@@ -67,8 +67,7 @@ assert FLAGS is not None, "FLAGS are not set!"
 FLAGS = parse_flags(FLAGS)
 APIKEY = os.getenv("APIKEY")
 assert APIKEY is not None, "APIKEY is not set!"
-DATADIR = os.getenv("DATADIR")
-assert DATADIR is not None, "DATADIR is not set!"
+DATADIR = "/var/www/data"
 os.makedirs(DATADIR, exist_ok=True)
 RESET_PATH = os.getenv("RESET_PATH")
 assert RESET_PATH is not None, "RESET_PATH is not set!"

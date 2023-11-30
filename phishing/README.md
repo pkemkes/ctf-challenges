@@ -32,7 +32,7 @@ ctf-phishing-0:
         - PHISHING_ELEMS=m2-00,m2-02,m2-04,m4-07
         - OPTIONAL_ELEMS=m2-01,m3-04,m4-05,m6-07
     ports:
-        - "8080:80"
+        - "8080:8080"
 
 ctf-phishing-1:
     image: pkemkes/ctf-phishing
@@ -44,7 +44,7 @@ ctf-phishing-1:
         - PHISHING_ELEMS=m2-00,m2-02,m2-04,m4-07
         - OPTIONAL_ELEMS=m2-01,m3-04,m4-05,m6-07
     ports:
-        - "8081:80"
+        - "8081:8080"
 ```
 
 ## Screenshot:

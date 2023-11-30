@@ -34,7 +34,7 @@ ctf-passwords-0:
         - USERNAME=arnie@schwarzenegger.com
         - PASSWORD=something
     ports:
-        - "8080:80"
+        - "8080:8080"
 
 ctf-passwords-1:
     image: pkemkes/ctf-passwords
@@ -46,7 +46,7 @@ ctf-passwords-1:
         - USERNAME=arnie@schwarzenegger.com
         - PASSWORD=choppa
     ports:
-        - "8080:80"
+        - "8081:8080"
 
 ctf-passwords-2:
     image: pkemkes/ctf-passwords
@@ -58,7 +58,7 @@ ctf-passwords-2:
         - USERNAME=arnie@schwarzenegger.com
         - PASSWORD=1llbeb4ck
     ports:
-        - "8081:80"
+        - "8082:8080"
 ```
 
 ## Screenshot:

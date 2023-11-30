@@ -33,7 +33,7 @@ ctf-crypto-0:
         - DIFFICULTY=0
         - TEXT_TO_DECRYPT=Nobody will ever know the flag{not-so-secure} with this immensly secure cipher.
     ports:
-        - "8080:80"
+        - "8080:8080"
 
 ctf-crypto-1:
     image: pkemkes/ctf-crypto
@@ -44,7 +44,7 @@ ctf-crypto-1:
         - KEY=MLKJIHGFEDCBAZYXWVUTSRQPON
         - TEXT_TO_DECRYPT=But now nobody really will ever know the flag{still-not-so-secure} with this even more secure cipher.
     ports:
-        - "8081:80"
+        - "8081:8080"
 ```
 
 ## Screenshot:
