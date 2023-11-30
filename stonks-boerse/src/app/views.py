@@ -28,9 +28,8 @@ NOT_ENOUGH_MONEY_MSG = "Dafür besitzt du nicht genug Geld!"
 NOT_ENOUGH_STOCKS_MSG = "So viele Aktien besitzt du nicht!"
 NOT_A_NUMBER_MSG = "Eine deiner Eingaben war keine Nummer!"
 USER_COOKIE = "user_id"
-USER_DATA_DIR = os.getenv("USER_DATA_DIR")
+USER_DATA_DIR = "/var/www/user_data"
 IMAGES_DIR = os.path.join("app", "static", "images")
-assert USER_DATA_DIR is not None, "USER_DATA_DIR is not set!"
 FLAG = os.getenv("FLAG")
 assert FLAG is not None, "FLAG is not set!"
 RESET_PATH = os.getenv("RESET_PATH")

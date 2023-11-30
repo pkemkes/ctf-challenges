@@ -16,8 +16,7 @@ FLAG1 = os.getenv("FLAG1")
 assert FLAG1 is not None, "FLAG1 is not set!"
 FLAG2 = os.getenv("FLAG2")
 assert FLAG2 is not None, "FLAG2 is not set!"
-DATADIR = os.getenv("DATADIR")
-assert DATADIR is not None, "DATADIR is not set!"
+DATADIR = "/var/www/data"
 SOFT_RESET_PATH = os.getenv("SOFT_RESET_PATH")
 assert SOFT_RESET_PATH is not None, "SOFT_RESET_PATH is not set!"
 HARD_RESET_PATH = os.getenv("HARD_RESET_PATH")

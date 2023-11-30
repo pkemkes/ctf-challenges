@@ -15,7 +15,6 @@ There are four important environment value that should be set when deploying the
 | Name | Default | Description |
 |--------|--------|---|
 | DIFFICULTY | 0 | Determines the difficulty of the challengen. Possible values: 0, 1 |
-| USER_DATA_DIR | /var/www/user_data | This is the directory used to store the user session data. You should create a volume for this path, if you want to persist the data between restarts. |
 | RESET_PATH | /reset | The path in the web application that can be used to delete all user session data. You should change this in your deployment, if you do not want your players to find this. |
 | FLAG | flag{replace-me-with-your-flag} | The flag that is displayed when the challenge is won. Replace this with your flag that is registered in your CTF server. |
 
@@ -31,7 +30,7 @@ ctf-stonks-0:
         - RESET_PATH=/reset-dtZee6WK477XX4DbgkmS
         - FLAG=flag{this-is-a-very-secret-flag}
     ports:
-        - "8080:80"
+        - "8080:8080"
     volumes:
         - ctf-stonks-0:/var/www/user_data
 
@@ -44,7 +43,7 @@ ctf-stonks-1:
         - RESET_PATH=/reset-PhpWtMYPHSmnsfAYACgA
         - FLAG=flag{this-is-another-very-secret-flag}
     ports:
-        - "8081:80"
+        - "8081:8080"
     volumes:
         - ctf-stonks-1:/var/www/user_data
 
