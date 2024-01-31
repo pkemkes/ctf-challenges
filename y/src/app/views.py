@@ -300,6 +300,8 @@ def login() -> Response:
             flash("Benutzername oder Passwort falsch")
         elif user_id == 1:
             flash("Dieses Benutzerkonto ist vorübergehend deaktiviert.")
+        elif get_userinfo(user_id) is None:
+            flash("Ungültige Benutzer-ID")
         else:
             session["user_id"] = user_id
     return redirect("/")
