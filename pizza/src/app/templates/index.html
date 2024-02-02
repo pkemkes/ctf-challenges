@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html  lang="de">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="/static/styles/style.css" type="text/css">
+        <link rel="stylesheet" href="/static/styles/index.css" type="text/css">
+        <title>Pizza Shop</title>
+    </head>
+    <body>
+    <div id="app-box">
+        <div id="header-box">
+            <h1>Pizza Shop</h1>
+            <h3>Bestelle dir kostenlose Pizza, um die Flag zu erhalten</h3>
+        </div>
+        <div id="buy-box">
+            <form method="post" action="/buy">
+                <div class="pizza-box">
+                    <label for="pizza1">
+                        <div class="pizza-label">
+                            <img class="pizza-img" src="/static/images/pizza_margherita.jpg">
+                            <h1 class="pizza-name">Pizza Margherita</h1>
+                            <p class="pizza-price">{{ "{:.2f}".format(data.pricePizza1) }}€</p>
+                        </div>
+                    </label>
+                    <input class="amount-input" type="number" name="pizza1" value="1" min="0" max="100" id="pizza1">
+                </div>
+                <br>
+                <div class="pizza-box">
+                    <label for="pizza2">
+                        <div class="pizza-label">
+                            <img class="pizza-img" src="/static/images/salami_pizza.jpg">
+                            <h1 class="pizza-name">Salami Pizza</h1>
+                            <p class="pizza-price">{{ "{:.2f}".format(data.pricePizza2) }}€</p>
+                        </div>
+                    </label>
+                    <input class="amount-input" type="number" name="pizza2" value="0" min="0" max="100" id="pizza2">
+                </div>
+                <br>
+                <div class="pizza-box">
+                    <label for="pizza3">
+                        <div class="pizza-label">
+                            <img class="pizza-img" src="/static/images/vegetarische_pizza.jpg">
+                            <h1 class="pizza-name">Vegetarische Pizza</h1>
+                            <p class="pizza-price">{{ "{:.2f}".format(data.pricePizza3) }}€</p>
+                        </div>
+                    </label>
+                    <input class="amount-input" type="number" name="pizza3" value="0" min="0" max="100" id="pizza3">
+                </div>
+                <br>
+                <div id="tip-box">
+                    <label for="tip">
+                        <h1>Trinkgeld</h1>
+                    </label>
+                    <input class="amount-input" type="number" name="tip" value="0" step="0.1" min="0" max="100" id="tip">
+                </div>
+                <br>
+                <input id="buy-button" class="button" type="submit" value="Bestellen">
+            </form>
+        </div>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div id="msg-box">
+            {% for message in messages %}
+            <p id="msg">{{ message }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+    </div>
+        <a id="github-link" href="https://github.com/pkemkes/ctf-challenges">GitHub</a>
+    </body>
+</html>

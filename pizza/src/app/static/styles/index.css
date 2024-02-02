@@ -1,0 +1,72 @@
+.buy-input {
+    flex: 1;
+}
+
+#buy-box {
+    padding-top: 10px;
+}
+
+.pizza-box {
+    display: flex;
+    justify-content: space-around;
+    border: ridge grey;
+    border-radius: 20px;
+    padding: 10px;
+}
+
+.pizza-img {
+    width: 20%;
+    height: auto;
+}
+
+.pizza-label {
+    display: flex;
+}
+
+.pizza-name {
+    margin-top: 0;
+    margin-bottom: auto;
+    margin-left: 1%;
+}
+
+.pizza-price {
+    margin: auto 2% 0 auto;
+    font-size: 2em;
+}
+
+.amount-input {
+    width: 3.5em;
+    height: 2em;
+    margin: auto 0 0 auto;
+}
+
+#tip-box {
+    display: flex;
+    border: ridge grey;
+    border-radius: 20px;
+    padding: 5px;
+}
+
+#buy-button {
+    margin: auto;
+    width: 100%;
+    height: 2em;
+    border-radius: 20px;
+    background-color: limegreen;
+    color: white;
+    font-weight: bold;
+    font-size: 1.5em
+}
+
+#msg-box {
+    margin: auto;
+    width: 100%;
+    border-radius: 20px;
+    text-align: center;
+}
+
+#msg {
+    color: #9C1A1C;
+    font-weight: bold;
+    font-size: 1.5em;
+}
