@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Erfolgreich Bestellt</title>
+    <link rel="stylesheet" href="/static/styles/style.css" type="text/css">
+    <link rel="stylesheet" href="/static/styles/success.css" type="text/css">
+</head>
+<body>
+    <div id="app-box">
+        <div id="header-box">
+            <h1>Deine Pizza wurde erfolgreich bestellt</h1>
+            <h3>Deine Bestellung wird in 30 Minuten bei dir sein</h3>
+        </div>
+        <div id="content-box">
+            <table>
+                <tr>
+                    <th>Pizza</th>
+                    <th>Anzahl</th>
+                    <th>Preis</th>
+                </tr>
+                {% if data.pizza1.amount > 0 %}
+                <tr>
+                    <td class="name">Pizza Margherita</td>
+                    <td class="amount">{{ data.pizza1.amount }}</td>
+                    <td class="price">{{ "{:.2f}".format(data.pizza1.price) }}€</td>
+                </tr>
+                {% endif %}
+                {% if data.pizza2.amount > 0 %}
+                <tr>
+                    <td class="name">Salami Pizza</td>
+                    <td class="amount">{{ data.pizza2.amount }}</td>
+                    <td class="price">{{ "{:.2f}".format(data.pizza2.price) }}€</td>
+                </tr>
+                {% endif %}
+                {% if data.pizza3.amount > 0 %}
+                <tr>
+                    <td class="name">Vegetarische Pizza</td>
+                    <td class="amount">{{ data.pizza3.amount }}</td>
+                    <td class="price">{{ "{:.2f}".format(data.pizza3.price) }}€</td>
+                </tr>
+                {% endif %}
+                <tr>
+                    <td class="name">Trinkgeld</td>
+                    <td></td>
+                    <td class="price">{{ "{:.2f}".format(data.tip) }}€</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                {% with total = data.pizza1.amount * data.pizza1.price + data.pizza2.amount * data.pizza2.price + data.pizza3.amount * data.pizza3.price + data.tip %}
+                <tr>
+                    <td class="total">Gesamtpreis</td>
+                    <td></td>
+                    <td class="total price">{{ "{:.2f}".format(total) }}€</td>
+                </tr>
+                {% endwith %}
+            </table>
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <div id="msg-box">
+                {% for message in messages %}
+                <p id="msg">{{ message }}</p>
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% endwith %}
+            <div id="get-back">
+                <a href="/">Zurück</a>
+            </div>
+        </div>
+    </div>
+    <a id="github-link" href="https://github.com/pkemkes/ctf-challenges">GitHub</a>
+</body>
+</html>

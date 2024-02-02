@@ -1,0 +1,24 @@
+body {
+    background-color: #303030;
+    color: lightgray;
+}
+
+#app-box {
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+}
+
+#header-box {
+    margin: auto;
+    padding: 10px;
+    text-align: center;
+}
+
+#github-link {
+    position: absolute;
+    position: fixed;
+    bottom: 0;
+    color: grey;
+    font-family: sans-serif;
+}

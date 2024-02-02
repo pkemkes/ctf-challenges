@@ -10,5 +10,6 @@ Currently available challenges:
 - [crypto](./crypto/)
 - [passwords](./passwords/)
 - [phishing](./phishing/)
+- [pizza](./pizza/)
 - [gptgolf](./gptgolf/)
 - [y](./y/)
