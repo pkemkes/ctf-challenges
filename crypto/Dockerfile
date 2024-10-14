@@ -1,4 +1,4 @@
-FROM python:3.11
+FROM python:3.13
 
 RUN addgroup --gid 1001 ctf && \
     yes | adduser --disabled-password --uid 1001 --ingroup ctf ctf
@@ -22,4 +22,4 @@ COPY --chown=ctf ./src ./
 
 HEALTHCHECK --interval=10s --timeout=5s --retries=5 CMD [ "curl", "localhost:8080" ]
 
-CMD gunicorn --bind 0.0.0.0:8080 run:app
+CMD ["gunicorn" , "--bind", "0.0.0.0:8080", "run:app"]

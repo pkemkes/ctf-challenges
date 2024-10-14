@@ -6,7 +6,8 @@ from app import app
 from flask import render_template, Response, request, redirect, jsonify
 from queue import Queue
 from threading import Thread
-import openai
+from openai import OpenAI
+
 import json_logging
 import logging
 
@@ -73,7 +74,7 @@ RESET_PATH = os.getenv("RESET_PATH")
 assert RESET_PATH is not None, "RESET_PATH is not set!"
 HIGHSCORE_FP = lambda l: os.path.join(DATADIR, f"highscore-{l}.json")
 LOGFILE_FP = os.path.join(DATADIR, "prompts.log")
-openai.api_key = APIKEY
+client = OpenAI(api_key=APIKEY)
 HIGHSCORE_Q = Queue()
 WORKER = Thread(target=write_to_highscore)
 WORKER.start()
@@ -140,16 +141,14 @@ def get_score() -> Response:
 
 
 def send_prompt(level: int, prompt: str) -> Tuple[str, str]:
-    resp = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
-        messages=[
-            {"role": "system", "content": prompts[level][0]},
-            {"role": "system", "content": prompts[level][1](FLAGS[level])},
-            {"role": "user", "content": prompt}
-        ],
-        max_tokens=300
-    )["choices"][0]
-    return resp.get("message", {}).get("content"), resp.get("finish_reason")
+    resp = client.chat.completions.create(model="gpt-3.5-turbo",
+    messages=[
+        {"role": "system", "content": prompts[level][0]},
+        {"role": "system", "content": prompts[level][1](FLAGS[level])},
+        {"role": "user", "content": prompt}
+    ],
+    max_tokens=300).choices[0]
+    return resp.message.content, resp.finish_reason
 
 
 def delete_file(filepath: str) -> None:
