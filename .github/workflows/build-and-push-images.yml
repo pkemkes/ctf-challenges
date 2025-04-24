@@ -1,0 +1,109 @@
+name: build-and-push-images
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ vars.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Read versions from files
+        id: versions
+        run: |
+          echo "calculator_version=$(cat ./calculator/version.txt)" >> $GITHUB_OUTPUT
+          echo "crypto_version=$(cat ./crypto/version.txt)" >> $GITHUB_OUTPUT
+          echo "gptgolf_version=$(cat ./gptgolf/version.txt)" >> $GITHUB_OUTPUT
+          echo "passwords_version=$(cat ./passwords/version.txt)" >> $GITHUB_OUTPUT
+          echo "phishing_version=$(cat ./phishing/version.txt)" >> $GITHUB_OUTPUT
+          echo "pizza_version=$(cat ./pizza/version.txt)" >> $GITHUB_OUTPUT
+          echo "stonks_version=$(cat ./stonks-boerse/version.txt)" >> $GITHUB_OUTPUT
+          echo "y_version=$(cat ./y/version.txt)" >> $GITHUB_OUTPUT
+
+      - name: Build and push calculator
+        uses: docker/build-push-action@v6
+        with:
+          context: "{{defaultContext}}:calculator"
+          push: true
+          tags: |
+            pkemkes/ctf-calculator:latest
+            pkemkes/ctf-calculator:${{ steps.versions.outputs.calculator_version }}
+
+      - name: Build and push crypto
+        uses: docker/build-push-action@v6
+        with:
+          context: "{{defaultContext}}:crypto"
+          push: true
+          tags: |
+            pkemkes/ctf-crypto:latest
+            pkemkes/ctf-crypto:${{ steps.versions.outputs.crypto_version }}
+
+      - name: Build and push gptgolf
+        uses: docker/build-push-action@v6
+        with:
+          context: "{{defaultContext}}:gptgolf"
+          push: true
+          tags: |
+            pkemkes/ctf-gptgolf:latest
+            pkemkes/ctf-gptgolf:${{ steps.versions.outputs.gptgolf_version }}
+
+      - name: Build and push passwords
+        uses: docker/build-push-action@v6
+        with:
+          context: "{{defaultContext}}:passwords"
+          push: true
+          tags: |
+            pkemkes/ctf-passwords:latest
+            pkemkes/ctf-passwords:${{ steps.versions.outputs.passwords_version }}
+
+      - name: Build and push phishing
+        uses: docker/build-push-action@v6
+        with:
+          context: "{{defaultContext}}:phishing"
+          push: true
+          tags: |
+            pkemkes/ctf-phishing:latest
+            pkemkes/ctf-phishing:${{ steps.versions.outputs.phishing_version }}
+
+      - name: Build and push pizza
+        uses: docker/build-push-action@v6
+        with:
+          context: "{{defaultContext}}:pizza"
+          push: true
+          tags: |
+            pkemkes/ctf-pizza:latest
+            pkemkes/ctf-pizza:${{ steps.versions.outputs.pizza_version }}
+
+      - name: Build and push stonks-boerse
+        uses: docker/build-push-action@v6
+        with:
+          context: "{{defaultContext}}:stonks-boerse"
+          push: true
+          tags: |
+            pkemkes/ctf-stonks-boerse:latest
+            pkemkes/ctf-stonks-boerse:${{ steps.versions.outputs.stonks_version }}
+
+      - name: Build and push y
+        uses: docker/build-push-action@v6
+        with:
+          context: "{{defaultContext}}:y"
+          push: true
+          tags: |
+            pkemkes/ctf-y:latest
+            pkemkes/ctf-y:${{ steps.versions.outputs.y_version }}
