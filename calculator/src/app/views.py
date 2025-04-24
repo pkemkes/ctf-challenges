@@ -37,7 +37,7 @@ DIFFICULTY = parse_difficulty(DIFFICULTY)
 
 if DIFFICULTY == 3:
     assert os.getenv("APIKEY") is not None, "APIKEY is not set! Difficulty 3 requires an API key!"
-client = OpenAI(api_key=os.getenv("APIKEY"))
+client = OpenAI(api_key=os.getenv("APIKEY", "placeholder-api-key"))
 os.unsetenv("APIKEY")
 
 json_logging.init_non_web(enable_json=True)
