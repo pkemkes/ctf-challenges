@@ -18,13 +18,14 @@ COPY ./src/requirements.txt ./
 
 RUN pip install -r requirements.txt
 
-# Create flag.txt file with FLAG environment variable content
-RUN echo "$FLAG" > flag.txt
-
-USER ctf
-
 COPY --chown=ctf ./src ./
+RUN chmod -R a-w ./
+
+# Create entrypoint script
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
 HEALTHCHECK --interval=10s --timeout=5s --retries=5 CMD [ "curl", "localhost:8080" ]
 
+ENTRYPOINT ["/entrypoint.sh"]
 CMD ["gunicorn", "--bind", "0.0.0.0:8080", "run:app"]

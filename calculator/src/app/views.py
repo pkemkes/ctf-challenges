@@ -28,9 +28,6 @@ def parse_difficulty(difficulty: str) -> int:
 
 app.secret_key = os.urandom(32)
 
-
-os.unsetenv("FLAG")
-
 DIFFICULTY = os.getenv("DIFFICULTY")
 assert DIFFICULTY is not None, "DIFFICULTY is not set!"
 DIFFICULTY = parse_difficulty(DIFFICULTY)

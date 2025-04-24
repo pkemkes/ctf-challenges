@@ -28,7 +28,7 @@ ctf-calculator:
     container_name: ctf-calculator
     restart: always
     environment:
-        - FLAGS=flag{super-secret-flag}
+        - FLAG=flag{super-secret-flag}
         - APIKEY=${APIKEY}
         - DIFFICULTY=3
     ports:
