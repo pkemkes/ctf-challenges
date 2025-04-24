@@ -12,7 +12,7 @@ This is a challenge for beginners with 3 difficulty settings. The fist one utili
 
 Build the docker image using the provided Dockerfile or use the image provided on DockerHub ([pkemkes/ctf-passwords](https://hub.docker.com/repository/docker/pkemkes/ctf-passwords/general)).
 
-There are four important environment value that should be set when deploying the image on your challenge server:
+There are four important environment values that should be set when deploying the image on your challenge server:
 
 | Name | Default | Description |
 |--------|--------|---|

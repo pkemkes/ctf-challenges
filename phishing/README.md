@@ -10,7 +10,7 @@ This is a challenge for beginners with 2 difficulty settings. The only differenc
 
 Build the docker image using the provided Dockerfile or use the image provided on DockerHub ([pkemkes/ctf-phishing](https://hub.docker.com/repository/docker/pkemkes/ctf-phishing/general)).
 
-There are four important environment value that should be set when deploying the image on your challenge server:
+There are four important environment values that should be set when deploying the image on your challenge server:
 
 | Name | Default | Description |
 |--------|--------|---|

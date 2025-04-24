@@ -1,0 +1,211 @@
+body {
+    background: linear-gradient(135deg, #1e1e2e 0%, #2d2d44 100%);
+    font-family: 'Poppins', 'Roboto', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    min-height: 100vh;
+    overflow-y: auto;
+    margin: 0;
+    color: #e2e2e2;
+}
+
+#all-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(44, 44, 57, 0.7);
+    backdrop-filter: blur(10px);
+    padding: 2.5rem;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 
+                0 1px 2px rgba(255, 255, 255, 0.05) inset;
+    max-width: 90%;
+    width: 420px;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+#header-box {
+    text-align: center;
+    margin-bottom: 2rem;
+    width: 100%;
+}
+
+#heading {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin: 0 0 1rem;
+    background: linear-gradient(90deg, #64ffda, #a2faed);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 0.5px;
+}
+
+#description {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: #b3b3cc;
+    margin: 0 0 1.5rem;
+}
+
+#calculate-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+#expression-input {
+    width: 100%;
+    padding: 1rem;
+    border-radius: 8px;
+    border: none;
+    background-color: rgba(30, 30, 40, 0.6);
+    color: #ffffff;
+    font-size: 1.1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) inset;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+#expression-input:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(100, 255, 218, 0.5);
+}
+
+#expression-input::placeholder {
+    color: #8888a2;
+}
+
+#expression-submit {
+    padding: 0.9rem 1.5rem;
+    background: linear-gradient(90deg, #64ffda, #48cfad);
+    color: #1e1e2e;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#expression-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    background: linear-gradient(90deg, #48cfad, #64ffda);
+}
+
+#expression-submit:active {
+    transform: translateY(0);
+}
+
+.output-box {
+    margin-top: 2rem;
+    background-color: rgba(40, 42, 54, 0.6);
+    border-radius: 12px;
+    padding: 1.5rem;
+    width: 100%;
+    box-sizing: border-box;
+    border-left: 4px solid #64ffda;
+    animation: fadeIn 0.5s ease-out;
+    overflow: hidden;
+}
+
+.output-heading {
+    margin: 0 0 0.5rem;
+    font-size: 1.1rem;
+    color: #b3b3cc;
+    font-weight: 500;
+}
+
+.output {
+    font-size: 2rem;
+    margin: 0;
+    font-weight: 700;
+    color: #ffffff;
+    word-break: break-all;
+    overflow-wrap: break-word;
+    max-height: 300px;
+    overflow-y: auto;
+    padding-right: 0.5rem;
+    line-height: 1.3;
+    font-family: 'Roboto Mono', monospace;
+    scrollbar-width: thin;
+    scrollbar-color: #64ffda rgba(255, 255, 255, 0.1);
+    transition: font-size 0.3s ease;
+    white-space: pre-wrap; /* Add this line to preserve newlines */
+}
+
+.output.long-result {
+    font-size: 1rem;
+}
+
+.output::-webkit-scrollbar {
+    width: 6px;
+}
+
+.output::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+.output::-webkit-scrollbar-thumb {
+    background: #64ffda;
+    border-radius: 10px;
+}
+
+#github-link {
+    position: fixed;
+    bottom: 1rem;
+    left: 1rem;
+    color: #8888a2;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.2s ease;
+}
+
+#github-link:hover {
+    color: #64ffda;
+}
+
+@media (max-width: 600px) {
+    #all-box {
+        padding: 1.5rem;
+        width: 90%;
+    }
+    
+    #heading {
+        font-size: 1.8rem;
+    }
+    
+    #result {
+        font-size: 1.6rem;
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+#blog-link {
+    margin-top: 2rem;
+    color: #b3b3cc;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color 0.2s ease, transform 0.2s ease;
+    border-bottom: 1px dashed rgba(100, 255, 218, 0.3);
+    padding-bottom: 2px;
+}
+
+#blog-link:hover {
+    color: #64ffda;
+    transform: translateY(-1px);
+}

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="/static/styles/style.css" type="text/css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Roboto+Mono:wght@400;700&display=swap">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div id="all-box">
+            <div id="header-box">
+                <p id="heading">Taschenrechner {% if difficulty %}V{{difficulty+1}}{% endif %}</p>
+                </p>
+                <p id="description">
+                    Dieser Taschenrechner berechnet in Windeseile jede komplizierte Rechnung. Einfach die Rechnung eingeben und auf "Berechnen" klicken.
+                </p>
+                {% if difficulty == 1 %}
+                    <p id="description">
+                        <strong>Hinweis:</strong> Aus Sicherheitsgründen dürfen in der Berechnung nur Zahlen und die Zeichen +, -, *, /, ., (, ) verwendet werden.
+                    </p>
+                {% elif difficulty == 2 %}
+                    <p id="description">
+                        <strong>Hinweis:</strong> Jetzt noch sicherer mit Schutzfiltern auf dem Server. Falls subprocess.check_output() vorkommt, wird die Berechnung nicht ausgeführt.
+                    </p>
+                {% elif difficulty == 3 %}
+                    <p id="description">
+                        <strong>Hinweis:</strong> Super sichere Variante mit KI-Schutzfiltern auf dem Server. 🚀 Jede Anfrage wird erst durch ein KI-Modell geschickt und dann mit Python berechnet. Alle bösartigen Anfragen werden so herausgefiltert. Wenn nach dem Filtern gar keine Rechnung mehr in der Anfrage vorkommt, wird einfach 1+1 berechnet.
+                    </p>
+                {% endif %}
+            </div>
+            <form id="calculate-form" method="POST" action="/">
+                <input id="expression-input" type="text" name="expression" placeholder="Rechnung eingeben..." {% if difficulty == 1 %} pattern="^[0-9\-.+\/*\(\)\s]+$" title="Erlaubte Zeichen: 0 1 2 3 4 5 6 7 8 9 + - * / . ( )" {% endif %} required>
+                <input id="expression-submit" type="submit" value="Berechnen">
+            </form>
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="output-box">
+                        <p class="output-heading">{{ message.type }}:</h2>
+                        <p class="output">{{ message.value }}</p>
+                    </div>
+                {% endfor %}
+            {% endif %}
+            {% endwith %}
+            <a id="blog-link" href="/blog">Zum meinem Blog</a>
+        </div>
+        <a id="github-link" href="https://github.com/pkemkes/ctf-challenges">GitHub</a>
+        <script src="/static/scripts/calc.js"></script>
+    </body>
+</html>

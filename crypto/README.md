@@ -14,7 +14,7 @@ The second difficulty setting requires actually some thinking from the player. I
 
 Build the docker image using the provided Dockerfile or use the image provided on DockerHub ([pkemkes/ctf-crypto](https://hub.docker.com/repository/docker/pkemkes/ctf-crypto/general)).
 
-There are three important environment value that should be set when deploying the image on your challenge server:
+There are three important environment values that should be set when deploying the image on your challenge server:
 
 | Name | Default | Description |
 |--------|--------|---|

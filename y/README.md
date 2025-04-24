@@ -8,7 +8,7 @@ This challenge simulates a well known social media platform. It reeks of many we
 
 Build the docker image using the provided Dockerfile or use the image provided on DockerHub ([pkemkes/ctf-y](https://hub.docker.com/repository/docker/pkemkes/ctf-y/general)).
 
-There are 5 important environment value that should be set when deploying the image on your challenge server:
+There are 5 important environment values that should be set when deploying the image on your challenge server:
 
 | Name | Default | Description |
 |--------|--------|---|

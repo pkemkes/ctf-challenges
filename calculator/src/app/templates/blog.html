@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="/static/styles/style.css" type="text/css">
+        <link rel="stylesheet" href="/static/styles/blog.css" type="text/css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Roboto+Mono:wght@400;700&display=swap">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Mein Tech-Blog</title>
+	</head>
+    <body>
+        <div id="blog-container">
+            <div id="header-box">
+                <h1 id="heading">Mein Tech-Blog</h1>
+                <p id="description">
+                    Willkommen auf meinem Blog! Hier schreibe ich über meine Erfahrungen mit Programmierung, 
+                    Python und Linux. Klicke auf einen Artikel, um mehr zu lesen.
+                </p>
+            </div>
+            
+            <div class="blog-post">
+                <div class="post-header">
+                    <h2 class="post-title">Mein erster Taschenrechner mit Python und Flask</h2>
+                    <button class="expand-btn">+</button>
+                </div>
+                <div class="post-content">
+					<p>
+						Heute möchte ich euch meinen ersten Webentwicklungs-Erfolg vorstellen: einen einfachen Taschenrechner mit Python und Flask! Als Anfänger in der Webentwicklung war ich überrascht, wie schnell man mit Flask eine funktionsfähige Webanwendung erstellen kann.
+					</p>
+					<p>
+						Die Implementierung des Rechners war verblüffend einfach. Flask kümmert sich um alle komplexen Web-Aspekte, während ich mich auf die Funktionalität konzentrieren konnte. Das Herzstück meines Taschenrechners ist die Python-Funktion <code>eval()</code>, die es mir ermöglicht, beliebige mathematische Ausdrücke direkt zu berechnen.
+					</p>
+					<p>
+						Was mir besonders gefällt: Mit nur einer einzigen Zeile Code (<code>result = eval(user_expression)</code>) kann der Rechner jede Eingabe verarbeiten! Man hört oft Bedenken bezüglich <code>eval()</code>, aber ich kann versichern - es gibt absolut keine Sicherheitsbedenken bei dieser Methode. Mein Taschenrechner funktioniert einwandfrei und ist dabei so elegant einfach. Ein perfektes Beispiel dafür, wie Python die Webentwicklung zugänglich macht!
+					</p>
+                    <p>
+                        <a id="calculator-link" href="/">> Hier Taschenrechner ausprobieren</a>
+                    </p>
+                </div>
+            </div>
+            
+            <div class="blog-post">
+                <div class="post-header">
+                    <h2 class="post-title">Wie man in Python einen Kommandozeilenbefehl ausführt</h2>
+                    <button class="expand-btn">+</button>
+                </div>
+                <div class="post-content">
+					<p>
+						Python bietet fantastische Möglichkeiten, um mit dem Betriebssystem zu interagieren. In diesem Beitrag zeige ich euch, wie ihr Kommandozeilenbefehle direkt aus eurem Python-Code ausführen könnt - eine Funktion, die ich für viele meiner Projekte nutze!
+					</p>
+					<p>
+						Das Modul <code>subprocess</code> ist der Schlüssel. Es erlaubt uns, externe Befehle zu starten und deren Ausgabe zu erfassen. Besonders nützlich ist die Funktion <code>check_output()</code>, die den Befehl ausführt und dessen Ausgabe zurückgibt. Hier ein einfaches Beispiel:
+					</p>
+					<p>
+						<code>
+						# Führt "ls -la" aus und speichert die Ausgabe<br>
+						result = subprocess.check_output("ls -la", shell=True, text=True)<br>
+						<br>
+						print("Ausgabe des Befehls:")<br>
+						print(result)
+						</code>
+					</p>
+					<p>
+						In diesem Beispiel führen wir den Linux-Befehl <code>ls -la</code> aus, der eine detaillierte Liste aller Dateien im aktuellen Verzeichnis anzeigt. Der Parameter <code>shell=True</code> sorgt dafür, dass der Befehl über die Shell ausgeführt wird, und <code>text=True</code> gibt das Ergebnis als String zurück statt als Bytes-Objekt.
+					</p>
+					<p>
+						Die Ausgabe des Befehls wird in der Variable <code>result</code> gespeichert und kann dann beliebig weiterverarbeitet werden. Dies ist besonders praktisch für Automatisierungsaufgaben oder wenn ihr die Ergebnisse von Systemkommandos in eurer Python-Anwendung verwenden möchtet.
+					</p>
+                </div>
+            </div>
+            
+            <div class="blog-post">
+                <div class="post-header">
+                    <h2 class="post-title">Wie man sich in der Linux Kommandozeile zurechtfindet</h2>
+                    <button class="expand-btn">+</button>
+                </div>
+                <div class="post-content">
+                    <p>
+						Die Linux-Kommandozeile (Terminal) ist ein mächtiges Werkzeug, das anfangs einschüchternd wirken kann. In diesem Beitrag stelle ich euch die wichtigsten Grundbefehle vor, die euch den Einstieg erleichtern werden.
+					</p>
+					<p>
+						Der Befehl <code>ls</code> (list) zeigt den Inhalt des aktuellen Verzeichnisses an. Mit zusätzlichen Optionen könnt ihr die Ausgabe anpassen:
+					</p>
+					<p>
+						<code>
+						# Einfache Auflistung<br>
+						ls<br>
+						# Detaillierte Auflistung mit versteckten Dateien<br>
+						ls -la<br>
+						# Auflistung mit menschenlesbarer Dateigröße<br>
+						ls -lh
+						</code>
+					</p>
+					<p>
+						Mit <code>cd</code> (change directory) navigiert ihr durch das Dateisystem. Einige nützliche Beispiele:
+					</p>
+					<p>
+						<code>
+						# Ins Home-Verzeichnis wechseln<br>
+						cd ~<br>
+						# Eine Ebene nach oben<br>
+						cd ..<br>
+						# In ein bestimmtes Verzeichnis wechseln<br>
+						cd /var/www/html
+						</code>
+					</p>
+					<p>
+						Der Befehl <code>cat</code> (concatenate) wird hauptsächlich verwendet, um den Inhalt einer Datei anzuzeigen:
+					</p>
+					<p>
+						<code>
+						# Inhalt einer Datei anzeigen<br>
+						cat datei.txt<br>
+						# Inhalt mit Zeilennummern anzeigen<br>
+						cat -n datei.txt<br>
+						# Inhalt mehrerer Dateien kombinieren<br>
+						cat datei1.txt datei2.txt
+						</code>
+					</p>
+					<p>
+						Diese drei Befehle bilden das Grundgerüst für die Navigation und Interaktion mit dem Linux-Dateisystem. Mit ihnen könnt ihr euch bereits effektiv im Terminal bewegen und Dateien verwalten. Probiert die Befehle aus und ihr werdet schnell merken, wie intuitiv die Linux-Kommandozeile eigentlich ist!
+					</p>
+                </div>
+            </div>
+        </div>
+        
+        <a id="github-link" href="https://github.com/pkemkes/ctf-challenges">GitHub</a>
+        <script src="/static/scripts/blog.js"></script>
+    </body>
+</html>

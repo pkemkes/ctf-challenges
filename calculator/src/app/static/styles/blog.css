@@ -1,0 +1,147 @@
+#blog-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(44, 44, 57, 0.7);
+    backdrop-filter: blur(10px);
+    padding: 2.5rem;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 
+                0 1px 2px rgba(255, 255, 255, 0.05) inset;
+    max-width: 90%;
+    width: 700px;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    margin: 2rem 0;
+	padding: 1rem 0;
+}
+
+#description {
+    text-align: center;
+}
+
+.blog-post {
+    width: 100%;
+    margin-bottom: 1.5rem;
+    background-color: rgba(40, 42, 54, 0.6);
+    border-radius: 12px;
+    overflow: hidden;
+    border-left: 4px solid #64ffda;
+    transition: all 0.3s ease;
+}
+
+.post-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 1.5rem;
+    cursor: pointer;
+}
+
+.post-title {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.expand-btn {
+    background: none;
+    border: none;
+    color: #64ffda;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.expand-btn.active {
+    transform: rotate(45deg);
+}
+
+.post-content {
+    padding: 0 1.5rem;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.8s ease, padding 0.8s ease;
+}
+
+.post-content.active {
+    padding: 0 1.5rem 1.5rem;
+    max-height: 3000px; /* Increased to accommodate expanded content */
+}
+
+.post-content p {
+    margin: 0.8rem 0;
+    line-height: 1.6;
+    color: #b3b3cc;
+    font-size: 0.95rem;
+}
+
+/* Update code styling to distinguish inline vs. block code */
+.post-content code {
+    font-family: 'Roboto Mono', monospace;
+    background: rgba(30, 30, 40, 0.5);
+    color: #64ffda;
+    padding: 0.1rem 0.3rem;
+    border-radius: 3px;
+    font-size: 0.9em; /* Relative sizing for better flow */
+    border: 1px solid rgba(100, 255, 218, 0.2);
+    display: inline; /* Ensure inline display for paragraph codes */
+    white-space: normal;
+}
+
+/* Fix code blocks styling */
+.post-content p > code.code-block {
+    display: block;
+    padding: 1rem;
+    margin: 1rem 0;
+    line-height: 1.4;
+    border-radius: 8px;
+    overflow-x: auto;
+    white-space: nowrap; /* Prevents line wrapping but honors <br> tags */
+    background-color: rgba(20, 20, 30, 0.8);
+    color: #e2e2e2;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Comment styling */
+.post-content code .comment {
+    color: #6272a4;
+}
+
+#calculator-link {
+    margin-top: 1.5rem;
+    color: #b3b3cc;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color 0.2s ease, transform 0.2s ease;
+    border-bottom: 1px dashed rgba(100, 255, 218, 0.3);
+    padding-bottom: 2px;
+}
+
+#calculator-link:hover {
+    color: #64ffda;
+    transform: translateY(-1px);
+}
+
+@media (max-width: 768px) {
+    #blog-container {
+        width: 90%;
+        padding: 1.5rem;
+    }
+    
+    #heading {
+        font-size: 1.8rem;
+    }
+    
+    .post-title {
+        font-size: 1.1rem;
+    }
+}
