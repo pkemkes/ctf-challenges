@@ -1,4 +1,4 @@
-flask == 3.0.*
+flask == 3.1.*
 gunicorn == 23.0.*
-openai == 1.51.*
+openai == 1.77.*
 json-logging == 1.3.*
