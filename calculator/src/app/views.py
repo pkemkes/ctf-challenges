@@ -51,7 +51,7 @@ def index() -> Response:
             if DIFFICULTY == 2 and "subprocess.check_output" in expression.lower():
                 logger.info("Filtered expression", extra={"props": { "expression": expression }})
                 flash({"type": "Eingabe", "value": expression})
-                flash({"type": "Warnung", "value": "Börartige Eingabe! Berechnung abgelehnt."})
+                flash({"type": "Warnung", "value": "Bösartige Eingabe! Berechnung abgelehnt."})
             else:
                 if DIFFICULTY == 3:
                     flash({"type": "Ursprüngliche Eingabe", "value": expression})
@@ -72,11 +72,10 @@ def blog() -> Response:
 
 
 def ai_sanitize(expression: str) -> str:
-    prompt = "Du bist ein hochintelligenter IT-Sicherheitsexperte für Python-Webanwendungen. " \
-        "Deine Aufgabe ist es, die Eingabe des Benutzers zu überprüfen und sicherzustellen, dass sie keine gefährlichen Inhalte enthält, " \
-        "denn sie wird nach deiner Filterung von mir in die Python Methode eval() eingegeben. " \
-        "Dafür bekommst du die Eingabe des Benutzers und gibst sie entweder unverändert zurück, wenn sie sicher ist. " \
-        "Andernfall gibst du nur 1+1 zurück. "
+    prompt = "Du bist ein Schutzmechanismus für einen Taschenrechner. " + \
+        "Du nimmst Eingaben vom Benutzer entgegen. " + \
+        "Nimm diese Eingabe und entferne die Stellen, die nicht zu einer Berechnung gehören. " + \
+        "Gib alles übrige zurück. Wenn nichts übrig bleibt, gib '1+1' zurück."
     resp = client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[
