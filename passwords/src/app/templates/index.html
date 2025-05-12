@@ -43,7 +43,7 @@
                             <div class="post-text">
                                 <p class="post-likes">Gefällt 58 Mal</p>
                                 <p class="post-description">
-                                    <span class="post-username">sebastiansonderling</span> Ich wurde schon wieder gehackt! Dieses Mal denke ich mir ein extra langes und sicheres Passwort aus! Das ist jetzt 22 Zeichen lang und hat Groß-/Kleinbuchstaben, Zahlen und unterschiedliche Sonderzeichen!<br>Damit ich mir das besser merken kann, nehm ich 3 Elemente (Vornamen oder Daten), die mir wichtig sind, aber das ist sicher kein Problem. Ihr blöden Hacker kriegt mich nicht nochmal! <span class="hashtag">#bloedehackerschonwieder</span>
+                                    <span class="post-username">sebastiansonderling</span> Ich wurde schon wieder gehackt! Dieses Mal denke ich mir ein extra langes und sicheres Passwort aus! Das ist jetzt 22 Zeichen lang und hat Groß-/Kleinbuchstaben, Zahlen und unterschiedliche Sonderzeichen!<br>Damit ich mir das besser merken kann, nehm ich 3 Elemente (Vornamen oder Kalenderdaten), die mir wichtig sind, aber das ist sicher kein Problem. Ihr blöden Hacker kriegt mich nicht nochmal! <span class="hashtag">#bloedehackerschonwieder</span>
                                 </p>
                             </div>
                             <div class="post-comments">
@@ -963,7 +963,8 @@
                         </div>
                     {% elif difficulty == 2 %}
                         <div class="hack-tool-text">
-                            Wörterbuch hier eingeben:
+                            Wörterbuch hier eingeben:</br>
+                            (ein Eintrag pro Zeile)
                         </div>
                         <textarea id="dictionary" spellcheck="false"></textarea>
                         <div class="hack-tool-text">
@@ -972,15 +973,11 @@
                         <div id="checkboxes">
                             <div class="checkbox-box">
                                 <input type="checkbox" id="var-caps" value="1">
-                                <label class="checkbox-label" for="var-caps">Klein-/Grossbuchstaben</label>
+                                <label class="checkbox-label" for="var-caps">Klein-/Grossbuchstaben verwenden</label>
                             </div>
                             <div class="checkbox-box">
                                 <input type="checkbox" id="var-nums" value="1">
-                                <label class="checkbox-label" for="var-nums">Buchstaben durch Zahlen ersetzen</label>
-                            </div>
-                            <div class="checkbox-box">
-                                <input type="checkbox" id="var-date" value="1">
-                                <label class="checkbox-label" for="var-date">Datumsvariationen</label>
+                                <label class="checkbox-label" for="var-nums">Zahlen in Wörtern verwenden</label>
                             </div>
                         </div>
                         <div class="hack-tool-text pw-len-box">

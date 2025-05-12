@@ -4,7 +4,6 @@ var maxWordCountIncButton = document.getElementById("word-count-up");
 var maxWordCountDecButton = document.getElementById("word-count-down");
 var checkboxVarCaps = document.getElementById("var-caps");
 var checkboxVarNums = document.getElementById("var-nums");
-var checkboxVarDate = document.getElementById("var-date");
 var minMaxWordCount = 1;
 var maxMaxWordCount = 10;
 var datePattern = /^(\d{1,2})([\.\/\-])(\d{1,2})\2(\d{1,4})$/;
@@ -104,8 +103,8 @@ function CalcNumberOfPasswords() {
     }
     let numberOfDifferentPasswordsPerWord = [];
     for (let i = 0; i < letterVariations.length; i++) {
-        if (IsDate(words[i])){
-            numberOfDifferentPasswordsPerWord.push(checkboxVarDate.checked ? GetDateVariations(words[i]).length : 1);
+        if (IsDate(words[i])) {
+            numberOfDifferentPasswordsPerWord.push(GetDateVariations(words[i]).length);
         }
         else {
             numberOfDifferentPasswordsPerWord.push(letterVariations[i].reduce((product, x) => product * x, 1));
@@ -118,11 +117,8 @@ function CalcNumberOfPasswords() {
 }
 
 function* DateVarGenerator(word) {
-    if (!checkboxVarDate.checked) yield word;
-    else {
-        for (let dateVar of GetDateVariations(word)) {
-            yield dateVar;
-        }
+    for (let dateVar of GetDateVariations(word)) {
+        yield dateVar;
     }
 }
 
@@ -188,10 +184,10 @@ function GetPermutations(set) {
     let perms = [];
     for (let i = 0; i < set.length; i++) {
         let rest = GetPermutations(set.slice(0, i).concat(set.slice(i + 1)));
-        if(!rest.length) {
+        if (!rest.length) {
             perms.push([set[i]])
         } else {
-            for(let j = 0; j < rest.length; j++) {
+            for (let j = 0; j < rest.length; j++) {
                 perms.push([set[i]].concat(rest[j]))
             }
         }
@@ -215,8 +211,7 @@ function GetPowerSetPermutations(setLen, maxNumPicked) {
 function* PasswordGenerator() {
     let words = GetDictionary();
     let wordPerms = GetPowerSetPermutations(words.length, maxWordCountInput.innerHTML);
-    for (let wordPerm of wordPerms)
-    {
+    for (let wordPerm of wordPerms) {
         let generators = [];
         for (let i = 0; i < wordPerm.length; i++) {
             generators.push(WordVarGenerator(words[wordPerm[i]]));
@@ -268,7 +263,6 @@ function AddSpecificEventListeners() {
     dictionaryInput.addEventListener("input", () => DisplayPasswords(true));
     checkboxVarCaps.addEventListener("input", () => DisplayPasswords(true));
     checkboxVarNums.addEventListener("input", () => DisplayPasswords(true));
-    checkboxVarDate.addEventListener("input", () => DisplayPasswords(true));
     maxWordCountIncButton.addEventListener("click", IncMaxWordCount);
     maxWordCountDecButton.addEventListener("click", DecMaxDictLen);
 }
