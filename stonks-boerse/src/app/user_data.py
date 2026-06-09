@@ -1,6 +1,6 @@
 from typing import Dict, List
 from dataclasses import dataclass, asdict, field
-from random import gauss
+from random import randrange
 import json
 
 BASE_A = 50
@@ -38,13 +38,13 @@ class UserData:
 
     def new_prices(self):
         self.values_a.append(
-            abs(round(gauss(self.values_a[-1], BASE_A/10), 2))
+            self.values_a[-1] * round(randrange(950, 1050) / 1000, 2)
         )
         self.values_b.append(
-            abs(round(gauss(self.values_b[-1], BASE_B/10), 2))
+            self.values_b[-1] * round(randrange(950, 1050) / 1000, 2)
         )
         self.values_c.append(
-            abs(round(gauss(self.values_c[-1], BASE_C/10), 2))
+            self.values_c[-1] * round(randrange(950, 1050) / 1000, 2)
         )
 
     def stocks_value(self) -> float:
