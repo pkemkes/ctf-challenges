@@ -35,6 +35,7 @@ jobs:
           echo "pizza_version=$(cat ./pizza/version.txt)" >> $GITHUB_OUTPUT
           echo "stonks_version=$(cat ./stonks-boerse/version.txt)" >> $GITHUB_OUTPUT
           echo "y_version=$(cat ./y/version.txt)" >> $GITHUB_OUTPUT
+          echo "time_travel_version=$(cat ./time-travel/version.txt)" >> $GITHUB_OUTPUT
 
       - name: Build and push calculator
         uses: docker/build-push-action@v6
@@ -107,3 +108,12 @@ jobs:
           tags: |
             pkemkes/ctf-y:latest
             pkemkes/ctf-y:${{ steps.versions.outputs.y_version }}
+
+      - name: Build and push time-travel
+        uses: docker/build-push-action@v6
+        with:
+          context: "{{defaultContext}}:time-travel"
+          push: true
+          tags: |
+            pkemkes/ctf-time-travel:latest
+            pkemkes/ctf-time-travel:${{ steps.versions.outputs.time_travel_version }}
